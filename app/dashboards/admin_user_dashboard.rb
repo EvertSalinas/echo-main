@@ -17,6 +17,7 @@ class AdminUserDashboard < Administrate::BaseDashboard
     sign_in_count: Field::Number,
     current_sign_in_at: Field::DateTime,
     last_sign_in_at: Field::DateTime,
+    role: Field::String,
     current_sign_in_ip: Field::String.with_options(searchable: false),
     last_sign_in_ip: Field::String.with_options(searchable: false),
     created_at: Field::DateTime,
@@ -31,6 +32,7 @@ class AdminUserDashboard < Administrate::BaseDashboard
   COLLECTION_ATTRIBUTES = %i[
   id
   email
+  role
   created_at
   ].freeze
 
@@ -40,6 +42,7 @@ class AdminUserDashboard < Administrate::BaseDashboard
   id
   email
   created_at
+  role
   updated_at
   ].freeze
 
