@@ -1,6 +1,13 @@
 Rails.application.routes.draw do
+  namespace :admin do
+      resources :admin_users
+
+      root to: "admin_users#index"
+    end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   devise_for :admin_users
+
+  root to: "admin/admin_users#index"
 
   # devise_scope :admin_users do
   #   get 'sign_in',  to: 'devise/sessions#new'
