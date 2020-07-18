@@ -8,4 +8,9 @@
 #  updated_at :datetime         not null
 #
 class Client < ApplicationRecord
+
+  has_many :remissions, dependent: :nullify
+
+  validates :nombre, uniqueness: true
+
 end

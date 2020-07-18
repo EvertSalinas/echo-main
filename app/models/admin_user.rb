@@ -27,4 +27,14 @@ class AdminUser < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+
+  ROLES = %w(master accounting).freeze
+
+  validates :role, inclusion: { in: ROLES }
+
+  ROLES.each do |role|
+    define_method("#{role}_role?") do
+      self.role == role
+    end
+  end
 end

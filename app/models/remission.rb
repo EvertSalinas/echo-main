@@ -22,4 +22,17 @@
 #  index_remissions_on_seller_id  (seller_id)
 #
 class Remission < ApplicationRecord
+
+  belongs_to :client
+  belongs_to :seller
+
+  enum status: [:pendiente, :pagada]
+
+  validates :cantidad_total_cents
+  validates :condicion
+  validates :fecha_factura
+  validates :folio_remision_factura, uniqueness: true
+  validates :folio_remision_fisica, uniqueness: true
+  validates :lugar
+
 end
