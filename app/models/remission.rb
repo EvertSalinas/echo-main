@@ -1,0 +1,2 @@
+class Remission < ApplicationRecord
+end
