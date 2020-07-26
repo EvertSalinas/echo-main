@@ -10,7 +10,7 @@
 #  folio_remision_factura :string           not null
 #  folio_remision_fisica  :string           not null
 #  lugar                  :string           not null
-#  status                 :string           default("pendiente"), not null
+#  status                 :string           default(NULL), not null
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  client_id              :bigint
@@ -28,11 +28,11 @@ class Remission < ApplicationRecord
 
   enum status: [:pendiente, :pagada]
 
-  validates :cantidad_total_cents
-  validates :condicion
-  validates :fecha_factura
-  validates :folio_remision_factura, uniqueness: true
-  validates :folio_remision_fisica, uniqueness: true
-  validates :lugar
+  validates :cantidad_total_cents, presence: true
+  validates :condicion, presence: true
+  validates :fecha_factura, presence: true
+  validates :folio_remision_factura, presence: true, uniqueness: true
+  validates :folio_remision_fisica, presence: true, uniqueness: true
+  validates :lugar, presence: true
 
 end

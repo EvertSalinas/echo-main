@@ -57,6 +57,9 @@ ActiveRecord::Schema.define(version: 2020_07_18_230044) do
   end
 
   create_table "sellers", force: :cascade do |t|
+    t.string "nombre"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
 end
