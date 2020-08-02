@@ -17,11 +17,13 @@ class AdminUserDashboard < Administrate::BaseDashboard
     sign_in_count: Field::Number,
     current_sign_in_at: Field::DateTime,
     last_sign_in_at: Field::DateTime,
-    role: Field::String,
+    role: Field::Select.with_options(collection: AdminUser::ROLES),
     current_sign_in_ip: Field::String.with_options(searchable: false),
     last_sign_in_ip: Field::String.with_options(searchable: false),
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
+    password: Field::Password,
+    password_confirmation: Field::Password,
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -51,6 +53,9 @@ class AdminUserDashboard < Administrate::BaseDashboard
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
     email
+    role
+    password
+    password_confirmation
   ].freeze
 
   # COLLECTION_FILTERS
