@@ -16,11 +16,11 @@ AdminUser::ROLES.each do |role|
 end
 
 cliente = Client.create(
-  nombre: Faker::Name.name
+  name: Faker::Name.name
 )
 
 vendedor = Seller.create(
-  nombre: Faker::Name.name
+  name: Faker::Name.name
 )
 
 Invoice.create!(

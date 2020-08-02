@@ -9,7 +9,7 @@ class ClientDashboard < Administrate::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     id: Field::Number,
-    nombre: Field::String,
+    name: Field::String,
     invoices: Field::HasMany,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
@@ -22,7 +22,7 @@ class ClientDashboard < Administrate::BaseDashboard
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
     id
-    nombre
+    name
     invoices
     created_at
     updated_at
@@ -32,7 +32,7 @@ class ClientDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
     id
-    nombre
+    name
     invoices
     created_at
     updated_at
@@ -61,6 +61,6 @@ class ClientDashboard < Administrate::BaseDashboard
   # across all pages of the admin dashboard.
   #
   def display_resource(client)
-    "#{client.nombre}"
+    "#{client.name}"
   end
 end
