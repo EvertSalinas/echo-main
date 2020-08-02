@@ -1,6 +1,6 @@
 require "administrate/base_dashboard"
 
-class RemissionDashboard < Administrate::BaseDashboard
+class InvoiceDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -9,7 +9,7 @@ class RemissionDashboard < Administrate::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     id: Field::Number,
-    condicion: Field::Select.with_options(collection: Remission::CONDITIONS),
+    condicion: Field::Select.with_options(collection: Invoice::CONDITIONS),
     folio_remision_fisica: Field::String,
     folio_remision_factura: Field::String,
     fecha_factura: Field::DateTime,
@@ -81,10 +81,10 @@ class RemissionDashboard < Administrate::BaseDashboard
   #   }.freeze
   COLLECTION_FILTERS = {}.freeze
 
-  # Overwrite this method to customize how remissions are displayed
+  # Overwrite this method to customize how invoices are displayed
   # across all pages of the admin dashboard.
   #
-  def display_resource(remission)
-    "Remision ##{remission.id}"
+  def display_resource(invoice)
+    "Invoice ##{invoice.id}"
   end
 end

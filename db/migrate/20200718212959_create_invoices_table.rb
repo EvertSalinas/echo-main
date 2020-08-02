@@ -1,6 +1,6 @@
-class CreateRemisionesTable < ActiveRecord::Migration[6.0]
+class CreateInvoicesTable < ActiveRecord::Migration[6.0]
   def change
-    create_table :remissions do |t|
+    create_table :invoices do |t|
       t.string   :condicion,              null: false
       t.string   :folio_remision_fisica,  null: false
       t.string   :folio_remision_factura, null: false

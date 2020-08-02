@@ -10,7 +10,7 @@ class ClientDashboard < Administrate::BaseDashboard
   ATTRIBUTE_TYPES = {
     id: Field::Number,
     nombre: Field::String,
-    remissions: Field::HasMany,
+    invoices: Field::HasMany,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
   }.freeze
@@ -23,7 +23,7 @@ class ClientDashboard < Administrate::BaseDashboard
   COLLECTION_ATTRIBUTES = %i[
     id
     nombre
-    remissions
+    invoices
     created_at
     updated_at
   ].freeze
@@ -33,7 +33,7 @@ class ClientDashboard < Administrate::BaseDashboard
   SHOW_PAGE_ATTRIBUTES = %i[
     id
     nombre
-    remissions
+    invoices
     created_at
     updated_at
   ].freeze

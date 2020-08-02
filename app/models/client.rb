@@ -9,7 +9,8 @@
 #
 class Client < ApplicationRecord
 
-  has_many :remissions, dependent: :nullify
+  has_many :invoices, dependent: :nullify
+  # has_many :payments,   dependent: :nullify
 
   validates :nombre, uniqueness: true
 

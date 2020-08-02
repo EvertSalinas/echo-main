@@ -1,4 +1,4 @@
-class RemissionPolicy < ApplicationPolicy
+class InvoicePolicy < ApplicationPolicy
 
   def index?
     %w(master accounting).include?(admin_user.role)

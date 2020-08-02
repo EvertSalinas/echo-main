@@ -23,7 +23,7 @@ vendedor = Seller.create(
   nombre: Faker::Name.name
 )
 
-Remission.create(
+Invoice.create!(
   cantidad_total: 23.53,
   condicion: 'credito',
   fecha_factura: 2.week.ago,
@@ -36,7 +36,7 @@ Remission.create(
   seller: Seller.first
 )
 
-Remission.create(
+Invoice.create!(
   cantidad_total: 543.32,
   condicion: 'credito',
   fecha_factura: 2.week.ago,
@@ -49,7 +49,7 @@ Remission.create(
   seller: Seller.first
 )
 
-Remission.create(
+Invoice.create!(
   cantidad_total: 85.1,
   condicion: 'credito',
   fecha_factura: 2.week.ago,
@@ -61,3 +61,7 @@ Remission.create(
   client: Client.first,
   seller: Seller.first
 )
+
+# Payment.create!(
+#   cantidad_total:
+# )

@@ -9,7 +9,7 @@
 #
 class Seller < ApplicationRecord
 
-  has_many :remissions, dependent: :nullify
+  has_many :invoices, dependent: :nullify
 
   validates :nombre, uniqueness: true
 

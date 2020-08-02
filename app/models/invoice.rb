@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: remissions
+# Table name: invoices
 #
 #  id                     :bigint           not null, primary key
 #  cantidad_total         :decimal(, )      not null
@@ -18,16 +18,17 @@
 #
 # Indexes
 #
-#  index_remissions_on_client_id  (client_id)
-#  index_remissions_on_estatus    (estatus)
-#  index_remissions_on_seller_id  (seller_id)
+#  index_invoices_on_client_id  (client_id)
+#  index_invoices_on_estatus    (estatus)
+#  index_invoices_on_seller_id  (seller_id)
 #
-class Remission < ApplicationRecord
+class Invoice < ApplicationRecord
 
   CONDITIONS = %w(credito contado).freeze
 
   belongs_to :client
   belongs_to :seller
+  has_many   :payments
 
   enum estatus: { pendiente: 0, pagada: 1, cancelada: 2 }
 

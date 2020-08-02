@@ -12,7 +12,7 @@
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
-#  role                   :string           default("accounting"), not null
+#  role                   :string           default("contaduria"), not null
 #  sign_in_count          :integer          default(0), not null
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
@@ -28,7 +28,7 @@ class AdminUser < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  ROLES = %w(master accounting).freeze
+  ROLES = %w(master contaduria).freeze
 
   validates :role, inclusion: { in: ROLES }
 

@@ -1,4 +1,4 @@
-class CreateVendedoresTable < ActiveRecord::Migration[6.0]
+class CreateSellersTable < ActiveRecord::Migration[6.0]
   def change
     create_table :sellers do |t|
       t.string :nombre
