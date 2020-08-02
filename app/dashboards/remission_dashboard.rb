@@ -9,16 +9,16 @@ class RemissionDashboard < Administrate::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     id: Field::Number,
-    condicion: Field::String,
+    condicion: Field::Select.with_options(collection: Remission::CONDITIONS),
     folio_remision_fisica: Field::String,
     folio_remision_factura: Field::String,
     fecha_factura: Field::DateTime,
-    cantidad_total_cents: Field::Number,
+    cantidad_total: Field::Number.with_options(prefix: "$", decimals: 2,),
     fecha_remision: Field::DateTime,
     lugar: Field::String,
-    status: Field::String,
-    client_id: Field::Number,
-    seller_id: Field::Number,
+    estatus: Field::String,
+    client: Field::BelongsTo.with_options(searchable: true, searchable_fields: ['nombre'],),
+    seller: Field::BelongsTo.with_options(searchable: true, searchable_fields: ['nombre'],),
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
   }.freeze
@@ -43,12 +43,12 @@ class RemissionDashboard < Administrate::BaseDashboard
   folio_remision_fisica
   folio_remision_factura
   fecha_factura
-  cantidad_total_cents
+  cantidad_total
   fecha_remision
   lugar
-  status
-  client_id
-  seller_id
+  estatus
+  client
+  seller
   created_at
   updated_at
   ].freeze
@@ -61,12 +61,12 @@ class RemissionDashboard < Administrate::BaseDashboard
   folio_remision_fisica
   folio_remision_factura
   fecha_factura
-  cantidad_total_cents
+  cantidad_total
   fecha_remision
   lugar
-  status
-  client_id
-  seller_id
+  estatus
+  client
+  seller
   ].freeze
 
   # COLLECTION_FILTERS
@@ -84,7 +84,7 @@ class RemissionDashboard < Administrate::BaseDashboard
   # Overwrite this method to customize how remissions are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(remission)
-  #   "Remission ##{remission.id}"
-  # end
+  def display_resource(remission)
+    "Remision ##{remission.id}"
+  end
 end

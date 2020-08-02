@@ -60,7 +60,7 @@ class SellerDashboard < Administrate::BaseDashboard
   # Overwrite this method to customize how sellers are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(seller)
-  #   "Seller ##{seller.id}"
-  # end
+  def display_resource(seller)
+    "#{seller.nombre}"
+  end
 end
