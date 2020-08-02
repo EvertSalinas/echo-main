@@ -5,10 +5,10 @@ class CreateRemisionesTable < ActiveRecord::Migration[6.0]
       t.string   :folio_remision_fisica,  null: false
       t.string   :folio_remision_factura, null: false
       t.datetime :fecha_factura,          null: false
-      t.integer  :cantidad_total_cents,   null: false
+      t.decimal  :cantidad_total,         null: false
       t.datetime :fecha_remision,         null: false
       t.string   :lugar,                  null: false
-      t.string   :status,                 null: false, default: 'pendiente'
+      t.integer  :estatus,                null: false, default: 0, index: true
 
       t.references :client
       t.references :seller

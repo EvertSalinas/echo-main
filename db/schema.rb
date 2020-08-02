@@ -44,15 +44,16 @@ ActiveRecord::Schema.define(version: 2020_07_18_230044) do
     t.string "folio_remision_fisica", null: false
     t.string "folio_remision_factura", null: false
     t.datetime "fecha_factura", null: false
-    t.integer "cantidad_total_cents", null: false
+    t.decimal "cantidad_total", null: false
     t.datetime "fecha_remision", null: false
     t.string "lugar", null: false
-    t.string "status", default: "pendiente", null: false
+    t.integer "estatus", default: 0, null: false
     t.bigint "client_id"
     t.bigint "seller_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["client_id"], name: "index_remissions_on_client_id"
+    t.index ["estatus"], name: "index_remissions_on_estatus"
     t.index ["seller_id"], name: "index_remissions_on_seller_id"
   end
 

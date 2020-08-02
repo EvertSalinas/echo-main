@@ -24,40 +24,40 @@ vendedor = Seller.create(
 )
 
 Remission.create(
-  cantidad_total_cents: 1000,
-  condicion: 'CREDITO',
+  cantidad_total: 23.53,
+  condicion: 'credito',
   fecha_factura: 2.week.ago,
   fecha_remision: 1.week.ago,
   folio_remision_factura: '1-O',
   folio_remision_fisica: 'E52256',
   lugar: 'GUADALUPE, NUEVO LEON',
-  status: 'pendiente',
-  client: cliente,
-  seller: vendedor
+  estatus: 'pendiente',
+  client: Client.first,
+  seller: Seller.first
 )
 
 Remission.create(
-  cantidad_total_cents: 1000,
-  condicion: 'CREDITO',
+  cantidad_total: 543.32,
+  condicion: 'credito',
   fecha_factura: 2.week.ago,
   fecha_remision: 1.week.ago,
-  folio_remision_factura: '1-O',
-  folio_remision_fisica: 'E52256',
+  folio_remision_factura: '2-0',
+  folio_remision_fisica: 'E43134',
   lugar: 'GUADALUPE, NUEVO LEON',
-  status: 'pendiente',
-  client: cliente,
-  seller: vendedor
+  estatus: 'pendiente',
+  client: Client.first,
+  seller: Seller.first
 )
 
 Remission.create(
-  cantidad_total_cents: 1000,
-  condicion: 'CREDITO',
+  cantidad_total: 85.1,
+  condicion: 'credito',
   fecha_factura: 2.week.ago,
   fecha_remision: 1.week.ago,
-  folio_remision_factura: '1-O',
-  folio_remision_fisica: 'E52256',
+  folio_remision_factura: '3-O',
+  folio_remision_fisica: 'E524312',
   lugar: 'GUADALUPE, NUEVO LEON',
-  status: 'pagada',
-  client: cliente,
-  seller: vendedor
+  estatus: 'pagada',
+  client: Client.first,
+  seller: Seller.first
 )
