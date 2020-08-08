@@ -9,9 +9,17 @@
 #
 class Client < ApplicationRecord
 
-  has_many :invoices, dependent: :nullify
-  # has_many :payments,   dependent: :nullify
+  has_many :invoices,     dependent: :nullify
+  has_many :payment_logs, dependent: :nullify
 
   validates :name, uniqueness: true
+
+  def pending_invoices
+    invoices.select { |i| !i&.paid_out? }
+  end
+
+  def remaining_debt
+    pending_invoices.sum(&:remaining_debt)
+  end
 
 end

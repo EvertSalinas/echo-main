@@ -32,11 +32,24 @@ class Invoice < ApplicationRecord
 
   enum estatus: { pendiente: 0, pagada: 1, cancelada: 2 }
 
-  validates :cantidad_total, presence: true
-  validates :condicion, presence: true, inclusion: { in: CONDITIONS }
-  validates :fecha_factura, presence: true
+  validates :cantidad_total,         presence: true
+  validates :condicion,              presence: true, inclusion: { in: CONDITIONS }
+  validates :fecha_factura,          presence: true
+  # validates :fecha_remision, presence: true # TODO
   validates :folio_remision_factura, presence: true, uniqueness: true
-  validates :folio_remision_fisica, presence: true, uniqueness: true
-  validates :lugar, presence: true
+  validates :folio_remision_fisica,  presence: true, uniqueness: true
+  validates :lugar,                  presence: true
+
+  scope :with_remaining_debt, -> { joins(:payments).where("cantidad_total > SUM(payments.amount)") }
+
+  # TODO when payment is created change status
+  
+  def remaining_debt
+    cantidad_total - payments.sum(:amount)
+  end
+
+  def paid_out?
+    remaining_debt.zero?
+  end
 
 end
