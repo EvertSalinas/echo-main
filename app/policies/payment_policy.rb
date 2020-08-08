@@ -9,19 +9,19 @@ class PaymentPolicy < ApplicationPolicy
   end
 
   def new?
-    index?
+    false
   end
 
   def create?
-    index?
+    new?
   end
 
   def edit?
-    index?
+    false
   end
 
   def update?
-    index?
+    edit?
   end
 
 end

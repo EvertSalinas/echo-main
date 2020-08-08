@@ -5,6 +5,7 @@ Rails.application.routes.draw do
       resources :invoices
       resources :sellers
       resources :payment_logs
+      resources :payments
 
       root to: "invoices#index"
     end
