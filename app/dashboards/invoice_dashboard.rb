@@ -1,6 +1,6 @@
 require "administrate/base_dashboard"
 
-class AdminUserDashboard < Administrate::BaseDashboard
+class InvoiceDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -9,21 +9,21 @@ class AdminUserDashboard < Administrate::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     id: Field::Number,
-    email: Field::String,
-    encrypted_password: Field::String,
-    reset_password_token: Field::String,
-    reset_password_sent_at: Field::DateTime,
-    remember_created_at: Field::DateTime,
-    sign_in_count: Field::Number,
-    current_sign_in_at: Field::DateTime,
-    last_sign_in_at: Field::DateTime,
-    role: Field::Select.with_options(collection: AdminUser::ROLES),
-    current_sign_in_ip: Field::String.with_options(searchable: false),
-    last_sign_in_ip: Field::String.with_options(searchable: false),
+    condicion: Field::Select.with_options(collection: Invoice::CONDITIONS),
+    paid_out?: Field::Boolean,
+    remaining_debt: Field::Number.with_options(prefix: "$", decimals: 2,),
+    cantidad_total: Field::Number.with_options(prefix: "$", decimals: 2,),
+    folio_remision_fisica: Field::String,
+    folio_remision_factura: Field::String,
+    fecha_factura: Field::DateTime,
+    fecha_remision: Field::DateTime,
+    lugar: Field::String,
+    estatus: Field::String,
+    client: Field::BelongsTo.with_options(searchable: true, searchable_fields: ['nombre'],),
+    seller: Field::BelongsTo.with_options(searchable: true, searchable_fields: ['nombre'],),
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
-    password: Field::Password,
-    password_confirmation: Field::Password,
+    payments: Field::HasMany
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -32,30 +32,48 @@ class AdminUserDashboard < Administrate::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
-    id
-    email
-    role
-    created_at
+  id
+  condicion
+  paid_out?
+  folio_remision_fisica
+  folio_remision_factura
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
-    id
-    email
-    role
-    created_at
-    updated_at
+  id
+  condicion
+  paid_out?
+  remaining_debt
+  cantidad_total
+  folio_remision_fisica
+  folio_remision_factura
+  fecha_factura
+  fecha_remision
+  lugar
+  estatus
+  client
+  seller
+  created_at
+  updated_at
+  payments
   ].freeze
 
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
-    email
-    role
-    password
-    password_confirmation
+  condicion
+  folio_remision_fisica
+  folio_remision_factura
+  fecha_factura
+  cantidad_total
+  fecha_remision
+  lugar
+  estatus
+  client
+  seller
   ].freeze
 
   # COLLECTION_FILTERS
@@ -70,10 +88,10 @@ class AdminUserDashboard < Administrate::BaseDashboard
   #   }.freeze
   COLLECTION_FILTERS = {}.freeze
 
-  # Overwrite this method to customize how admin users are displayed
+  # Overwrite this method to customize how invoices are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(admin_user)
-  #   "AdminUser ##{admin_user.id}"
-  # end
+  def display_resource(invoice)
+    "Invoice ##{invoice.id}"
+  end
 end

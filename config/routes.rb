@@ -1,8 +1,13 @@
 Rails.application.routes.draw do
   namespace :admin do
       resources :admin_users
+      resources :clients
+      resources :invoices
+      resources :sellers
+      resources :payment_logs
+      resources :payments
 
-      root to: "admin_users#index"
+      root to: "invoices#index"
     end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   devise_for :admin_users

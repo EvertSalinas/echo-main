@@ -1,6 +1,6 @@
 require "administrate/base_dashboard"
 
-class AdminUserDashboard < Administrate::BaseDashboard
+class PaymentLogDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
   # a hash that describes the type of each of the model's fields.
   #
@@ -8,22 +8,13 @@ class AdminUserDashboard < Administrate::BaseDashboard
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
+    client: Field::BelongsTo,
+    payments: Field::HasMany,
+    invoice_id: Field::Select.with_options(collection: Invoice.all.map { |c| ["Invoice: #{c&.folio_remision_fisica}", c&.id] }),
     id: Field::Number,
-    email: Field::String,
-    encrypted_password: Field::String,
-    reset_password_token: Field::String,
-    reset_password_sent_at: Field::DateTime,
-    remember_created_at: Field::DateTime,
-    sign_in_count: Field::Number,
-    current_sign_in_at: Field::DateTime,
-    last_sign_in_at: Field::DateTime,
-    role: Field::Select.with_options(collection: AdminUser::ROLES),
-    current_sign_in_ip: Field::String.with_options(searchable: false),
-    last_sign_in_ip: Field::String.with_options(searchable: false),
+    total_amount: Field::Number.with_options(searchable: false, prefix: "$", decimals: 2,),
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
-    password: Field::Password,
-    password_confirmation: Field::Password,
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -32,30 +23,31 @@ class AdminUserDashboard < Administrate::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
-    id
-    email
-    role
-    created_at
+  client
+  id
+  total_amount
+  created_at
+  payments
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
-    id
-    email
-    role
-    created_at
-    updated_at
+  client
+  id
+  total_amount
+  created_at
+  updated_at
+  payments
   ].freeze
 
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
-    email
-    role
-    password
-    password_confirmation
+  client
+  invoice_id
+  total_amount
   ].freeze
 
   # COLLECTION_FILTERS
@@ -70,10 +62,10 @@ class AdminUserDashboard < Administrate::BaseDashboard
   #   }.freeze
   COLLECTION_FILTERS = {}.freeze
 
-  # Overwrite this method to customize how admin users are displayed
+  # Overwrite this method to customize how payment logs are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(admin_user)
-  #   "AdminUser ##{admin_user.id}"
+  # def display_resource(payment_log)
+  #   "PaymentLog ##{payment_log.id}"
   # end
 end
