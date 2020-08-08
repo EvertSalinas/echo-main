@@ -9,7 +9,7 @@ class SellerDashboard < Administrate::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     id: Field::Number,
-    nombre: Field::String,
+    name: Field::String,
     invoices: Field::HasMany,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
@@ -22,27 +22,27 @@ class SellerDashboard < Administrate::BaseDashboard
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
     id
-    nombre
-    invoices
+    name
     created_at
     updated_at
+    invoices
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
     id
-    nombre
-    invoices
+    name
     created_at
     updated_at
+    invoices
   ].freeze
 
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
-    nombre
+    name
   ].freeze
 
   # COLLECTION_FILTERS
@@ -61,6 +61,6 @@ class SellerDashboard < Administrate::BaseDashboard
   # across all pages of the admin dashboard.
   #
   def display_resource(seller)
-    "#{seller.nombre}"
+    "#{seller.name}"
   end
 end

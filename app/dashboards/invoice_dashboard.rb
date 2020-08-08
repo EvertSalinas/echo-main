@@ -10,10 +10,12 @@ class InvoiceDashboard < Administrate::BaseDashboard
   ATTRIBUTE_TYPES = {
     id: Field::Number,
     condicion: Field::Select.with_options(collection: Invoice::CONDITIONS),
+    paid_out?: Field::Boolean,
+    remaining_debt: Field::Number.with_options(prefix: "$", decimals: 2,),
+    cantidad_total: Field::Number.with_options(prefix: "$", decimals: 2,),
     folio_remision_fisica: Field::String,
     folio_remision_factura: Field::String,
     fecha_factura: Field::DateTime,
-    cantidad_total: Field::Number.with_options(prefix: "$", decimals: 2,),
     fecha_remision: Field::DateTime,
     lugar: Field::String,
     estatus: Field::String,
@@ -21,6 +23,7 @@ class InvoiceDashboard < Administrate::BaseDashboard
     seller: Field::BelongsTo.with_options(searchable: true, searchable_fields: ['nombre'],),
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
+    payments: Field::HasMany
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -31,6 +34,7 @@ class InvoiceDashboard < Administrate::BaseDashboard
   COLLECTION_ATTRIBUTES = %i[
   id
   condicion
+  paid_out?
   folio_remision_fisica
   folio_remision_factura
   ].freeze
@@ -40,10 +44,12 @@ class InvoiceDashboard < Administrate::BaseDashboard
   SHOW_PAGE_ATTRIBUTES = %i[
   id
   condicion
+  paid_out?
+  remaining_debt
+  cantidad_total
   folio_remision_fisica
   folio_remision_factura
   fecha_factura
-  cantidad_total
   fecha_remision
   lugar
   estatus
@@ -51,6 +57,7 @@ class InvoiceDashboard < Administrate::BaseDashboard
   seller
   created_at
   updated_at
+  payments
   ].freeze
 
   # FORM_ATTRIBUTES

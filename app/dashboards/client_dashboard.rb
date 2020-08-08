@@ -10,6 +10,7 @@ class ClientDashboard < Administrate::BaseDashboard
   ATTRIBUTE_TYPES = {
     id: Field::Number,
     name: Field::String,
+    remaining_debt: Field::Number,
     invoices: Field::HasMany,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
@@ -23,9 +24,9 @@ class ClientDashboard < Administrate::BaseDashboard
   COLLECTION_ATTRIBUTES = %i[
     id
     name
-    invoices
     created_at
     updated_at
+    invoices
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -33,16 +34,17 @@ class ClientDashboard < Administrate::BaseDashboard
   SHOW_PAGE_ATTRIBUTES = %i[
     id
     name
-    invoices
+    remaining_debt
     created_at
     updated_at
+    invoices
   ].freeze
 
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
-    nombre
+    name
   ].freeze
 
   # COLLECTION_FILTERS

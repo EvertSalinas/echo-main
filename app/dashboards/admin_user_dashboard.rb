@@ -43,8 +43,8 @@ class AdminUserDashboard < Administrate::BaseDashboard
   SHOW_PAGE_ATTRIBUTES = %i[
     id
     email
-    created_at
     role
+    created_at
     updated_at
   ].freeze
 
