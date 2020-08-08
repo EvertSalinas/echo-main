@@ -10,7 +10,7 @@ class ClientDashboard < Administrate::BaseDashboard
   ATTRIBUTE_TYPES = {
     id: Field::Number,
     name: Field::String,
-    remaining_debt: Field::Number,
+    remaining_debt: Field::Number.with_options(prefix: "$", decimals: 2,),
     invoices: Field::HasMany,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
