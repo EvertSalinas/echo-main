@@ -67,7 +67,6 @@ ActiveRecord::Schema.define(version: 2020_08_02_212424) do
 
   create_table "payments", force: :cascade do |t|
     t.decimal "amount", null: false
-    t.string "status", default: "0", null: false
     t.bigint "payment_log_id"
     t.bigint "invoice_id"
     t.datetime "created_at", precision: 6, null: false
