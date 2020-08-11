@@ -10,7 +10,7 @@ class PaymentLogDashboard < Administrate::BaseDashboard
   ATTRIBUTE_TYPES = {
     client: Field::BelongsTo,
     payments: Field::HasMany,
-    invoice_id: Field::Select.with_options(collection: Invoice.all.map { |c| ["Invoice: #{c&.folio_remision_fisica}", c&.id] }),
+    invoice_id: Field::Select.with_options(collection: Proc.new { Invoice.all.map { |c| ["Invoice: #{c&.folio_remision_fisica}", c&.id] }}),
     id: Field::Number,
     total_amount: Field::Number.with_options(searchable: false, prefix: "$", decimals: 2,),
     created_at: Field::DateTime,
