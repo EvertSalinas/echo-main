@@ -12,7 +12,7 @@ class InvoiceDashboard < Administrate::BaseDashboard
     condition: Field::Select.with_options(collection: Invoice::CONDITIONS),
     paid_out?: Field::Boolean,
     remaining_debt: Field::Number.with_options(prefix: "$", decimals: 2,),
-    total_amount_cents: Field::Number.with_options(prefix: "$", decimals: 2,),
+    total_amount: Field::Number.with_options(prefix: "$", decimals: 2,),
     physical_folio: Field::String,
     system_folio: Field::String,
     system_date: Field::DateTime,
@@ -46,13 +46,12 @@ class InvoiceDashboard < Administrate::BaseDashboard
   condition
   paid_out?
   remaining_debt
-  total_amount_cents
+  total_amount
   physical_folio
   system_folio
   system_date
   physical_date
   place
-  status
   client
   seller
   created_at
@@ -68,10 +67,9 @@ class InvoiceDashboard < Administrate::BaseDashboard
   physical_folio
   system_folio
   system_date
-  total_amount_cents
+  total_amount
   physical_date
   place
-  status
   client
   seller
   ].freeze

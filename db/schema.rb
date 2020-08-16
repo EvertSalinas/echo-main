@@ -45,7 +45,7 @@ ActiveRecord::Schema.define(version: 2020_08_02_212424) do
     t.string "system_folio", null: false
     t.datetime "physical_date", null: false
     t.datetime "system_date", null: false
-    t.decimal "total_amount_cents", null: false
+    t.integer "total_amount_cents", null: false
     t.string "place", null: false
     t.integer "status", default: 0, null: false
     t.bigint "client_id"
@@ -59,7 +59,8 @@ ActiveRecord::Schema.define(version: 2020_08_02_212424) do
   end
 
   create_table "payment_logs", force: :cascade do |t|
-    t.decimal "total_amount", null: false
+    t.integer "total_amount_cents", null: false
+    t.string "folio", null: false
     t.bigint "client_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -67,7 +68,7 @@ ActiveRecord::Schema.define(version: 2020_08_02_212424) do
   end
 
   create_table "payments", force: :cascade do |t|
-    t.decimal "amount", null: false
+    t.integer "amount_cents", null: false
     t.bigint "payment_log_id"
     t.bigint "invoice_id"
     t.datetime "created_at", precision: 6, null: false

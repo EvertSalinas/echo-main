@@ -14,7 +14,7 @@ class Seller < ApplicationRecord
   validates :name, uniqueness: true
 
   def sold_amount
-    invoices.sum(&:cantidad_total)
+    Money.new(invoices.sum(:total_amount_cents))
   end
 
 end

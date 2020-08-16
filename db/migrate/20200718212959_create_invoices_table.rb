@@ -6,7 +6,7 @@ class CreateInvoicesTable < ActiveRecord::Migration[6.0]
       t.string   :system_folio,           null: false, index: true
       t.datetime :physical_date,          null: false
       t.datetime :system_date,            null: false
-      t.decimal  :total_amount_cents,     null: false
+      t.integer  :total_amount_cents,     null: false
       t.string   :place,                  null: false
       t.integer  :status,                 null: false, default: 0, index: true
 

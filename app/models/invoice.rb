@@ -10,7 +10,7 @@
 #  status             :integer          default(0), not null
 #  system_date        :datetime         not null
 #  system_folio       :string           not null
-#  total_amount_cents :decimal(, )      not null
+#  total_amount_cents :integer          not null
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #  client_id          :bigint
@@ -33,7 +33,8 @@ class Invoice < ApplicationRecord
 
   # enum estatus: { pendiente: 0, pagada: 1, cancelada: 2 }
 
-  validates :total_amount_cents,     presence: true
+  monetize :total_amount_cents
+
   validates :condition,              presence: true, inclusion: { in: CONDITIONS }
   validates :physical_date,          presence: true
   validates :system_date,            presence: true
@@ -41,12 +42,12 @@ class Invoice < ApplicationRecord
   validates :physical_folio,         presence: true, uniqueness: true
   validates :place,                  presence: true
 
-  scope :with_remaining_debt, -> { joins(:payments).where("total_amount_cents > SUM(payments.amount)") }
+  scope :with_remaining_debt, -> { joins(:payments).where("total_amount_cents > SUM(payments.amount_cents)") }
 
   # TODO when payment is created change status
 
   def remaining_debt
-    total_amount_cents - payments.sum(:amount)
+    total_amount - Money.new(payments.sum(:amount_cents))
   end
 
   def paid_out?

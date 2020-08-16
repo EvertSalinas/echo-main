@@ -2,11 +2,12 @@
 #
 # Table name: payment_logs
 #
-#  id           :bigint           not null, primary key
-#  total_amount :decimal(, )      not null
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
-#  client_id    :bigint
+#  id                 :bigint           not null, primary key
+#  folio              :string           not null
+#  total_amount_cents :integer          not null
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  client_id          :bigint
 #
 # Indexes
 #
@@ -19,8 +20,9 @@ class PaymentLog < ApplicationRecord
   belongs_to :client
   has_many   :payments
 
-  validates :total_amount, presence: true
-  validates :invoice_id, presence: true
+  monetize :total_amount_cents
+
+  validates :folio, presence: true, uniqueness: true
 
   after_create_commit :distribute_payments
 
@@ -32,7 +34,7 @@ class PaymentLog < ApplicationRecord
   end
 
   def remaining_balance
-    total_amount - payments.sum(:amount)
+    total_amount - Money.new(payments.sum(:amount_cents))
   end
 
   def depleted?
