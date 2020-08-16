@@ -24,40 +24,40 @@ vendedor = Seller.create(
 )
 
 Invoice.create!(
-  cantidad_total: 23.53,
-  condicion: 'credito',
-  fecha_factura: 2.week.ago,
-  fecha_remision: 1.week.ago,
-  folio_remision_factura: '1-O',
-  folio_remision_fisica: 'E52256',
-  lugar: 'GUADALUPE, NUEVO LEON',
-  estatus: 'pendiente',
+  total_amount_cents: 2353,
+  condition: 'credito',
+  system_date: 2.week.ago,
+  physical_date: 1.week.ago,
+  system_folio: 'E52256',
+  physical_folio: '1-O',
+  place: 'GUADALUPE, NUEVO LEON',
+  status: 'pendiente',
   client: Client.first,
   seller: Seller.first
 )
 
 Invoice.create!(
-  cantidad_total: 543.32,
-  condicion: 'credito',
-  fecha_factura: 2.week.ago,
-  fecha_remision: 1.week.ago,
-  folio_remision_factura: '2-0',
-  folio_remision_fisica: 'E43134',
-  lugar: 'GUADALUPE, NUEVO LEON',
-  estatus: 'pendiente',
+  total_amount_cents: 54332,
+  condition: 'credito',
+  system_date: 2.week.ago,
+  physical_date: 1.week.ago,
+  system_folio: 'E52756',
+  physical_folio: '2-0',
+  place: 'GUADALUPE, NUEVO LEON',
+  status: 'pendiente',
   client: Client.first,
   seller: Seller.first
 )
 
 Invoice.create!(
-  cantidad_total: 85.1,
-  condicion: 'credito',
-  fecha_factura: 2.week.ago,
-  fecha_remision: 1.week.ago,
-  folio_remision_factura: '3-O',
-  folio_remision_fisica: 'E524312',
-  lugar: 'GUADALUPE, NUEVO LEON',
-  estatus: 'pagada',
+  total_amount_cents: 851,
+  condition: 'credito',
+  system_date: 2.week.ago,
+  physical_date: 1.week.ago,
+  system_folio: 'E524312',
+  physical_folio: '3-O',
+  place: 'GUADALUPE, NUEVO LEON',
+  status: 'pagada',
   client: Client.first,
   seller: Seller.first
 )
