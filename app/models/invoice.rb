@@ -2,25 +2,26 @@
 #
 # Table name: invoices
 #
-#  id                     :bigint           not null, primary key
-#  cantidad_total         :decimal(, )      not null
-#  condicion              :string           not null
-#  estatus                :integer          default("pendiente"), not null
-#  fecha_factura          :datetime         not null
-#  fecha_remision         :datetime         not null
-#  folio_remision_factura :string           not null
-#  folio_remision_fisica  :string           not null
-#  lugar                  :string           not null
-#  created_at             :datetime         not null
-#  updated_at             :datetime         not null
-#  client_id              :bigint
-#  seller_id              :bigint
+#  id                 :bigint           not null, primary key
+#  condition          :string           not null
+#  physical_date      :datetime         not null
+#  physical_folio     :string           not null
+#  place              :string           not null
+#  status             :integer          default(0), not null
+#  system_date        :datetime         not null
+#  system_folio       :string           not null
+#  total_amount_cents :decimal(, )      not null
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  client_id          :bigint
+#  seller_id          :bigint
 #
 # Indexes
 #
-#  index_invoices_on_client_id  (client_id)
-#  index_invoices_on_estatus    (estatus)
-#  index_invoices_on_seller_id  (seller_id)
+#  index_invoices_on_client_id     (client_id)
+#  index_invoices_on_seller_id     (seller_id)
+#  index_invoices_on_status        (status)
+#  index_invoices_on_system_folio  (system_folio)
 #
 class Invoice < ApplicationRecord
 
@@ -30,22 +31,22 @@ class Invoice < ApplicationRecord
   belongs_to :seller
   has_many   :payments
 
-  enum estatus: { pendiente: 0, pagada: 1, cancelada: 2 }
+  # enum estatus: { pendiente: 0, pagada: 1, cancelada: 2 }
 
-  validates :cantidad_total,         presence: true
-  validates :condicion,              presence: true, inclusion: { in: CONDITIONS }
-  validates :fecha_factura,          presence: true
-  # validates :fecha_remision, presence: true # TODO
-  validates :folio_remision_factura, presence: true, uniqueness: true
-  validates :folio_remision_fisica,  presence: true, uniqueness: true
-  validates :lugar,                  presence: true
+  validates :total_amount_cents,     presence: true
+  validates :condition,              presence: true, inclusion: { in: CONDITIONS }
+  validates :physical_date,          presence: true
+  validates :system_date,            presence: true
+  validates :system_folio,           presence: true, uniqueness: true
+  validates :physical_folio,         presence: true, uniqueness: true
+  validates :place,                  presence: true
 
-  scope :with_remaining_debt, -> { joins(:payments).where("cantidad_total > SUM(payments.amount)") }
+  scope :with_remaining_debt, -> { joins(:payments).where("total_amount_cents > SUM(payments.amount)") }
 
   # TODO when payment is created change status
-  
+
   def remaining_debt
-    cantidad_total - payments.sum(:amount)
+    total_amount_cents - payments.sum(:amount)
   end
 
   def paid_out?

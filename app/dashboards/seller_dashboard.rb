@@ -11,6 +11,7 @@ class SellerDashboard < Administrate::BaseDashboard
     id: Field::Number,
     name: Field::String,
     invoices: Field::HasMany,
+    sold_amount: Field::Number.with_options(prefix: "$", decimals: 2,),
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
   }.freeze
@@ -33,6 +34,7 @@ class SellerDashboard < Administrate::BaseDashboard
   SHOW_PAGE_ATTRIBUTES = %i[
     id
     name
+    sold_amount
     created_at
     updated_at
     invoices
