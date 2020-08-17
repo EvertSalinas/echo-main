@@ -13,4 +13,8 @@ class Seller < ApplicationRecord
 
   validates :name, uniqueness: true
 
+  def sold_amount
+    Money.new(invoices.sum(:total_amount_cents))
+  end
+
 end

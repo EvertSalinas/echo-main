@@ -8,11 +8,13 @@ class PaymentLogDashboard < Administrate::BaseDashboard
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
+    folio: Field::String,
     client: Field::BelongsTo,
     payments: Field::HasMany,
-    invoice_id: Field::Select.with_options(collection: Proc.new { Invoice.all.map { |c| ["Invoice: #{c&.folio_remision_fisica}", c&.id] }}),
+    invoice_id: Field::Select.with_options(collection: Proc.new { Invoice.all.map { |c| ["Invoice: #{c&.system_folio}", c&.id] }}),
     id: Field::Number,
     total_amount: Field::Number.with_options(searchable: false, prefix: "$", decimals: 2,),
+    remaining_balance: Field::Number.with_options(searchable: false, prefix: "$", decimals: 2,),
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
   }.freeze
@@ -24,6 +26,7 @@ class PaymentLogDashboard < Administrate::BaseDashboard
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
   client
+  folio
   id
   total_amount
   created_at
@@ -35,7 +38,9 @@ class PaymentLogDashboard < Administrate::BaseDashboard
   SHOW_PAGE_ATTRIBUTES = %i[
   client
   id
+  folio
   total_amount
+  remaining_balance
   created_at
   updated_at
   payments
@@ -45,6 +50,7 @@ class PaymentLogDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
+  folio
   client
   invoice_id
   total_amount

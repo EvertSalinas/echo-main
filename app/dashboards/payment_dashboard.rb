@@ -9,7 +9,7 @@ class PaymentDashboard < Administrate::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     payment_log: Field::BelongsTo,
-    invoice: Field::BelongsTo.with_options(searchable: true, searchable_fields: ['folio_remision_factura', 'folio_remision_fisica'],),
+    invoice: Field::BelongsTo.with_options(searchable: true, searchable_fields: ['system_folio', 'physical_folio'],),
     id: Field::Number,
     amount: Field::Number.with_options(prefix: "$", decimals: 2,),
     created_at: Field::DateTime,
