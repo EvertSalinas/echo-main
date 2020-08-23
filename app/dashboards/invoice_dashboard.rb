@@ -32,11 +32,11 @@ class InvoiceDashboard < Administrate::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
-  id
-  condition
-  remaining_debt
-  physical_folio
   system_folio
+  physical_folio
+  remaining_debt
+  status
+  condition
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -90,6 +90,6 @@ class InvoiceDashboard < Administrate::BaseDashboard
   # across all pages of the admin dashboard.
   #
   def display_resource(invoice)
-    "Invoice ##{invoice.id}"
+    "Invoice #{invoice.system_folio}"
   end
 end

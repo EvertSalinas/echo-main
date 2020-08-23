@@ -13,6 +13,7 @@ class PaymentLogDashboard < Administrate::BaseDashboard
     payments: Field::HasMany,
     invoice_id: Field::Select.with_options(collection: Proc.new { Invoice.all.map { |c| ["Invoice: #{c&.system_folio}", c&.id] }}),
     id: Field::Number,
+    status: Field::String,
     total_amount: Field::Number.with_options(searchable: false, prefix: "$", decimals: 2,),
     remaining_balance: Field::Number.with_options(searchable: false, prefix: "$", decimals: 2,),
     created_at: Field::DateTime,
@@ -25,21 +26,20 @@ class PaymentLogDashboard < Administrate::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
-  client
   folio
-  id
-  total_amount
+  remaining_balance
+  status
+  client
   created_at
-  payments
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
-  client
-  id
   folio
+  client
   total_amount
+  status
   remaining_balance
   created_at
   updated_at
@@ -71,7 +71,7 @@ class PaymentLogDashboard < Administrate::BaseDashboard
   # Overwrite this method to customize how payment logs are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(payment_log)
-  #   "PaymentLog ##{payment_log.id}"
-  # end
+  def display_resource(payment_log)
+    "PaymentLog #{payment_log.folio}"
+  end
 end
