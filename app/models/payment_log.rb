@@ -4,6 +4,7 @@
 #
 #  id                 :bigint           not null, primary key
 #  folio              :string           not null
+#  status             :integer          default("abierto"), not null
 #  total_amount_cents :integer          not null
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
@@ -12,10 +13,13 @@
 # Indexes
 #
 #  index_payment_logs_on_client_id  (client_id)
+#  index_payment_logs_on_status     (status)
 #
 class PaymentLog < ApplicationRecord
 
   attr_accessor :invoice_id
+
+  enum status: { abierto: 0, agotado: 1 }
 
   belongs_to :client
   has_many   :payments
@@ -25,6 +29,7 @@ class PaymentLog < ApplicationRecord
   validates :folio, presence: true, uniqueness: true
 
   after_create_commit :distribute_payments
+  after_commit :deplete, unless: :agotado?
 
   def distribute_payments
     PaymentLogs::PaymentDistributor.new(
@@ -39,6 +44,12 @@ class PaymentLog < ApplicationRecord
 
   def depleted?
     remaining_balance.zero?
+  end
+
+  private
+
+  def deplete
+    agotado! if depleted?
   end
 
 end
