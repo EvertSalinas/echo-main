@@ -61,10 +61,12 @@ ActiveRecord::Schema.define(version: 2020_08_02_212424) do
   create_table "payment_logs", force: :cascade do |t|
     t.integer "total_amount_cents", null: false
     t.string "folio", null: false
+    t.integer "status", default: 0, null: false
     t.bigint "client_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["client_id"], name: "index_payment_logs_on_client_id"
+    t.index ["status"], name: "index_payment_logs_on_status"
   end
 
   create_table "payments", force: :cascade do |t|
