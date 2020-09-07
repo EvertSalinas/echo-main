@@ -8,8 +8,8 @@ class PaymentDashboard < Administrate::BaseDashboard
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
-    payment_log: Field::BelongsTo,
-    invoice: Field::BelongsTo.with_options(searchable: true, searchable_fields: ['system_folio', 'physical_folio'],),
+    payment_log: Field::BelongsTo.with_options(scope: -> { PaymentLog.abierto }),
+    invoice: Field::BelongsTo.with_options(searchable: true, searchable_fields: ['system_folio', 'physical_folio'], scope: -> { Invoice.pendiente }),
     id: Field::Number,
     amount: Field::Number.with_options(prefix: "$", decimals: 2,),
     created_at: Field::DateTime,
@@ -22,8 +22,8 @@ class PaymentDashboard < Administrate::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
+  payment_log
   invoice
-  id
   amount
   ].freeze
 
@@ -32,7 +32,6 @@ class PaymentDashboard < Administrate::BaseDashboard
   SHOW_PAGE_ATTRIBUTES = %i[
   payment_log
   invoice
-  id
   amount
   created_at
   updated_at

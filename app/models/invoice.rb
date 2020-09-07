@@ -7,7 +7,7 @@
 #  physical_date      :datetime         not null
 #  physical_folio     :string           not null
 #  place              :string           not null
-#  status             :integer          default(0), not null
+#  status             :integer          default("pendiente"), not null
 #  system_date        :datetime         not null
 #  system_folio       :string           not null
 #  total_amount_cents :integer          not null
@@ -31,7 +31,7 @@ class Invoice < ApplicationRecord
   belongs_to :seller
   has_many   :payments
 
-  # enum estatus: { pendiente: 0, pagada: 1, cancelada: 2 }
+  enum status: { pendiente: 0, pagada: 1, cancelada: 2 }
 
   monetize :total_amount_cents
 
@@ -42,9 +42,7 @@ class Invoice < ApplicationRecord
   validates :physical_folio,         presence: true, uniqueness: true
   validates :place,                  presence: true
 
-  scope :with_remaining_debt, -> { joins(:payments).where("total_amount_cents > SUM(payments.amount_cents)") }
-
-  # TODO when payment is created change status
+  after_commit :pay, unless: :pagada?
 
   def remaining_debt
     total_amount - Money.new(payments.sum(:amount_cents))
@@ -52,6 +50,12 @@ class Invoice < ApplicationRecord
 
   def paid_out?
     remaining_debt.zero?
+  end
+
+  private
+
+  def pay
+    pagada! if paid_out?
   end
 
 end
