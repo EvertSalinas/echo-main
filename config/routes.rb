@@ -13,8 +13,8 @@ Rails.application.routes.draw do
   devise_for :admin_users
 
   root to: "admin/admin_users#index"
+  
   get  '/invoices',  to: 'invoices#index'
-
 
   # devise_scope :admin_users do
   #   get 'sign_in',  to: 'devise/sessions#new'
