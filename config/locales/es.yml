@@ -6,7 +6,7 @@ es:
       edit: Editar
       edit_resource: Editar %{name}
       show_resource: Mostrar %{name}
-      new_resource: Agregar %{name}
+      new_resources: Agregar %{name}
       back: Volver
     controller:
       create:
