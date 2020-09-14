@@ -24,6 +24,7 @@ es:
       errors: "%{pluralized_errors} no permitieron guardar este %{resource_name}:"
     navigation:
       back_to_app: Regresar a la aplicación
+      log_out: Cerrar Sesión
     search:
       clear: Borrar búsqueda
       label: Buscar %{resource}
