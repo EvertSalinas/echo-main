@@ -1,0 +1,37 @@
+es:
+  activerecord:
+    models:
+      invoice:
+        one: 'Factura'
+        other: 'Facturas'
+    attributes:
+      invoice:
+        condition: "Condición"
+        physical_folio: "Folio Físico"
+        system_folio: "Folio del Sistema"
+        physical_date: "Fecha Física"
+        system_date: "Fecha del Sistema"
+        total_amount: "Cantidad Total"
+        place: "Lugar"
+        status: "Estatus"
+        remaining_debt: Deuda Restante
+        created_at: "Creado en"
+        updated_at: "Actualizado en"
+        client: "Cliente"
+        seller: "Vendedor"
+  helpers:
+    label:
+      invoice:
+        condition: "Condición"
+        physical_folio: "Folio Físico"
+        system_folio: "Folio del Sistema"
+        physical_date: "Fecha Física"
+        system_date: "Fecha del Sistema"
+        total_amount: "Cantidad Total"
+        place: "Lugar"
+        status: "Estatus"
+        remaining_debt: Deuda Restante
+        created_at: "Creado en"
+        updated_at: "Actualizado en"
+        client: "Cliente"
+        seller: "Vendedor"

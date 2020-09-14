@@ -59,6 +59,6 @@ class SellerDashboard < Administrate::BaseDashboard
   # across all pages of the admin dashboard.
   #
   def display_resource(seller)
-    "#{seller.name}"
+    "Vendedor #{seller.name}"
   end
 end

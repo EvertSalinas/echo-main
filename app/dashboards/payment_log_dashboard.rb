@@ -72,6 +72,6 @@ class PaymentLogDashboard < Administrate::BaseDashboard
   # across all pages of the admin dashboard.
   #
   def display_resource(payment_log)
-    "PaymentLog #{payment_log.folio}"
+    "Registro de Pago #{payment_log.folio}"
   end
 end
