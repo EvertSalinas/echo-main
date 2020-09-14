@@ -11,7 +11,7 @@ class PaymentLogDashboard < Administrate::BaseDashboard
     folio: Field::String,
     client: Field::BelongsTo,
     payments: Field::HasMany,
-    invoice_id: Field::Select.with_options(collection: Proc.new { Invoice.all.map { |c| ["Invoice: #{c&.system_folio}", c&.id] }}),
+    invoice_id: Field::Select,
     id: Field::Number,
     status: Field::String,
     total_amount: Field::Number.with_options(searchable: false, prefix: "$", decimals: 2,),
