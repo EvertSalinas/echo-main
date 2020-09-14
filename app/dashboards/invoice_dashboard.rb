@@ -90,6 +90,6 @@ class InvoiceDashboard < Administrate::BaseDashboard
   # across all pages of the admin dashboard.
   #
   def display_resource(invoice)
-    "Invoice #{invoice.system_folio}"
+    "Factura #{invoice.system_folio}"
   end
 end

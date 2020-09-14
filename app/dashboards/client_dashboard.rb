@@ -60,6 +60,6 @@ class ClientDashboard < Administrate::BaseDashboard
   # across all pages of the admin dashboard.
   #
   def display_resource(client)
-    "#{client.name}"
+    "Cliente #{client.name}"
   end
 end

@@ -1,0 +1,27 @@
+es:
+  activerecord:
+    models:
+      payment_log:
+        one: 'Registro de Pago'
+        other: 'Registro de Pago'
+    attributes:
+      payment_log:
+        folio: "Folio"
+        status: "Estatus"
+        total_amount_cents: "Cantidad Total"
+        client: "Cliente"
+        invoice_id: "Factura"
+        remaining_balance: Balance restante
+        created_at: "Creado en"
+        updated_at: "Actualizado en"
+  helpers:
+    label:
+      payment_log:
+        folio: "Folio"
+        status: "Estatus"
+        total_amount: "Cantidad Total"
+        client: "Cliente"
+        invoice_id: "Factura"
+        remaining_balance: Balance restante
+        created_at: "Creado en"
+        updated_at: "Actualizado en"

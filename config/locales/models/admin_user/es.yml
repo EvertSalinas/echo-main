@@ -1,0 +1,21 @@
+es:
+  activerecord:
+    models:
+      admin_user:
+        one: 'Administrador'
+        other: 'Administradores'
+    attributes:
+      admin_user:
+        role: "Rol"
+        password: "Contraseña"
+        password_confirmation: "Confirmar Contraseña"
+        created_at: "Creado en"
+        updated_at: "Actualizado en"
+  helpers:
+    label:
+      admin_user:
+        role: "Rol"
+        password: "Contraseña"
+        password_confirmation: "Confirmar Contraseña"
+        created_at: "Creado en"
+        updated_at: "Actualizado en"

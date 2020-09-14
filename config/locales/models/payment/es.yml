@@ -1,0 +1,25 @@
+es:
+  activerecord:
+    models:
+      payment:
+        one: 'Pago'
+        other: 'Pagos'
+    attributes:
+      payment:
+        name: "Nombre"
+        amount_cents: "Amount"
+        invoice_id: "Factura"
+        payment_log: "Registro de pago"
+        payment_log_id: "Registro de pago"
+        created_at: "Creado en"
+        updated_at: "Actualizado en"
+  helpers:
+    label:
+      payment:
+        name: "Nombre"
+        amount: "Cantidad"
+        invoice_id: "Factura"
+        payment_log: "Registro de pago"
+        payment_log_id: "Registro de pago"
+        created_at: "Creado en"
+        updated_at: "Actualizado en"

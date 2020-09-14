@@ -61,7 +61,7 @@ class PaymentDashboard < Administrate::BaseDashboard
   # Overwrite this method to customize how payments are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(payment)
-  #   "Payment ##{payment.id}"
-  # end
+  def display_resource(payment)
+    "Pago #{payment.id}"
+  end
 end
