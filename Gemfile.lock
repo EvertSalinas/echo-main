@@ -74,6 +74,10 @@ GEM
       rake (>= 10.4, < 14.0)
     arbre (1.2.1)
       activesupport (>= 3.0.0)
+    arctic_admin (3.2.2)
+      activeadmin (>= 1.1.0, < 3.0)
+      font-awesome-sass (~> 5.0)
+      jquery-rails
     bcrypt (3.1.13)
     better_errors (2.7.1)
       coderay (>= 1.0.0)
@@ -109,6 +113,8 @@ GEM
     faker (2.13.0)
       i18n (>= 1.6, < 2)
     ffi (1.13.1)
+    font-awesome-sass (5.13.0)
+      sassc (>= 1.11)
     formtastic (3.1.5)
       actionpack (>= 3.2.13)
     formtastic_i18n (0.6.0)
@@ -292,6 +298,7 @@ PLATFORMS
 DEPENDENCIES
   activeadmin
   annotate
+  arctic_admin
   better_errors
   binding_of_caller
   bootsnap (>= 1.4.2)
