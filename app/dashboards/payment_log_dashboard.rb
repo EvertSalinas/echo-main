@@ -8,11 +8,15 @@ class PaymentLogDashboard < Administrate::BaseDashboard
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
+    folio: Field::String,
     client: Field::BelongsTo,
     payments: Field::HasMany,
-    invoice_id: Field::Select.with_options(collection: Proc.new { Invoice.all.map { |c| ["Invoice: #{c&.folio_remision_fisica}", c&.id] }}),
+    invoice_id: Field::Select,
+    seller_id: Field::Select.with_options(collection: Proc.new { Seller.all.map { |c| ["#{c.name}", c&.id] }}),
     id: Field::Number,
+    status: Field::String,
     total_amount: Field::Number.with_options(searchable: false, prefix: "$", decimals: 2,),
+    remaining_balance: Field::Number.with_options(searchable: false, prefix: "$", decimals: 2,),
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
   }.freeze
@@ -23,19 +27,21 @@ class PaymentLogDashboard < Administrate::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
+  folio
+  remaining_balance
+  status
   client
-  id
-  total_amount
   created_at
-  payments
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
+  folio
   client
-  id
   total_amount
+  status
+  remaining_balance
   created_at
   updated_at
   payments
@@ -45,8 +51,10 @@ class PaymentLogDashboard < Administrate::BaseDashboard
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
   FORM_ATTRIBUTES = %i[
+  folio
   client
   invoice_id
+  seller_id
   total_amount
   ].freeze
 
@@ -65,7 +73,7 @@ class PaymentLogDashboard < Administrate::BaseDashboard
   # Overwrite this method to customize how payment logs are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(payment_log)
-  #   "PaymentLog ##{payment_log.id}"
-  # end
+  def display_resource(payment_log)
+    "Registro de Pago #{payment_log.folio}"
+  end
 end

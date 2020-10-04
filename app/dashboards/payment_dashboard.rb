@@ -8,8 +8,9 @@ class PaymentDashboard < Administrate::BaseDashboard
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
-    payment_log: Field::BelongsTo,
-    invoice: Field::BelongsTo.with_options(searchable: true, searchable_fields: ['folio_remision_factura', 'folio_remision_fisica'],),
+    payment_log: Field::BelongsTo.with_options(scope: -> { PaymentLog.abierto }),
+    invoice: Field::BelongsTo.with_options(searchable: true, searchable_fields: ['system_folio', 'physical_folio'], scope: -> { Invoice.pendiente }),
+    seller: Field::BelongsTo.with_options(searchable: true, searchable_fields: ['nombre']),
     id: Field::Number,
     amount: Field::Number.with_options(prefix: "$", decimals: 2,),
     created_at: Field::DateTime,
@@ -22,8 +23,8 @@ class PaymentDashboard < Administrate::BaseDashboard
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
   COLLECTION_ATTRIBUTES = %i[
+  payment_log
   invoice
-  id
   amount
   ].freeze
 
@@ -32,8 +33,8 @@ class PaymentDashboard < Administrate::BaseDashboard
   SHOW_PAGE_ATTRIBUTES = %i[
   payment_log
   invoice
-  id
   amount
+  seller
   created_at
   updated_at
   ].freeze
@@ -62,7 +63,7 @@ class PaymentDashboard < Administrate::BaseDashboard
   # Overwrite this method to customize how payments are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(payment)
-  #   "Payment ##{payment.id}"
-  # end
+  def display_resource(payment)
+    "Pago #{payment.id}"
+  end
 end

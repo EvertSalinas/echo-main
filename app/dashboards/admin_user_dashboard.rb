@@ -73,7 +73,7 @@ class AdminUserDashboard < Administrate::BaseDashboard
   # Overwrite this method to customize how admin users are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(admin_user)
-  #   "AdminUser ##{admin_user.id}"
-  # end
+  def display_resource(admin_user)
+    "Administrador ##{admin_user.id}"
+  end
 end

@@ -15,7 +15,7 @@ class Client < ApplicationRecord
   validates :name, uniqueness: true
 
   def pending_invoices
-    invoices.select { |i| !i&.paid_out? }
+    invoices.pendiente
   end
 
   def remaining_debt

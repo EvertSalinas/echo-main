@@ -9,7 +9,7 @@ class PaymentPolicy < ApplicationPolicy
   end
 
   def new?
-    false
+    index?
   end
 
   def create?

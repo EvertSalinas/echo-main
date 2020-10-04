@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_02_212424) do
+ActiveRecord::Schema.define(version: 2020_09_27_225543) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,39 +40,45 @@ ActiveRecord::Schema.define(version: 2020_08_02_212424) do
   end
 
   create_table "invoices", force: :cascade do |t|
-    t.string "condicion", null: false
-    t.string "folio_remision_fisica", null: false
-    t.string "folio_remision_factura", null: false
-    t.datetime "fecha_factura", null: false
-    t.decimal "cantidad_total", null: false
-    t.datetime "fecha_remision", null: false
-    t.string "lugar", null: false
-    t.integer "estatus", default: 0, null: false
+    t.string "condition", null: false
+    t.string "physical_folio", null: false
+    t.string "system_folio", null: false
+    t.datetime "physical_date", null: false
+    t.datetime "system_date", null: false
+    t.integer "total_amount_cents", null: false
+    t.string "place", null: false
+    t.integer "status", default: 0, null: false
     t.bigint "client_id"
     t.bigint "seller_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["client_id"], name: "index_invoices_on_client_id"
-    t.index ["estatus"], name: "index_invoices_on_estatus"
     t.index ["seller_id"], name: "index_invoices_on_seller_id"
+    t.index ["status"], name: "index_invoices_on_status"
+    t.index ["system_folio"], name: "index_invoices_on_system_folio"
   end
 
   create_table "payment_logs", force: :cascade do |t|
-    t.decimal "total_amount", null: false
+    t.integer "total_amount_cents", null: false
+    t.string "folio", null: false
+    t.integer "status", default: 0, null: false
     t.bigint "client_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["client_id"], name: "index_payment_logs_on_client_id"
+    t.index ["status"], name: "index_payment_logs_on_status"
   end
 
   create_table "payments", force: :cascade do |t|
-    t.decimal "amount", null: false
+    t.integer "amount_cents", null: false
     t.bigint "payment_log_id"
     t.bigint "invoice_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "seller_id"
     t.index ["invoice_id"], name: "index_payments_on_invoice_id"
     t.index ["payment_log_id"], name: "index_payments_on_payment_log_id"
+    t.index ["seller_id"], name: "index_payments_on_seller_id"
   end
 
   create_table "sellers", force: :cascade do |t|
