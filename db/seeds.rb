@@ -57,7 +57,7 @@ Invoice.create!(
   system_folio: 'E524312',
   physical_folio: '3-O',
   place: 'GUADALUPE, NUEVO LEON',
-  status: 'pagada',
+  status: 'pendiente',
   client: Client.first,
   seller: Seller.first
 )

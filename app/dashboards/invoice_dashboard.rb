@@ -23,7 +23,8 @@ class InvoiceDashboard < Administrate::BaseDashboard
     seller: Field::BelongsTo.with_options(searchable: true, searchable_fields: ['name'],),
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
-    payments: Field::HasMany
+    payments: Field::HasMany,
+    days_passed: Field::String.with_options(searchable: false)
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -36,6 +37,8 @@ class InvoiceDashboard < Administrate::BaseDashboard
   physical_folio
   remaining_debt
   status
+  days_passed
+  client
   condition
   ].freeze
 
@@ -52,6 +55,7 @@ class InvoiceDashboard < Administrate::BaseDashboard
   system_date
   physical_date
   place
+  days_passed
   client
   seller
   created_at
@@ -81,9 +85,10 @@ class InvoiceDashboard < Administrate::BaseDashboard
   # For example to add an option to search for open resources by typing "open:"
   # in the search field:
   #
-  #   COLLECTION_FILTERS = {
-  #     open: ->(resources) { resources.where(open: true) }
-  #   }.freeze
+    COLLECTION_FILTERS = {
+      pendientes: ->(resources) { resources.where(status: 'pendiente') },
+      pagadas: ->(resources) { resources.where(status: 'pagada') }
+    }.freeze
   COLLECTION_FILTERS = {}.freeze
 
   # Overwrite this method to customize how invoices are displayed

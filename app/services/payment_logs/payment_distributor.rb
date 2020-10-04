@@ -1,12 +1,12 @@
 class PaymentLogs::PaymentDistributor
 
-  attr_reader   :payment_log, :main_invoice, :client
-  # attr_accessor :error, :success, :token
+  attr_reader   :payment_log, :main_invoice, :client, :seller
 
-  def initialize(payment_log:, invoice_id:)
+  def initialize(payment_log:, invoice_id:, seller_id: )
     @payment_log  = payment_log
     @client       = payment_log.client
     @main_invoice = Invoice.find(invoice_id)
+    @seller       = Seller.find(seller_id)
   end
 
   def call
@@ -20,8 +20,9 @@ class PaymentLogs::PaymentDistributor
     return if payment_log.depleted? || invoice.paid_out?
 
     payment_log.payments.create(
-      amount:      calculate_amount(invoice),
-      invoice:     invoice
+      amount:  calculate_amount(invoice),
+      invoice: invoice,
+      seller:  seller
     )
   end
 

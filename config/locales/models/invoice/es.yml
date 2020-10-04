@@ -19,6 +19,7 @@ es:
         updated_at: "Actualizado en"
         client: "Cliente"
         seller: "Vendedor"
+        days_passed: "Días"
   helpers:
     label:
       invoice:
@@ -35,3 +36,4 @@ es:
         updated_at: "Actualizado en"
         client: "Cliente"
         seller: "Vendedor"
+        days_passed: "Días"

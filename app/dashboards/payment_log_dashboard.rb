@@ -12,6 +12,7 @@ class PaymentLogDashboard < Administrate::BaseDashboard
     client: Field::BelongsTo,
     payments: Field::HasMany,
     invoice_id: Field::Select,
+    seller_id: Field::Select.with_options(collection: Proc.new { Seller.all.map { |c| ["#{c.name}", c&.id] }}),
     id: Field::Number,
     status: Field::String,
     total_amount: Field::Number.with_options(searchable: false, prefix: "$", decimals: 2,),
@@ -53,6 +54,7 @@ class PaymentLogDashboard < Administrate::BaseDashboard
   folio
   client
   invoice_id
+  seller_id
   total_amount
   ].freeze
 

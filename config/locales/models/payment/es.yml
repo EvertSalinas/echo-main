@@ -11,6 +11,7 @@ es:
         invoice_id: "Factura"
         payment_log: "Registro de pago"
         payment_log_id: "Registro de pago"
+        seller: "Vendedor"
         created_at: "Creado en"
         updated_at: "Actualizado en"
   helpers:
@@ -21,5 +22,6 @@ es:
         invoice_id: "Factura"
         payment_log: "Registro de pago"
         payment_log_id: "Registro de pago"
+        seller: "Vendedor"
         created_at: "Creado en"
         updated_at: "Actualizado en"

@@ -17,7 +17,7 @@
 #
 class PaymentLog < ApplicationRecord
 
-  attr_accessor :invoice_id
+  attr_accessor :invoice_id, :seller_id
 
   enum status: { abierto: 0, agotado: 1 }
 
@@ -34,7 +34,8 @@ class PaymentLog < ApplicationRecord
   def distribute_payments
     PaymentLogs::PaymentDistributor.new(
       payment_log: self,
-      invoice_id:  invoice_id
+      invoice_id:  invoice_id,
+      seller_id: seller_id
     ).call
   end
 

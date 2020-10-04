@@ -8,16 +8,19 @@
 #  updated_at     :datetime         not null
 #  invoice_id     :bigint
 #  payment_log_id :bigint
+#  seller_id      :bigint
 #
 # Indexes
 #
 #  index_payments_on_invoice_id      (invoice_id)
 #  index_payments_on_payment_log_id  (payment_log_id)
+#  index_payments_on_seller_id       (seller_id)
 #
 class Payment < ApplicationRecord
 
   belongs_to :payment_log, touch: true
   belongs_to :invoice,     touch: true
+  belongs_to :seller
 
   monetize :amount_cents
 

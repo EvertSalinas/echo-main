@@ -10,6 +10,7 @@ es:
         status: "Estatus"
         total_amount_cents: "Cantidad Total"
         client: "Cliente"
+        seller_id: "Vendedor"
         invoice_id: "Factura"
         remaining_balance: Balance restante
         created_at: "Creado en"
@@ -21,6 +22,7 @@ es:
         status: "Estatus"
         total_amount: "Cantidad Total"
         client: "Cliente"
+        seller_id: "Vendedor"
         invoice_id: "Factura"
         remaining_balance: Balance restante
         created_at: "Creado en"

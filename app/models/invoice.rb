@@ -52,6 +52,12 @@ class Invoice < ApplicationRecord
     remaining_debt.zero?
   end
 
+  def days_passed
+    return 0 if pagada?
+
+    (Date.current - physical_date.to_date).to_i
+  end
+
   private
 
   def pay

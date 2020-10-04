@@ -10,6 +10,7 @@ class PaymentDashboard < Administrate::BaseDashboard
   ATTRIBUTE_TYPES = {
     payment_log: Field::BelongsTo.with_options(scope: -> { PaymentLog.abierto }),
     invoice: Field::BelongsTo.with_options(searchable: true, searchable_fields: ['system_folio', 'physical_folio'], scope: -> { Invoice.pendiente }),
+    seller: Field::BelongsTo.with_options(searchable: true, searchable_fields: ['nombre']),
     id: Field::Number,
     amount: Field::Number.with_options(prefix: "$", decimals: 2,),
     created_at: Field::DateTime,
@@ -33,6 +34,7 @@ class PaymentDashboard < Administrate::BaseDashboard
   payment_log
   invoice
   amount
+  seller
   created_at
   updated_at
   ].freeze
