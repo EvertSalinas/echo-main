@@ -32,7 +32,7 @@ gem 'bootsnap', '>= 1.4.2', require: false
 gem 'devise'
 
 # Admin framework
-gem "administrate"
+gem 'activeadmin'
 
 # Authorization
 gem "pundit"
