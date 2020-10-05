@@ -6,14 +6,14 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-# AdminUser::ROLES.each do |role|
-#   AdminUser.create!(
-#     email: "admin+#{role}@example.com",
-#     role: role,
-#     password: 'cruzazul2020',
-#     password_confirmation: 'cruzazul2020'
-#   )
-# end
+AdminUser::ROLES.each do |role|
+  AdminUser.create!(
+    email: "admin+#{role}@example.com",
+    role: role,
+    password: 'cruzazul2020',
+    password_confirmation: 'cruzazul2020'
+  )
+end
 
 cliente = Client.create(
   name: Faker::Name.name
@@ -65,4 +65,3 @@ Invoice.create!(
 # Payment.create!(
 #   cantidad_total:
 # )
-AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
