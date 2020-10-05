@@ -7,12 +7,6 @@ es:
     attributes:
       seller:
         name: "Nombre"
-        created_at: "Creado en"
-        updated_at: "Actualizado en"
-  helpers:
-    label:
-      seller:
-        name: "Nombre"
         sold_amount: "Ventas Totales"
         created_at: "Creado en"
         updated_at: "Actualizado en"

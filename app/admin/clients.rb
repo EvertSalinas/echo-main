@@ -6,6 +6,7 @@ ActiveAdmin.register Client do
     selectable_column
     id_column
     column :name
+    column(:remaining_debt) { |c| c.remaining_debt.format }
     column :created_at
     actions
   end
@@ -23,13 +24,19 @@ ActiveAdmin.register Client do
   show do
     attributes_table do
       row :id
-      row :remaining_debt
+      row(:remaining_debt) { |c| c.remaining_debt.format }
       row :created_at
       row :updated_at
     end
+  end
 
-    # TODO invoices relationship scoped
-
+  sidebar "Relaciones", only: [:show, :edit] do
+    ul do
+      li link_to("Facturas",admin_invoices_path(
+          q: { client_id_eq: resource.id, commit: "Filter"}
+        )
+      )
+    end
   end
 
 end

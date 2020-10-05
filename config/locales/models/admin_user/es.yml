@@ -9,13 +9,7 @@ es:
         role: "Rol"
         password: "Contraseña"
         password_confirmation: "Confirmar Contraseña"
-        created_at: "Creado en"
-        updated_at: "Actualizado en"
-  helpers:
-    label:
-      admin_user:
-        role: "Rol"
-        password: "Contraseña"
-        password_confirmation: "Confirmar Contraseña"
+        last_sign_in_at: "Ultimo acceso"
+        sign_in_count: "Cantidad de accesos"
         created_at: "Creado en"
         updated_at: "Actualizado en"

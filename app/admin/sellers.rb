@@ -28,9 +28,21 @@ ActiveAdmin.register Seller do
       row :updated_at
     end
 
-    # TODO invoices relationship scoped
-    # TODO payments relationship scoped
+  end
 
+  sidebar "Relaciones", only: [:show, :edit] do
+    ul do
+      li link_to("Facturas",admin_invoices_path(
+          q: { seller_id_eq: resource.id, commit: "Filter"}
+        )
+      )
+    end
+    ul do
+      li link_to("Pagos",admin_payments_path(
+          q: { seller_id_eq: resource.id, commit: "Filter"}
+        )
+      )
+    end
   end
 
 end

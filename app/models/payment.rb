@@ -31,7 +31,7 @@ class Payment < ApplicationRecord
 
   def payment_log_remaining_balance
     if amount > payment_log.remaining_balance
-      errors[:base] << "There's no enough balance"
+      errors[:base] << I18n.t("errors.payment.remaining_balance")
     end
   end
 
