@@ -28,6 +28,8 @@ ActiveAdmin.register Invoice do
 
 
   form do |f|
+    f.semantic_errors *f.object.errors.keys
+    
     f.inputs do
       f.input :condition, required: true, as: :select, collection: Invoice::CONDITIONS
       f.input :physical_folio, required: true
