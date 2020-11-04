@@ -11,7 +11,7 @@ ActiveAdmin.register Invoice do
   index do
     selectable_column
     column(:system_folio)   { |c| link_to c.system_folio, admin_invoice_path(c.id) }
-    column(:physical_folio) { |c| link_to c.physical, admin_invoice_path(c.id) }
+    column(:physical_folio) { |c| link_to c.physical_folio, admin_invoice_path(c.id) }
     column(:total_amount)   { |c| c.total_amount.format }
     column(:remaining_debt) { |c| c.remaining_debt.format }
     column(:credit)         { |c| c.credit.format }
