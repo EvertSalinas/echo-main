@@ -4,9 +4,8 @@ ActiveAdmin.register PaymentLog do
 
   index do
     selectable_column
-    id_column
+    column(:voucher) { |c| link_to c.voucher, admin_payment_log_path(c.id) }
     column :folio
-    column :voucher
     column(:remaining_balance)  { |c| c.remaining_balance.format }
     column :status
     column :client

@@ -10,9 +10,8 @@ ActiveAdmin.register Invoice do
 
   index do
     selectable_column
-    id_column
-    column :system_folio
-    column :physical_folio
+    column(:system_folio)   { |c| link_to c.system_folio, admin_invoice_path(c.id) }
+    column(:physical_folio) { |c| link_to c.physical, admin_invoice_path(c.id) }
     column(:total_amount)   { |c| c.total_amount.format }
     column(:remaining_debt) { |c| c.remaining_debt.format }
     column(:credit)         { |c| c.credit.format }
@@ -20,8 +19,6 @@ ActiveAdmin.register Invoice do
     column :days_passed
     column :client
     column :condition
-    column(:physical_date) { |c| c.physical_date.strftime("%d/%m/%Y")}
-    column(:system_date) { |c| c.system_date.strftime("%d/%m/%Y")}
     actions
   end
 

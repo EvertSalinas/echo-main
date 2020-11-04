@@ -4,8 +4,7 @@ ActiveAdmin.register Seller do
 
   index do
     selectable_column
-    id_column
-    column :name
+    column(:name) { |c| link_to c.name, admin_client_path(c.id) }
     column :created_at
     actions
   end
@@ -15,7 +14,7 @@ ActiveAdmin.register Seller do
 
   form do |f|
     f.semantic_errors *f.object.errors.keys
-    
+
     f.inputs do
       f.input :name
     end

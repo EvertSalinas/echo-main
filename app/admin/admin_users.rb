@@ -4,8 +4,7 @@ ActiveAdmin.register AdminUser do
 
   index do
     selectable_column
-    id_column
-    column :email
+    column(:email) { |c| link_to c.email, admin_admin_user_path(c.id) }
     column :last_sign_in_at
     column :sign_in_count
     column :role
@@ -20,7 +19,7 @@ ActiveAdmin.register AdminUser do
 
   form do |f|
     f.semantic_errors *f.object.errors.keys
-    
+
     f.inputs do
       f.input :email, required: true
       f.input :password, required: true

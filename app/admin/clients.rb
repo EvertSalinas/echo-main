@@ -4,8 +4,7 @@ ActiveAdmin.register Client do
 
   index do
     selectable_column
-    id_column
-    column :name
+    column(:name) { |c| link_to c.name, admin_client_path(c.id) }
     column(:remaining_debt) { |c| c.remaining_debt.format }
     column :created_at
     actions
@@ -16,7 +15,7 @@ ActiveAdmin.register Client do
 
   form do |f|
     f.semantic_errors *f.object.errors.keys
-    
+
     f.inputs do
       f.input :name
     end
