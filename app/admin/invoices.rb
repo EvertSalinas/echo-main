@@ -40,7 +40,7 @@ ActiveAdmin.register Invoice do
       f.input :physical_date, required: true, as: :datepicker
       f.input :total_amount, required: true
       f.input :place, required: true
-      f.input :client, as: "search", placeholder: "Enter name...", "data-behavior": "autocomplete"
+      f.input :client, required: true
 
       f.input :seller, required: true, as: :select, collection: Seller.all.map{ |s| [s.name, s.id]}
     end
