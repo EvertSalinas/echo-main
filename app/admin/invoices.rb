@@ -3,6 +3,7 @@ ActiveAdmin.register Invoice do
   permit_params :condition, :physical_folio, :system_folio, :system_date,
                 :total_amount, :physical_date, :place, :client_id, :seller_id
 
+  scope :all
   scope :pendiente
   scope :pagada
   scope :cancelada
@@ -19,7 +20,8 @@ ActiveAdmin.register Invoice do
     column :days_passed
     column :client
     column :condition
-    column :created_at
+    column(:physical_date) { |c| c.physical_date.strftime("%d/%m/%Y")}
+    column(:system_date) { |c| c.system_date.strftime("%d/%m/%Y")}
     actions
   end
 
@@ -75,6 +77,26 @@ ActiveAdmin.register Invoice do
         )
       )
     end
+  end
+
+  csv do
+    column :id
+    column :condition
+    column :physical_folio
+    column :system_folio
+    column(:paid_out?) { |c| c.paid_out? ? "SI" : "NO" }
+    column :physical_date
+    column :system_date
+    column(:total_amount)   { |c| c.total_amount.format }
+    column(:remaining_debt) { |c| c.remaining_debt.format }
+    column(:credit)         { |c| c.credit.format }
+    column :place
+    column :status
+    column(:client) { |c| c.client.name }
+    column(:seller) { |c| c.seller.name }
+    column :days_passed
+    column :created_at
+    column :updated_at
   end
 
 end
