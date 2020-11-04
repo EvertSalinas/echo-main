@@ -11,6 +11,7 @@ es:
         system_folio: Folio del Sistema
         physical_date: Fecha Física
         system_date: Fecha del Sistema
+        total_amount_cents: Cantidad Total en Centavos
         total_amount: Cantidad Total
         place: Lugar
         status: Estatus
