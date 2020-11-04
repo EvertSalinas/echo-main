@@ -1,19 +1,9 @@
 Rails.application.routes.draw do
-  namespace :admin do
-      resources :admin_users
-      resources :clients
-      resources :invoices
-      resources :sellers
-      resources :payment_logs
-      resources :payments
+  devise_for :admin_users, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
 
-      root to: "invoices#index"
-    end
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-  devise_for :admin_users
+  root to: "admin/dashboard#index"
 
-  root to: "admin/admin_users#index"
-  
   get  '/invoices',  to: 'invoices#index'
 
   # devise_scope :admin_users do

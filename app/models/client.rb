@@ -19,7 +19,7 @@ class Client < ApplicationRecord
   end
 
   def remaining_debt
-    pending_invoices.sum(&:remaining_debt)
+    Money.new(pending_invoices.sum(&:remaining_debt))
   end
 
 end

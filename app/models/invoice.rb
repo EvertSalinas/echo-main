@@ -48,6 +48,10 @@ class Invoice < ApplicationRecord
     total_amount - Money.new(payments.sum(:amount_cents))
   end
 
+  def credit
+    total_amount - remaining_debt
+  end
+
   def paid_out?
     remaining_debt.zero?
   end
@@ -56,6 +60,27 @@ class Invoice < ApplicationRecord
     return 0 if pagada?
 
     (Date.current - physical_date.to_date).to_i
+  end
+
+  #filters
+  def self.ransackable_scopes(_auth_object = nil)
+    %i(
+      days_passed_filter_equals
+      days_passed_filter_greater_than
+      days_passed_filter_less_than
+    )
+  end
+
+  def self.days_passed_filter_equals(value)
+    where("DATE_PART('day', NOW() - physical_date) = #{value}")
+  end
+
+  def self.days_passed_filter_greater_than(value)
+    where("DATE_PART('day', NOW() - physical_date) > #{value}")
+  end
+
+  def self.days_passed_filter_less_than(value)
+    where("DATE_PART('day', NOW() - physical_date) < #{value}")
   end
 
   private

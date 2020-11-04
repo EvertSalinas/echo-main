@@ -2,18 +2,18 @@ es:
   activerecord:
     models:
       client:
-        one: 'Client'
-        other: 'Clientes'
+        one: Client
+        other: Clientes
     attributes:
       client:
-        name: "Nombre"
+        name: Nombre
         remaining_debt: Deuda Restante
-        created_at: "Creado en"
-        updated_at: "Actualizado en"
+        created_at: Creado en
+        updated_at: Actualizado en
   helpers:
     label:
       client:
-        name: "Nombre"
+        name: Nombre
         remaining_debt: Deuda Restante
-        created_at: "Creado en"
-        updated_at: "Actualizado en"
+        created_at: Creado en
+        updated_at: Actualizado en

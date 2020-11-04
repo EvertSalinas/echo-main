@@ -8,7 +8,7 @@ MoneyRails.configure do |config|
   #
   # Example:
   # config.default_bank = EuCentralBank.new
-
+  Money.use_i18n = false
   # Add exchange rates to current money bank object.
   # (The conversion rate refers to one direction only)
   #
@@ -75,9 +75,11 @@ MoneyRails.configure do |config|
   # Default value is nil meaning "ignore this option".
   # Example:
   #
-  # config.default_format = {
-  #   no_cents_if_whole: nil,
-  #   symbol: nil,
-  #   sign_before_symbol: nil
-  # }
+  config.default_format = {
+    no_cents_if_whole: nil,
+    symbol: '$',
+    sign_before_symbol: nil,
+    decimal_mark: ".",
+    thousands_separator: ","
+  }
 end

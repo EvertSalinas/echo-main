@@ -6,6 +6,7 @@
 #  folio              :string           not null
 #  status             :integer          default("abierto"), not null
 #  total_amount_cents :integer          not null
+#  voucher            :string
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #  client_id          :bigint
@@ -26,7 +27,10 @@ class PaymentLog < ApplicationRecord
 
   monetize :total_amount_cents
 
-  validates :folio, presence: true, uniqueness: true
+  validates :folio,      presence: true
+  validates :voucher,    presence: true, uniqueness: true
+  validates :invoice_id, presence: true, on: :create
+  validates :seller_id,  presence: true, on: :create
 
   after_create_commit :distribute_payments
   after_commit :deplete, unless: :agotado?
