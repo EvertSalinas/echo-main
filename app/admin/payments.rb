@@ -5,10 +5,10 @@ ActiveAdmin.register Payment do
   index do
     selectable_column
     id_column
-    column(:payment_log) { |i| link_to i.payment_log.folio, admin_payment_log_path(i.payment_log.id) }
-    column(:invoice) { |i| link_to i.invoice.system_folio, admin_invoice_path(i.invoice.id) }
-    column(:amount)  { |c| c.amount.format }
-    column :created_at
+    column(:payment_log) { |p| link_to p.payment_log.folio, admin_payment_log_path(p.payment_log.id) }
+    column(:invoice) { |p| link_to p.invoice.system_folio, admin_invoice_path(p.invoice.id) }
+    column(:amount)  { |p| p.amount.format }
+    column(:created_at) { |p| p.created_at.to_date }
     actions
   end
 

@@ -4,11 +4,11 @@
 #
 #  id                 :bigint           not null, primary key
 #  condition          :string           not null
-#  physical_date      :datetime         not null
+#  physical_date      :date             not null
 #  physical_folio     :string           not null
 #  place              :string           not null
 #  status             :integer          default("pendiente"), not null
-#  system_date        :datetime         not null
+#  system_date        :date             not null
 #  system_folio       :string           not null
 #  total_amount_cents :integer          not null
 #  created_at         :datetime         not null

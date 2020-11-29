@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_03_233600) do
+ActiveRecord::Schema.define(version: 2020_11_21_010822) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,8 +57,8 @@ ActiveRecord::Schema.define(version: 2020_11_03_233600) do
     t.string "condition", null: false
     t.string "physical_folio", null: false
     t.string "system_folio", null: false
-    t.datetime "physical_date", null: false
-    t.datetime "system_date", null: false
+    t.date "physical_date", null: false
+    t.date "system_date", null: false
     t.integer "total_amount_cents", null: false
     t.string "place", null: false
     t.integer "status", default: 0, null: false
