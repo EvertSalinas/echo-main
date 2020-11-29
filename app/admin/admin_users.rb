@@ -4,7 +4,7 @@ ActiveAdmin.register AdminUser do
 
   index do
     selectable_column
-    column(:email) { |c| link_to c.email, admin_admin_user_path(c.id) }
+    column(:email) { |au| link_to au.email, admin_admin_user_path(au.id) }
     column :last_sign_in_at
     column :sign_in_count
     column :role

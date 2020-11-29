@@ -4,9 +4,9 @@ ActiveAdmin.register PaymentLog do
 
   index do
     selectable_column
-    column(:voucher) { |c| link_to c.voucher, admin_payment_log_path(c.id) }
+    column(:voucher) { |pl| link_to pl.voucher, admin_payment_log_path(pl.id) }
     column :folio
-    column(:remaining_balance)  { |c| c.remaining_balance.format }
+    column(:remaining_balance)  { |pl| pl.remaining_balance.format }
     column :status
     column :client
     column :created_at
@@ -36,9 +36,9 @@ ActiveAdmin.register PaymentLog do
       row :folio
       row :voucher
       row :client
-      row(:total_amount)  { |c| c.total_amount.format }
+      row(:total_amount)  { |pl| pl.total_amount.format }
       row :status
-      row(:remaining_balance)  { |c| c.remaining_balance.format }
+      row(:remaining_balance)  { |pl| pl.remaining_balance.format }
       row :created_at
       row :updated_at
     end

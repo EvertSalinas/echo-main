@@ -6,9 +6,9 @@ ActiveAdmin.register Payment do
     selectable_column
     id_column
     column(:payment_log) { |p| link_to p.payment_log.folio, admin_payment_log_path(p.payment_log.id) }
-    column(:invoice) { |p| link_to p.invoice.system_folio, admin_invoice_path(p.invoice.id) }
-    column(:amount)  { |p| p.amount.format }
-    column(:created_at) { |p| p.created_at.to_date }
+    column(:invoice)     { |p| link_to p.invoice.system_folio, admin_invoice_path(p.invoice.id) }
+    column(:amount)      { |p| p.amount.format }
+    column(:created_at)  { |p| p.created_at.to_date }
     actions
   end
 
@@ -20,8 +20,8 @@ ActiveAdmin.register Payment do
     f.semantic_errors *f.object.errors.keys
 
     f.inputs do
-      f.input :payment_log, required: true, as: :select, collection: PaymentLog.abierto.map { |s| [s.folio, s.id]}
-      f.input :invoice, required: true, as: :select, collection: Invoice.all.map { |s| [s.system_folio, s.id]}
+      f.input :payment_log, required: true, as: :select, collection: PaymentLog.abierto.map { |pl| [pl.folio, pl.id]}
+      f.input :invoice, required: true, as: :select, collection: Invoice.all.map { |i| [i.system_folio, i.id]}
       f.input :amount
       f.input :seller, required: true, as: :select, collection: Seller.all.map { |s| [s.name, s.id]}
     end
@@ -30,9 +30,9 @@ ActiveAdmin.register Payment do
 
   show do
     attributes_table do
-      row(:payment_log) { |i| link_to i.payment_log.folio, admin_payment_log_path(i.payment_log.id) }
-      row(:invoice) { |i| link_to i.invoice.system_folio, admin_invoice_path(i.invoice.id) }
-      row(:amount) { |c| c.amount.format }
+      row(:payment_log) { |p| link_to p.payment_log.folio, admin_payment_log_path(p.payment_log.id) }
+      row(:invoice)     { |p| link_to p.invoice.system_folio, admin_invoice_path(p.invoice.id) }
+      row(:amount)      { |p| p.amount.format }
       row :seller
       row :created_at
       row :updated_at

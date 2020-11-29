@@ -4,7 +4,7 @@ ActiveAdmin.register Seller do
 
   index do
     selectable_column
-    column(:name) { |c| link_to c.name, admin_seller_path(c.id) }
+    column(:name) { |s| link_to s.name, admin_seller_path(s.id) }
     column :created_at
     actions
   end
