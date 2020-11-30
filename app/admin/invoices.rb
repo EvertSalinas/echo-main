@@ -1,7 +1,24 @@
 ActiveAdmin.register Invoice do
   menu priority: 2
   permit_params :condition, :physical_folio, :system_folio, :system_date,
-                :total_amount, :physical_date, :place, :client_id, :seller_id
+                :total_amount, :physical_date, :place, :client_id, :seller_id,
+                :create_another
+
+  config.sort_order = 'client_id_asc'
+
+  searchable_select_options(scope: Invoice.all,
+                            text_attribute: :system_folio)
+
+  controller do
+    def scoped_collection
+      super.select(
+        "invoices.*,
+        CASE WHEN invoices.status = 1 THEN 0
+            ELSE (DATE_PART('day', NOW() - physical_date))
+        END days_passed"
+      )
+    end
+  end
 
   scope :all
   scope :pendiente
@@ -10,16 +27,16 @@ ActiveAdmin.register Invoice do
 
   index do
     selectable_column
-    column(:system_folio)   { |c| link_to c.system_folio, admin_invoice_path(c.id) }
-    column(:physical_folio) { |c| link_to c.physical_folio, admin_invoice_path(c.id) }
-    column(:total_amount)   { |c| c.total_amount.format }
-    column(:remaining_debt) { |c| c.remaining_debt.format }
-    column(:credit)         { |c| c.credit.format }
+    column(:system_folio)   { |i| link_to i.system_folio, admin_invoice_path(i.id) }
+    column(:physical_folio) { |i| link_to i.physical_folio, admin_invoice_path(i.id) }
+    column(:total_amount)   { |i| i.total_amount.format }
+    column(:remaining_debt) { |i| i.remaining_debt.format }
+    column(:credit)         { |i| i.credit.format }
     column :status
-    column :days_passed
-    column :client
+    column :days_passed, sortable: true
+    column :client, sortable: :client_id
     column :condition
-    actions
+    # actions
   end
 
   # TODO enhance filters
@@ -40,9 +57,8 @@ ActiveAdmin.register Invoice do
       f.input :physical_date, required: true, as: :datepicker
       f.input :total_amount, required: true
       f.input :place, required: true
-      f.input :client, required: true
-
-      f.input :seller, required: true, as: :select, collection: Seller.all.map{ |s| [s.name, s.id]}
+      f.input :client, as: :searchable_select, ajax: { resource: Client }, required: true
+      f.input :seller, as: :searchable_select, ajax: { resource: Seller }, required: true
     end
     f.actions
   end
@@ -53,9 +69,9 @@ ActiveAdmin.register Invoice do
       row :system_date
       row :condition
       row :paid_out?
-      row(:total_amount)   { |c| c.total_amount.format }
-      row(:remaining_debt) { |c| c.remaining_debt.format }
-      row(:credit)         { |c| c.credit.format }
+      row(:total_amount)   { |i| i.total_amount.format }
+      row(:remaining_debt) { |i| i.remaining_debt.format }
+      row(:credit)         { |i| i.credit.format }
       row :system_date
       row :physical_date
       row :place
@@ -81,19 +97,19 @@ ActiveAdmin.register Invoice do
     column :condition
     column :physical_folio
     column :system_folio
-    column(:paid_out?) { |c| c.paid_out? ? "SI" : "NO" }
+    column(:paid_out?)      { |i| i.paid_out? ? "SI" : "NO" }
     column :physical_date
     column :system_date
-    column(:total_amount)   { |c| c.total_amount.format }
-    column(:remaining_debt) { |c| c.remaining_debt.format }
-    column(:credit)         { |c| c.credit.format }
+    column(:total_amount)   { |i| i.total_amount.format }
+    column(:remaining_debt) { |i| i.remaining_debt.format }
+    column(:credit)         { |i| i.credit.format }
     column :place
     column :status
-    column(:client) { |c| c.client.name }
-    column(:seller) { |c| c.seller.name }
+    column(:client)         { |i| i.client.name }
+    column(:seller)         { |i| i.seller.name }
     column :days_passed
-    column :created_at
-    column :updated_at
+    column(:created_at)     { |i| i.created_at.to_date }
+    column(:updated_at)     { |i| i.created_at.to_date }
   end
 
 end

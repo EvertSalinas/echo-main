@@ -2,6 +2,9 @@ ActiveAdmin.register Client do
   menu priority: 2
   permit_params :name
 
+  searchable_select_options(scope: Client.all,
+                            text_attribute: :name)
+
   index do
     selectable_column
     column(:name) { |c| link_to c.name, admin_client_path(c.id) }

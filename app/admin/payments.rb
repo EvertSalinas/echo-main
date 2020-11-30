@@ -20,10 +20,10 @@ ActiveAdmin.register Payment do
     f.semantic_errors *f.object.errors.keys
 
     f.inputs do
-      f.input :payment_log, required: true, as: :select, collection: PaymentLog.abierto.map { |pl| [pl.folio, pl.id]}
-      f.input :invoice, required: true, as: :select, collection: Invoice.all.map { |i| [i.system_folio, i.id]}
+      f.input :payment_log, as: :searchable_select, ajax: { resource: PaymentLog }, required: true
+      f.input :invoice, as: :searchable_select, ajax: { resource: Invoice }, required: true
       f.input :amount
-      f.input :seller, required: true, as: :select, collection: Seller.all.map { |s| [s.name, s.id]}
+      f.input :seller, as: :searchable_select, ajax: { resource: Seller }, required: true
     end
     f.actions
   end

@@ -2,6 +2,9 @@ ActiveAdmin.register PaymentLog do
   menu priority: 2
   permit_params :folio, :client_id, :invoice_id, :seller_id, :total_amount, :voucher
 
+  searchable_select_options(scope: PaymentLog.abierto,
+                            text_attribute: :voucher)
+
   index do
     selectable_column
     column(:voucher) { |pl| link_to pl.voucher, admin_payment_log_path(pl.id) }
@@ -23,9 +26,9 @@ ActiveAdmin.register PaymentLog do
     f.inputs do
       f.input :folio, required: true
       f.input :voucher, required: true
-      f.input :client
+      f.input :client, as: :searchable_select, ajax: { resource: Client }, required: true
       f.input :invoice_id, required: true, as: :select, collection: []
-      f.input :seller_id, required: true, as: :select, collection: Seller.all.map { |s| [s.name, s.id]}
+      f.input :seller_id, as: :searchable_select, ajax: { resource: Seller }, required: true
       f.input :total_amount, as: :number
     end
     f.actions

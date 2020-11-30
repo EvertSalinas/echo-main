@@ -12,8 +12,13 @@
 // @import "active_admin/base";
 // @import "arctic_admin/base";
 @import 'formadmin/formadmin';
+@import "active_admin/searchable_select";
+@import "active_admin_sidebar";
 
 // Overriding any non-variable SASS must be done after the fact.
 // For example, to change the default status-tag color:
 //
 //   .status_tag { background: #6090DB; }
+.td {
+  font-size: 15px;
+}
