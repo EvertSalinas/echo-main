@@ -4,7 +4,7 @@ ActiveAdmin.register Invoice do
                 :total_amount, :physical_date, :place, :client_id, :seller_id,
                 :create_another
 
-  config.sort_order = 'client_id_asc'
+  config.sort_order = ''
 
   searchable_select_options(scope: Invoice.all,
                             text_attribute: :system_folio)
@@ -16,7 +16,7 @@ ActiveAdmin.register Invoice do
         CASE WHEN invoices.status = 1 THEN 0
             ELSE (DATE_PART('day', NOW() - physical_date))
         END days_passed"
-      )
+      ).order("invoices.client_id ASC", "days_passed ASC")
     end
   end
 
