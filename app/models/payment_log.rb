@@ -10,6 +10,7 @@
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #  client_id          :bigint
+#  invoice_id         :integer
 #
 # Indexes
 #
@@ -18,7 +19,7 @@
 #
 class PaymentLog < ApplicationRecord
 
-  attr_accessor :invoice_id, :seller_id
+  attr_accessor :seller_id
 
   enum status: { abierto: 0, agotado: 1 }
 

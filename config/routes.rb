@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   root to: "admin/dashboard#index"
 
   get  '/invoices',  to: 'invoices#index'
+  get  '/payment_log',  to: 'payment_logs#show'
 
   # devise_scope :admin_users do
   #   get 'sign_in',  to: 'devise/sessions#new'
