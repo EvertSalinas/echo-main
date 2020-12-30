@@ -5,7 +5,7 @@ class PaymentLogsController < ApplicationController
       @payment_logs = PaymentLog.find_by(folio: params[:folio])
     end
 
-    if request.xhr?
+    if request.xhr? && @payment_logs
       respond_to do |format|
         format.json {
           render json: {payment_log_invoice: @payment_logs.invoice_id}
