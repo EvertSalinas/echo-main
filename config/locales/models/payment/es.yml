@@ -11,8 +11,9 @@ es:
       payment:
         name: Nombre
         amount_cents: Cantidad en Centavos
-        amount: Cantidad 
+        amount: Cantidad
         invoice_id: Factura
+        invoice: Factura
         payment_log: Registro de pago
         payment_log_id: Registro de pago
         seller: Vendedor

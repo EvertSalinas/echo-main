@@ -2,9 +2,12 @@ ActiveAdmin.register Seller do
   menu priority: 3
   permit_params :name
 
+  searchable_select_options(scope: Seller.all,
+                            text_attribute: :name)
+
   index do
     selectable_column
-    column(:name) { |c| link_to c.name, admin_client_path(c.id) }
+    column(:name) { |s| link_to s.name, admin_seller_path(s.id) }
     column :created_at
     actions
   end
