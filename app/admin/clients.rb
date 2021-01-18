@@ -29,9 +29,11 @@ ActiveAdmin.register Client do
     attributes_table do
       row :id
       row(:remaining_debt) { |c| c.remaining_debt.format }
+      row :sellers
       row :created_at
       row :updated_at
     end
+
   end
 
   sidebar "Relaciones", only: [:show, :edit] do

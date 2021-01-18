@@ -37,10 +37,14 @@ ActiveAdmin.register Payment do
       row :created_at
       row :updated_at
     end
+  end
 
-    # TODO invoices relationship scoped
-    # TODO payments relationship scoped
-
+  csv do
+    column(:client)                         { |i| i.invoice.client.name }
+    column(:payment_log)                    { |i| i.payment_log.folio }
+    column("Folio fisico de Factura")       { |i| i.invoice.physical_folio }
+    column("Folio del systema de Factura")  { |i| i.invoice.system_folio }
+    column :amount
   end
 
 end

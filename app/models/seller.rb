@@ -17,4 +17,8 @@ class Seller < ApplicationRecord
     Money.new(invoices.sum(:total_amount_cents))
   end
 
+  def clients
+    invoices.joins(:client).pluck(:name).uniq
+  end
+
 end

@@ -8,12 +8,6 @@ es:
       client:
         name: Nombre
         remaining_debt: Deuda Restante
-        created_at: Creado en
-        updated_at: Actualizado en
-  helpers:
-    label:
-      client:
-        name: Nombre
-        remaining_debt: Deuda Restante
+        sellers: Vendedores 
         created_at: Creado en
         updated_at: Actualizado en
