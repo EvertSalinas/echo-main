@@ -98,7 +98,7 @@ ActiveAdmin.register Invoice do
   end
 
   csv do
-    column(:client)         { |i| i.client.name }
+    column(:client)         { |i| i.client&.name }
     column :physical_folio
     column :system_folio
     column :condition
