@@ -107,6 +107,7 @@ ActiveAdmin.register Invoice do
     column(:total_amount)   { |i| i.total_amount.format }
     column(:credit)         { |i| i.credit.format }
     column(:remaining_debt) { |i| i.remaining_debt.format }
+    column :days_passed
   end
 
 end
