@@ -8,5 +8,6 @@ es:
       seller:
         name: Nombre
         sold_amount: Ventas Totales
+        client: Clientes
         created_at: Creado en
         updated_at: Actualizado en

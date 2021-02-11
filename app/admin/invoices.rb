@@ -2,7 +2,7 @@ ActiveAdmin.register Invoice do
   menu priority: 2
   permit_params :condition, :physical_folio, :system_folio, :system_date,
                 :total_amount, :physical_date, :place, :client_id, :seller_id,
-                :create_another
+                :create_another, :status
 
   config.sort_order = ''
 
@@ -27,20 +27,21 @@ ActiveAdmin.register Invoice do
 
   index do
     selectable_column
+    column :client, sortable: :client_id
     column(:system_folio)   { |i| link_to i.system_folio, admin_invoice_path(i.id) }
     column(:physical_folio) { |i| link_to i.physical_folio, admin_invoice_path(i.id) }
     column(:total_amount)   { |i| i.total_amount.format }
-    column(:remaining_debt) { |i| i.remaining_debt.format }
     column(:credit)         { |i| i.credit.format }
+    column(:remaining_debt) { |i| i.remaining_debt.format }
     column :status
     column :days_passed, sortable: true
-    column :client, sortable: :client_id
     column :condition
     # actions
   end
 
   # TODO enhance filters
   preserve_default_filters!
+  # filter :status, as: :check_boxes, collection: proc { Invoice.statuses.keys }
   filter :days_passed_filter,
     as: :numeric,
     label: 'Días',
@@ -51,6 +52,9 @@ ActiveAdmin.register Invoice do
 
     f.inputs do
       f.input :condition, required: true, as: :select, collection: Invoice::CONDITIONS
+      if !f.object.new_record?
+        f.input :status
+      end
       f.input :physical_folio, required: true
       f.input :system_folio, required: true
       f.input :system_date, required: true, as: :datepicker
@@ -70,8 +74,8 @@ ActiveAdmin.register Invoice do
       row :condition
       row :paid_out?
       row(:total_amount)   { |i| i.total_amount.format }
-      row(:remaining_debt) { |i| i.remaining_debt.format }
       row(:credit)         { |i| i.credit.format }
+      row(:remaining_debt) { |i| i.remaining_debt.format }
       row :system_date
       row :physical_date
       row :place
@@ -81,6 +85,7 @@ ActiveAdmin.register Invoice do
       row :created_at
       row :updated_at
     end
+
   end
 
   sidebar "Relaciones", only: [:show, :edit] do
@@ -93,23 +98,16 @@ ActiveAdmin.register Invoice do
   end
 
   csv do
-    column :id
-    column :condition
+    column(:client)         { |i| i.client&.name }
     column :physical_folio
     column :system_folio
-    column(:paid_out?)      { |i| i.paid_out? ? "SI" : "NO" }
+    column :condition
     column :physical_date
     column :system_date
     column(:total_amount)   { |i| i.total_amount.format }
-    column(:remaining_debt) { |i| i.remaining_debt.format }
     column(:credit)         { |i| i.credit.format }
-    column :place
-    column :status
-    column(:client)         { |i| i.client.name }
-    column(:seller)         { |i| i.seller.name }
+    column(:remaining_debt) { |i| i.remaining_debt.format }
     column :days_passed
-    column(:created_at)     { |i| i.created_at.to_date }
-    column(:updated_at)     { |i| i.created_at.to_date }
   end
 
 end

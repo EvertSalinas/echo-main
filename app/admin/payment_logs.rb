@@ -12,7 +12,7 @@ ActiveAdmin.register PaymentLog do
     column(:remaining_balance)  { |pl| pl.remaining_balance.format }
     column :status
     column :client
-    column :created_at
+    column :physical_date
     actions
   end
 
@@ -24,10 +24,11 @@ ActiveAdmin.register PaymentLog do
     f.semantic_errors *f.object.errors.keys
 
     f.inputs do
-      f.input :folio, required: true
-      f.input :voucher, required: true
+      f.input :folio,         required: true
+      f.input :voucher,       required: true
+      f.input :physical_date
       f.input :client, as: :searchable_select, ajax: { resource: Client }, required: true
-      f.input :invoice_id, required: true, as: :select, collection: []
+      f.input :invoice_id,    required: true, as: :select, collection: []
       f.input :seller_id, as: :searchable_select, ajax: { resource: Seller }, required: true
       f.input :total_amount, as: :number
     end
@@ -37,6 +38,7 @@ ActiveAdmin.register PaymentLog do
   show do
     attributes_table do
       row :folio
+      row :physical_date
       row :voucher
       row :client
       row(:total_amount)  { |pl| pl.total_amount.format }

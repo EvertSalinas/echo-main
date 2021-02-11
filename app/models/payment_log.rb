@@ -4,6 +4,7 @@
 #
 #  id                 :bigint           not null, primary key
 #  folio              :string           not null
+#  physical_date      :date
 #  status             :integer          default("abierto"), not null
 #  total_amount_cents :integer          not null
 #  voucher            :string

@@ -9,6 +9,8 @@
 #
 class Client < ApplicationRecord
 
+  # include SalesKpis
+
   has_many :invoices,     dependent: :nullify
   has_many :payment_logs, dependent: :nullify
 
@@ -20,6 +22,10 @@ class Client < ApplicationRecord
 
   def remaining_debt
     Money.new(pending_invoices.sum(&:remaining_debt))
+  end
+
+  def sellers
+    invoices.joins(:seller).pluck(:name).uniq
   end
 
 end

@@ -28,6 +28,7 @@ ActiveAdmin.register Seller do
     attributes_table do
       row :id
       row :sold_amount
+      row :clients
       row :created_at
       row :updated_at
     end
