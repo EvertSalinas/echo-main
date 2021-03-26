@@ -25,6 +25,8 @@
 #
 class Invoice < ApplicationRecord
 
+  attr_accessor :debt
+
   CONDITIONS = %w(credito contado).freeze
 
   belongs_to :client
@@ -45,7 +47,7 @@ class Invoice < ApplicationRecord
   after_commit :pay, unless: :pagada?
 
   def remaining_debt
-    total_amount - Money.new(payments.sum(:amount_cents))
+    @debt = total_amount - Money.new(payments.sum(:amount_cents))
   end
 
   def credit

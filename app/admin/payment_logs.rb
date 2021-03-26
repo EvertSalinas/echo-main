@@ -16,10 +16,6 @@ ActiveAdmin.register PaymentLog do
     actions
   end
 
-  # TODO enhance filters
-  # filter :name
-  # filter :created_at
-
   form do |f|
     f.semantic_errors *f.object.errors.keys
 

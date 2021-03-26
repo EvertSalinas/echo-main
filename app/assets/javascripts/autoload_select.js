@@ -15,7 +15,7 @@ $(function() {
         $("#payment_log_invoice_id").empty();
         $("#payment_log_invoice_id").append('<option>Seleccionar</option>');
         for(var i=0; i< invoices.length; i++){
-          $("#payment_log_invoice_id").append('<option value="' + invoices[i]["id"] + '">' + invoices[i]["system_folio"] + '</option>');
+          $("#payment_log_invoice_id").append('<option value="' + invoices[i]["id"] + '">' + invoices[i]["system_folio"] + ' - Deuda: ' + invoices[i]["debt"] + '</option>');
         }
       }
     });
@@ -38,7 +38,7 @@ $($("#payment_log_client_id")).ready(function() {
         $("#payment_log_invoice_id").empty();
         $("#payment_log_invoice_id").append('<option>Seleccionar</option>');
         for(var i=0; i< invoices.length; i++){
-          $("#payment_log_invoice_id").append('<option value="' + invoices[i]["id"] + '">' + invoices[i]["system_folio"] + '</option>');
+          $("#payment_log_invoice_id").append('<option value="' + invoices[i]["id"] + '">' + invoices[i]["system_folio"] + ' ' + invoices[i]["remaining_balance"] + '</option>');
         }
         return $.ajax({
           url: "/payment_log",
