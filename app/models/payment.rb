@@ -17,6 +17,7 @@
 #  index_payments_on_seller_id       (seller_id)
 #
 class Payment < ApplicationRecord
+  acts_as_paranoid
 
   belongs_to :payment_log, touch: true
   belongs_to :invoice,     touch: true
@@ -26,6 +27,8 @@ class Payment < ApplicationRecord
 
   validate :payment_log_remaining_balance
   validate :invoice_remaining_debt
+
+  before_destroy :touch_invoice
 
   private
 
@@ -39,6 +42,10 @@ class Payment < ApplicationRecord
     if amount > invoice.remaining_debt
       errors[:base] << "Payment should be at most the invoice remaining debt"
     end
+  end
+
+  def touch_invoice
+    invoice.touch
   end
 
 end

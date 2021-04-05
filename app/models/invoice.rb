@@ -44,7 +44,7 @@ class Invoice < ApplicationRecord
   validates :physical_folio,         presence: true, uniqueness: true
   validates :place,                  presence: true
 
-  after_commit :pay, unless: :pagada?
+  after_commit :check_latest_status
 
   def remaining_debt
     @debt = total_amount - Money.new(payments.sum(:amount_cents))
@@ -87,8 +87,8 @@ class Invoice < ApplicationRecord
 
   private
 
-  def pay
-    pagada! if paid_out?
+  def check_latest_status
+    paid_out? ? pagada! : pendiente!
   end
 
 end
