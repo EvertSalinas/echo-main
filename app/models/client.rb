@@ -9,8 +9,6 @@
 #
 class Client < ApplicationRecord
 
-  # include SalesKpis
-
   has_many :invoices,     dependent: :nullify
   has_many :payment_logs, dependent: :nullify
 
