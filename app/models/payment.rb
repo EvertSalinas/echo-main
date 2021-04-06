@@ -28,7 +28,8 @@ class Payment < ApplicationRecord
   validate :payment_log_remaining_balance
   validate :invoice_remaining_debt
 
-  before_destroy :touch_invoice
+  after_update :check_relationships_status
+  after_destroy :check_relationships_status
 
   private
 
@@ -44,8 +45,9 @@ class Payment < ApplicationRecord
     end
   end
 
-  def touch_invoice
-    invoice.touch
+  def check_relationships_status
+    invoice.paid_out? ? invoice.pagada! : invoice.pendiente!
+    payment_log.depleted? ? payment_log.agotado! : payment_log.abierto!
   end
 
 end
