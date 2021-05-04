@@ -25,6 +25,7 @@ class PaymentLog < ApplicationRecord
   enum status: { abierto: 0, agotado: 1 }
 
   belongs_to :client
+  belongs_to :invoice
   has_many   :payments
 
   monetize :total_amount_cents
