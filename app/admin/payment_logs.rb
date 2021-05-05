@@ -17,6 +17,7 @@ ActiveAdmin.register PaymentLog do
   index do
     selectable_column
     column(:voucher) { |pl| link_to pl.voucher, admin_payment_log_path(pl.id) }
+    column("Factura") { |pl| link_to pl.invoice.system_folio, admin_invoice_path(pl.invoice.id) }
     column :folio
     column(:remaining_balance)  { |pl| pl.remaining_balance.format }
     column :status

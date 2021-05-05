@@ -8,6 +8,8 @@ ActiveAdmin.register Payment do
     column(:payment_log) { |p| p.payment_log.present? ? link_to(p.payment_log.folio, admin_payment_log_path(p.payment_log.id)) : "NA" }
     column(:invoice)     { |p| link_to p.invoice.system_folio, admin_invoice_path(p.invoice.id) }
     column(:amount)      { |p| p.amount.format }
+    column("Cliente")    { |p| link_to p.payment_log.client.name, admin_client_path(p.payment_log.client.id) }
+    column(:days_from_invoice)
     column(:created_at)  { |p| p.created_at.to_date }
     actions
   end
@@ -50,6 +52,7 @@ ActiveAdmin.register Payment do
     column(:payment_log)                    { |i| i.payment_log.folio }
     column("Folio fisico de Factura")       { |i| i.invoice.physical_folio }
     column("Folio del systema de Factura")  { |i| i.invoice.system_folio }
+    column(:days_from_invoice)
     column :amount
   end
 
