@@ -66,12 +66,12 @@ ActiveAdmin.register PaymentLog do
 
   csv do
     column :id
-    column("Cantidad total") { |pl| pl.total_amount.format }
-    column("Balance restante") { |pl| pl.remaining_balance.format }
+    column("Cantidad total") { |pl| pl.total_amount&.format }
+    column("Balance restante") { |pl| pl.remaining_balance&.format }
     column(:folio)
     column :voucher
     column(:status)
-    column(:client) { |pl| pl.client.name }
+    column(:client) { |pl| pl.client&.name }
     column("Factura") { |pl| pl&.invoice&.system_folio }
     column(:physical_date)
     column(:created_at)
