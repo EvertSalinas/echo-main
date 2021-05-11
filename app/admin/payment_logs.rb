@@ -1,6 +1,6 @@
 ActiveAdmin.register PaymentLog do
   menu priority: 2
-  permit_params :folio, :client_id, :invoice_id, :seller_id, :total_amount, :voucher
+  permit_params :folio, :client_id, :physical_date, :invoice_id, :seller_id, :total_amount, :voucher
 
   searchable_select_options(scope: Proc.new { PaymentLog.abierto } ,
                             text_attribute: :voucher)
