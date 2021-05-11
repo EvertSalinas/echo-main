@@ -72,7 +72,7 @@ ActiveAdmin.register PaymentLog do
     column :voucher
     column(:status)
     column(:client) { |pl| pl.client.name }
-    column(:invoice) { |pl| pl.invoice.system_folio }
+    column("Factura") { |pl| pl&.invoice&.system_folio }
     column(:physical_date)
     column(:created_at)
   end

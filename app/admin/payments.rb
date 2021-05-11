@@ -48,7 +48,7 @@ ActiveAdmin.register Payment do
   end
 
   csv do
-    column(:client)                         { |i| i.invoice.client.name }
+    column("Cliente")                       { |i| i.payment_log&.client&.name  }
     column(:payment_log)                    { |i| i.payment_log.folio }
     column("Folio fisico de Factura")       { |i| i.invoice.physical_folio }
     column("Folio del systema de Factura")  { |i| i.invoice.system_folio }
