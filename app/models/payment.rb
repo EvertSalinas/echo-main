@@ -31,6 +31,11 @@ class Payment < ApplicationRecord
   after_update :check_relationships_status
   after_destroy :check_relationships_status
 
+  def days_from_invoice
+    return nil if payment_log&.physical_date.nil? || invoice&.physical_date.nil?
+    (payment_log.physical_date.to_date - invoice.physical_date.to_date).to_i
+  end
+
   private
 
   def payment_log_remaining_balance

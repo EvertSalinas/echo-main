@@ -1,13 +1,23 @@
 ActiveAdmin.register PaymentLog do
   menu priority: 2
-  permit_params :folio, :client_id, :invoice_id, :seller_id, :total_amount, :voucher
+  permit_params :folio, :client_id, :physical_date, :invoice_id, :seller_id, :total_amount, :voucher
 
   searchable_select_options(scope: Proc.new { PaymentLog.abierto } ,
                             text_attribute: :voucher)
 
+  # TODO enhance filters
+  preserve_default_filters!
+  remove_filter :payments
+  remove_filter :client
+
+  filter :payments_id, as: :string, label: "ID pago"
+  filter :client_name, as: :string, label: "Nombre del cliente"
+  # filter :physical_date
+
   index do
     selectable_column
     column(:voucher) { |pl| link_to pl.voucher, admin_payment_log_path(pl.id) }
+    column("Factura") { |pl| pl&.invoice.present? ? link_to(pl.invoice.system_folio, admin_invoice_path(pl.invoice.id)) : nil }
     column :folio
     column(:remaining_balance)  { |pl| pl.remaining_balance.format }
     column :status
@@ -52,6 +62,19 @@ ActiveAdmin.register PaymentLog do
         )
       )
     end
+  end
+
+  csv do
+    column :id
+    column("Cantidad total") { |pl| pl.total_amount&.format }
+    column("Balance restante") { |pl| pl.remaining_balance&.format }
+    column(:folio)
+    column :voucher
+    column(:status)
+    column(:client) { |pl| pl.client&.name }
+    column("Factura") { |pl| pl&.invoice&.system_folio }
+    column(:physical_date)
+    column(:created_at)
   end
 
 end

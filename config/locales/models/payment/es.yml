@@ -17,5 +17,6 @@ es:
         payment_log: Registro de pago
         payment_log_id: Registro de pago
         seller: Vendedor
+        days_from_invoice: Dias desde factura
         created_at: Creado en
         updated_at: Actualizado en

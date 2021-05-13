@@ -5,16 +5,24 @@ ActiveAdmin.register Payment do
   index do
     selectable_column
     id_column
-    column(:payment_log) { |p| p.payment_log.present? ? link_to(p.payment_log.folio, admin_payment_log_path(p.payment_log.id)) : "NA" }
+    column(:payment_log) { |p| p.payment_log.present? ? link_to(p.payment_log.folio, admin_payment_log_path(p.payment_log.id)) : nil }
     column(:invoice)     { |p| link_to p.invoice.system_folio, admin_invoice_path(p.invoice.id) }
     column(:amount)      { |p| p.amount.format }
+    column("Cliente")    { |p| p.payment_log&.client.present? ? link_to(p.payment_log.client.name, admin_client_path(p.payment_log.client.id)) : nil  }
+    column(:days_from_invoice)
     column(:created_at)  { |p| p.created_at.to_date }
     actions
   end
 
   # TODO enhance filters
-  # filter :name
-  # filter :created_at
+  preserve_default_filters!
+  remove_filter :payment_log
+  remove_filter :invoice
+  remove_filter :seller
+
+  filter :payment_log_folio, as: :string, label: "Folio registro de pago"
+  filter :invoice_system_folio, as: :string, label: "Folio del sistema de factura"
+  filter :seller_name, as: :string, label: "Vendedor"
 
   form do |f|
     f.semantic_errors *f.object.errors.keys
@@ -40,11 +48,14 @@ ActiveAdmin.register Payment do
   end
 
   csv do
-    column(:client)                         { |i| i.invoice.client.name }
-    column(:payment_log)                    { |i| i.payment_log.folio }
-    column("Folio fisico de Factura")       { |i| i.invoice.physical_folio }
-    column("Folio del systema de Factura")  { |i| i.invoice.system_folio }
-    column :amount
+    column("Cliente")                       { |i| i.payment_log&.client&.name  }
+    column(:payment_log)                    { |i| i.payment_log&.folio }
+    column("Folio fisico de Factura")       { |i| i.invoice&.physical_folio }
+    column("Folio del systema de Factura")  { |i| i.invoice&.system_folio }
+    column(:days_from_invoice)
+    column(:amount) { |p| p.amount.format }
+    column("Fecha fisica del registro de pago") { |i| i.payment_log&.physical_date&.to_date&.strftime("%d-%m-%Y") }
+    column(:created_at)  { |p| p.created_at.to_date.strftime("%d-%m-%Y") }
   end
 
 end
