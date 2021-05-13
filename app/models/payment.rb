@@ -32,7 +32,8 @@ class Payment < ApplicationRecord
   after_destroy :check_relationships_status
 
   def days_from_invoice
-    (created_at.to_date - invoice.physical_date.to_date).to_i
+    return "NA" if payment_log&.physical_date.nil? || invoice&.physical_date.nil?
+    (payment_log.physical_date.to_date - invoice.physical_date.to_date).to_i
   end
 
   private

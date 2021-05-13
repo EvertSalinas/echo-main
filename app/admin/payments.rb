@@ -54,6 +54,8 @@ ActiveAdmin.register Payment do
     column("Folio del systema de Factura")  { |i| i.invoice&.system_folio }
     column(:days_from_invoice)
     column :amount
+    column("Fecha fisica del registro de pago") { |i| i.payment_log&.physical_date&.to_date&.strftime("%d-%m-%Y") }
+    column(:created_at)  { |p| p.created_at.to_date.strftime("%d-%m-%Y") }
   end
 
 end
