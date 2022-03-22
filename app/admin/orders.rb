@@ -2,7 +2,6 @@ ActiveAdmin.register Order do
   menu priority: 1
   permit_params :folio, :status, order_details_attributes: [:product_id, :id, :_destroy]
 
-
   remove_filter :status
   remove_filter :order_details
 

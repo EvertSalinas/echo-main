@@ -1,7 +1,7 @@
 class ProductPolicy < ApplicationPolicy
 
   def index?
-    %w(master almacen ventas).include?(admin_user.role)
+    %w(master almacen ventas accounting).include?(admin_user.role)
   end
 
   def show?

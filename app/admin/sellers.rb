@@ -1,7 +1,7 @@
 ActiveAdmin.register Seller do
   menu priority: 3
   permit_params :name
-
+  
   searchable_select_options(scope: Seller.all,
                             text_attribute: :name)
 
