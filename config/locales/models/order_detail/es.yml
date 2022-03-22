@@ -6,5 +6,6 @@ es:
         other: Detalles
     attributes:
       order_detail:
+        quantity: Cantidad
         created_at: Creado en
         updated_at: Actualizado en

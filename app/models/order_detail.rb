@@ -3,6 +3,7 @@
 # Table name: order_details
 #
 #  id         :bigint           not null, primary key
+#  quantity   :integer          default(1), not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  order_id   :bigint           not null
@@ -21,4 +22,6 @@
 class OrderDetail < ApplicationRecord
   belongs_to :order
   belongs_to :product
+
+  validates :quantity, presence: true, numericality: { greater_than: 0 }
 end

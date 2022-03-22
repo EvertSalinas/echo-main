@@ -38,6 +38,7 @@ ActiveAdmin.register Order do
 
     f.has_many :order_details, allow_destroy: true do |a|
       a.input :product, as: :searchable_select, ajax: { resource: Product }
+      a.input :quantity
     end
 
     f.actions
@@ -53,8 +54,9 @@ ActiveAdmin.register Order do
 
     panel "Productos" do
       table_for(order.products) do
-        column(:name) { |c| link_to c.name, admin_product_path(c.id) }
-        column(:sku) { |c| link_to c.sku, admin_product_path(c.id) }
+        column(:name) { |p| link_to p.name, admin_product_path(p.id) }
+        column(:sku) { |p| link_to p.sku, admin_product_path(p.id) }
+        column("Cantidad") { |p| OrderDetail.find_by(order: resource, product: p).quantity }
       end
     end
   end

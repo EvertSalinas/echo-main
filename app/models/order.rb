@@ -4,7 +4,7 @@
 #
 #  id         :bigint           not null, primary key
 #  folio      :string
-#  status     :integer          default("pending"), not null
+#  status     :integer          default("pendiente"), not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
