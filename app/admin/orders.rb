@@ -1,6 +1,6 @@
 ActiveAdmin.register Order do
   menu priority: 1
-  permit_params :folio, :status, order_details_attributes: [:product_id, :id, :_destroy]
+  permit_params :folio, :status, order_details_attributes: [:product_id, :quantity, :id, :_destroy]
 
   remove_filter :status
   remove_filter :order_details
@@ -56,7 +56,7 @@ ActiveAdmin.register Order do
       table_for(order.products) do
         column(:name) { |p| link_to p.name, admin_product_path(p.id) }
         column(:sku) { |p| link_to p.sku, admin_product_path(p.id) }
-        column("Cantidad") { |p| OrderDetail.find_by(order: resource, product: p).quantity }
+        column("Cantidad") { |p| OrderDetail.find_by(order: resource, product: p)&.quantity }
       end
     end
   end
