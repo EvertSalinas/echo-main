@@ -7,26 +7,22 @@ ActiveAdmin.register Order do
   remove_filter :order_details
 
   scope :all
-  scope :pendientes do |order|
-    Order.pending
-  end
-  scope :completadas do |order|
-    Order.completed
-  end
+  scope :pendiente
+  scope :completada
 
   action_item :edit, only: :show do
-    link_to 'Completar Orden', complete_order_admin_order_path(order) if resource.pending?
+    link_to 'Completar Orden', complete_order_admin_order_path(order) if resource.pendiente?
   end
 
   member_action :complete_order, method: :get do
-    resource.complete!
+    resource.completada!
     redirect_to resource_path, notice: "La orden ha sido marcada como completada"
   end
 
   index do
     selectable_column
     column(:folio) { |c| link_to c.folio, admin_order_path(c.id) }
-    column(:status) { |o| o.pending? ? "Pendiente" : "Completada"}
+    column :status
     column :created_at
     actions
   end
@@ -37,8 +33,8 @@ ActiveAdmin.register Order do
     f.semantic_errors *f.object.errors.keys
 
     f.inputs do
-      f.input :folio
-      f.input :status
+      f.input :folio, required: true
+      f.input :status, required: true
     end
 
     f.has_many :order_details, allow_destroy: true do |a|
@@ -51,7 +47,7 @@ ActiveAdmin.register Order do
   show do
     attributes_table do
       row :folio
-      row(:status) { |o| o.pending? ? "Pendiente" : "Completada"}
+      row :status
       row :created_at
       row :updated_at
     end

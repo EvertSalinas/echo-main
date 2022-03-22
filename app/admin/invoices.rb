@@ -41,7 +41,7 @@ ActiveAdmin.register Invoice do
 
   # TODO enhance filters
   preserve_default_filters!
-  # filter :status, as: :check_boxes, collection: proc { Invoice.statuses.keys }
+
   filter :days_passed_filter,
     as: :numeric,
     label: 'Días',

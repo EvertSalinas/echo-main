@@ -9,12 +9,13 @@
 #  updated_at :datetime         not null
 #
 class Order < ApplicationRecord
-  enum status: { pending: 0, completed: 1, canceled: 2 }
+  enum status: { pendiente: 0, completada: 1, cancelada: 2 }
 
   has_many :order_details, dependent: :destroy
   has_many :products, through: :order_details
 
   accepts_nested_attributes_for :order_details, :allow_destroy => true
 
+  validates :folio, presence: true
   validates :status, presence: true
 end

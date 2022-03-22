@@ -1,5 +1,5 @@
 panel "Orders Totales" do
-  p Order.count
+  Order.count
 end
 
 panel "Ordenes por mes" do
