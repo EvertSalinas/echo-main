@@ -6,10 +6,13 @@ panel '10 productos mas vendidos' do
       end
     end
     tbody do
-      Product.sku_sales.each do |p|
-        tr do
-          td p["name"]
-          td p["cantidad"]
+      data = Product.sku_sales
+      if data.any?
+        data.each do |p|
+          tr do
+            td p["name"]
+            td p["cantidad"]
+          end
         end
       end
     end
