@@ -10,8 +10,8 @@ AdminUser::ROLES.each do |role|
   AdminUser.create!(
     email: "admin+#{role}@example.com",
     role: role,
-    password: 'cruzazul2020',
-    password_confirmation: 'cruzazul2020'
+    password: 'testing',
+    password_confirmation: 'testing'
   )
 end
 

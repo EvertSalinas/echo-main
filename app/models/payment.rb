@@ -4,6 +4,7 @@
 #
 #  id             :bigint           not null, primary key
 #  amount_cents   :integer          not null
+#  deleted_at     :datetime
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #  invoice_id     :bigint
@@ -12,6 +13,7 @@
 #
 # Indexes
 #
+#  index_payments_on_deleted_at      (deleted_at)
 #  index_payments_on_invoice_id      (invoice_id)
 #  index_payments_on_payment_log_id  (payment_log_id)
 #  index_payments_on_seller_id       (seller_id)

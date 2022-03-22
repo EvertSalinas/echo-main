@@ -1,0 +1,15 @@
+es:
+  activerecord:
+    models:
+      product:
+        one: Producto
+        other: Productos
+    attributes:
+      product:
+        sku: Clave
+        aux_sku: Clave auxiliar
+        line: Linea
+        name: Nombre
+        in_stock: Inventario
+        created_at: Creado en
+        updated_at: Actualizado en

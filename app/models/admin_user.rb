@@ -27,7 +27,7 @@ class AdminUser < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :recoverable, :rememberable, :validatable
 
-  ROLES = %w(master contaduria).freeze
+  ROLES = %w(master contaduria almacen ventas).freeze
 
   validates :role, inclusion: { in: ROLES }
 

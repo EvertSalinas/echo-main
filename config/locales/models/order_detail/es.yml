@@ -1,0 +1,10 @@
+es:
+  activerecord:
+    models:
+      order_detail:
+        one: Detalle
+        other: Detalles
+    attributes:
+      order_detail:
+        created_at: Creado en
+        updated_at: Actualizado en

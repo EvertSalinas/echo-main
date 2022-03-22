@@ -1,0 +1,12 @@
+es:
+  activerecord:
+    models:
+      order:
+        one: Orden
+        other: Ordenes
+    attributes:
+      order:
+        folio: Folio
+        status: Estatus
+        created_at: Creado en
+        updated_at: Actualizado en

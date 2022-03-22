@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_05_225930) do
+ActiveRecord::Schema.define(version: 2022_03_16_035024) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -72,6 +72,22 @@ ActiveRecord::Schema.define(version: 2021_04_05_225930) do
     t.index ["system_folio"], name: "index_invoices_on_system_folio"
   end
 
+  create_table "order_details", force: :cascade do |t|
+    t.bigint "order_id", null: false
+    t.bigint "product_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["order_id"], name: "index_order_details_on_order_id"
+    t.index ["product_id"], name: "index_order_details_on_product_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.string "folio"
+    t.integer "status", default: 0, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "payment_logs", force: :cascade do |t|
     t.integer "total_amount_cents", null: false
     t.string "folio", null: false
@@ -100,10 +116,23 @@ ActiveRecord::Schema.define(version: 2021_04_05_225930) do
     t.index ["seller_id"], name: "index_payments_on_seller_id"
   end
 
+  create_table "products", force: :cascade do |t|
+    t.string "sku", null: false
+    t.string "name", null: false
+    t.string "line"
+    t.string "aux_sku"
+    t.string "in_stock"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["sku"], name: "index_products_on_sku", unique: true
+  end
+
   create_table "sellers", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "order_details", "orders"
+  add_foreign_key "order_details", "products"
 end

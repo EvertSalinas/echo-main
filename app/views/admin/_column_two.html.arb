@@ -1,0 +1,17 @@
+panel '10 productos mas vendidos' do
+  table do
+    thead do
+      tr do
+        %w[Name Ventas].each &method(:th)
+      end
+    end
+    tbody do
+      Product.sku_sales.each do |p|
+        tr do
+          td p["name"]
+          td p["cantidad"]
+        end
+      end
+    end
+  end
+end

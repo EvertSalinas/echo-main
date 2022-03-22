@@ -33,7 +33,6 @@ ActiveAdmin.register Client do
       row :created_at
       row :updated_at
     end
-
   end
 
   sidebar "Relaciones", only: [:show, :edit] do
