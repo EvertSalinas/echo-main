@@ -7,7 +7,7 @@ panel "Ordenes por mes" do
   table do
     thead do
       tr do
-        %w[Month Total].each &method(:th)
+        %w[Mes Total].each &method(:th)
       end
     end
     tbody do

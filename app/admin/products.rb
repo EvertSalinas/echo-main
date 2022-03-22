@@ -43,5 +43,26 @@ ActiveAdmin.register Product do
       row :created_at
       row :updated_at
     end
+
+    panel "Vendidos por mes (Todas las ordenes creadas)" do
+      year = Date.current.year
+      table do
+        thead do
+          tr do
+            %w[Mes Total].each &method(:th)
+          end
+        end
+        tbody do
+          1..12.times do |i|
+            date = Date.new(year,i+1,1)
+            tr do
+              td date.strftime('%B')
+              td OrderDetail.where(created_at: date.beginning_of_month..date.end_of_month, product: resource).count
+            end
+          end
+        end
+      end
+    end
+
   end
 end
