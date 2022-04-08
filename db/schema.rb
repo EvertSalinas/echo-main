@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_22_232923) do
+ActiveRecord::Schema.define(version: 2022_04_06_214422) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -78,6 +78,10 @@ ActiveRecord::Schema.define(version: 2022_03_22_232923) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "quantity", default: 1, null: false
+    t.integer "unit_price_cents"
+    t.boolean "complete"
+    t.datetime "completed_at"
+    t.integer "final_quantity"
     t.index ["order_id"], name: "index_order_details_on_order_id"
     t.index ["product_id"], name: "index_order_details_on_product_id"
   end
@@ -87,6 +91,10 @@ ActiveRecord::Schema.define(version: 2022_03_22_232923) do
     t.integer "status", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "admin_user_id", null: false
+    t.bigint "client_id", null: false
+    t.index ["admin_user_id"], name: "index_orders_on_admin_user_id"
+    t.index ["client_id"], name: "index_orders_on_client_id"
   end
 
   create_table "payment_logs", force: :cascade do |t|
@@ -136,4 +144,6 @@ ActiveRecord::Schema.define(version: 2022_03_22_232923) do
 
   add_foreign_key "order_details", "orders"
   add_foreign_key "order_details", "products"
+  add_foreign_key "orders", "admin_users"
+  add_foreign_key "orders", "clients"
 end

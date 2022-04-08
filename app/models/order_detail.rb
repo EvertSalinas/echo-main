@@ -2,12 +2,16 @@
 #
 # Table name: order_details
 #
-#  id         :bigint           not null, primary key
-#  quantity   :integer          default(1), not null
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  order_id   :bigint           not null
-#  product_id :bigint           not null
+#  id               :bigint           not null, primary key
+#  complete         :boolean
+#  completed_at     :datetime
+#  final_quantity   :integer
+#  quantity         :integer          default(1), not null
+#  unit_price_cents :integer
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  order_id         :bigint           not null
+#  product_id       :bigint           not null
 #
 # Indexes
 #
@@ -23,5 +27,8 @@ class OrderDetail < ApplicationRecord
   belongs_to :order
   belongs_to :product
 
+  monetize :unit_price_cents
+
   validates :quantity, presence: true, numericality: { greater_than: 0 }
+  validates :unit_price_cents, presence: true, numericality: { greater_than: 0 }
 end

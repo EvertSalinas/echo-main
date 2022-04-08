@@ -29,6 +29,8 @@ class AdminUser < ApplicationRecord
 
   ROLES = %w(master contaduria almacen ventas).freeze
 
+  has_many :orders
+
   validates :role, inclusion: { in: ROLES }
 
   ROLES.each do |role|

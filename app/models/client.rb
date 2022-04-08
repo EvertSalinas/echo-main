@@ -11,7 +11,8 @@ class Client < ApplicationRecord
 
   has_many :invoices,     dependent: :nullify
   has_many :payment_logs, dependent: :nullify
-
+  has_many :orders
+  
   validates :name, uniqueness: true
 
   def pending_invoices

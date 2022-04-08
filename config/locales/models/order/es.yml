@@ -8,5 +8,8 @@ es:
       order:
         folio: Folio
         status: Estatus
+        admin_user: Persona que registra
+        client: Cliente
+        unit_price: Precio unitario
         created_at: Creado en
         updated_at: Actualizado en

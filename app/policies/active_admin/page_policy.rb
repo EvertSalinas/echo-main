@@ -10,6 +10,13 @@ class ActiveAdmin::PagePolicy
     case record.name
     when 'Dashboard'
       true
+    when 'Completar orden'
+      true
     end
   end
+
+  def call?
+    true
+  end
+
 end

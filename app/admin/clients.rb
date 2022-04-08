@@ -41,6 +41,10 @@ ActiveAdmin.register Client do
           q: { client_id_eq: resource.id, commit: "Filter"}
         )
       )
+      li link_to("Ordenes",admin_orders_path(
+          q: { client_id_eq: resource.id, commit: "Filter"}
+        )
+      )
     end
   end
 
