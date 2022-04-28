@@ -46,7 +46,7 @@ ActiveAdmin.register Order do
       ff.input :unit_price, as: :number
       if !ff.object.new_record? && ff.object&.complete
         ff.input :complete, label: "Partida completa?"
-        ff.input :completed_at, as: :datepicker, input_html: { value: DateTime.current }
+        ff.input :completed_at, as: :datepicker, input_html: { value: ff.object.completed_at&.to_date }
         ff.input :final_quantity
       end
     end
