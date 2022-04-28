@@ -10,6 +10,9 @@ es:
         status: Estatus
         admin_user: Persona que registra
         client: Cliente
+        quantity: Cantidad del pedido
+        final_quantity: Cantidad entregada
+        remaining_quantity: Cantidad no entregada
         unit_price: Precio unitario
         created_at: Creado en
         updated_at: Actualizado en
