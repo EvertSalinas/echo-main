@@ -27,8 +27,13 @@ class OrderDetail < ApplicationRecord
   belongs_to :order
   belongs_to :product
 
-  monetize :unit_price_cents
+  monetize :unit_price_cents, allow_nil: true
 
   validates :quantity, presence: true, numericality: { greater_than: 0 }
-  validates :unit_price_cents, presence: true, numericality: { greater_than: 0 }
+  validates :unit_price, numericality: { greater_than: 0, allow_nil: true }
+
+  def remaining_quantity
+    quantity - final_quantity
+  end
+  
 end

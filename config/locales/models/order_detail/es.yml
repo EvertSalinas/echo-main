@@ -7,6 +7,8 @@ es:
     attributes:
       order_detail:
         unit_price: Precio unitario
-        quantity: Cantidad
+        quantity: Cantidad del pedido
+        final_quantity: Cantidad entregada
+        remaining_quantity: Cantidad no entregada
         created_at: Creado en
         updated_at: Actualizado en
