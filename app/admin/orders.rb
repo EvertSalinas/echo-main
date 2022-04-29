@@ -42,11 +42,10 @@ ActiveAdmin.register Order do
 
     f.has_many :order_details, allow_destroy: true do |ff|
       ff.input :product, as: :searchable_select, ajax: { resource: Product }
-      ff.input :quantity
-      ff.input :unit_price, as: :number
+      ff.input :quantity, wrapper_html: { class: 'fl' }
+      ff.input :unit_price, as: :number, wrapper_html: { class: 'fl' }
       if !ff.object.new_record? && ff.object&.complete
         ff.input :complete, label: "Partida completa?"
-        ff.input :completed_at, as: :datepicker, input_html: { value: ff.object.completed_at&.to_date }
         ff.input :final_quantity
       end
     end
