@@ -83,8 +83,8 @@ ActiveAdmin.register Order do
         column("Precio unitario") do |p|
           OrderDetail.find_by(order: resource, product: p)&.unit_price&.format
         end
-        column("Pedido entregado") { |p| OrderDetail.find_by(order: resource, product: p).completed_at.present? }
-        column("Cantidad entregada") { |p| OrderDetail.find_by(order: resource, product: p).final_quantity }
+        column("Pedido surtido") { |p| OrderDetail.find_by(order: resource, product: p).completed_at.present? }
+        column("Cantidad surtida") { |p| OrderDetail.find_by(order: resource, product: p).final_quantity }
       end
     end
   end

@@ -11,8 +11,8 @@ es:
         admin_user: Persona que registra
         client: Cliente
         quantity: Cantidad del pedido
-        final_quantity: Cantidad entregada
-        remaining_quantity: Cantidad no entregada
+        final_quantity: Cantidad surtida
+        remaining_quantity: Cantidad no surtida
         unit_price: Precio unitario
         created_at: Creado en
         updated_at: Actualizado en

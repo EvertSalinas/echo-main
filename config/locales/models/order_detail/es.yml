@@ -8,7 +8,7 @@ es:
       order_detail:
         unit_price: Precio unitario
         quantity: Cantidad del pedido
-        final_quantity: Cantidad entregada
-        remaining_quantity: Cantidad no entregada
+        final_quantity: Cantidad surtida
+        remaining_quantity: Cantidad no surtida
         created_at: Creado en
         updated_at: Actualizado en
