@@ -3,7 +3,6 @@
 # Table name: order_details
 #
 #  id               :bigint           not null, primary key
-#  complete         :boolean
 #  completed_at     :datetime
 #  final_quantity   :integer
 #  quantity         :integer          default(1), not null
@@ -32,8 +31,14 @@ class OrderDetail < ApplicationRecord
   validates :quantity, presence: true, numericality: { greater_than: 0 }
   validates :unit_price, numericality: { greater_than: 0, allow_nil: true }
 
+  def complete?
+    remaining_quantity&.zero?
+  end
+
   def remaining_quantity
+    return nil if final_quantity.nil?
+
     quantity - final_quantity
   end
-  
+
 end

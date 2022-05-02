@@ -2,7 +2,7 @@ ActiveAdmin.register Order do
   menu priority: 1
   permit_params :folio, :status, :admin_user_id, :client_id,
                  order_details_attributes: [
-                   :completar, :completed_at, :unit_price, :unit_price_cents,
+                   :completed_at, :unit_price, :unit_price_cents,
                    :final_quantity, :product_id, :quantity, :id, :_destroy
                  ]
 
@@ -45,7 +45,6 @@ ActiveAdmin.register Order do
       ff.input :quantity, wrapper_html: { class: 'fl' }
       ff.input :unit_price, as: :number, wrapper_html: { class: 'fl' }
       if !ff.object.new_record? && ff.object&.complete
-        ff.input :complete, label: "Partida completa?"
         ff.input :final_quantity
       end
     end
@@ -76,14 +75,16 @@ ActiveAdmin.register Order do
 
     panel "Productos" do
       table_for(order.products) do
-        column(:name) { |p| link_to p.name, admin_product_path(p.id) }
-        column(:sku) { |p| link_to p.sku, admin_product_path(p.id) }
-        column("Cantidad del pedido") { |p| OrderDetail.find_by(order: resource, product: p)&.quantity }
-        column("Precio unitario") do |p|
-          OrderDetail.find_by(order: resource, product: p)&.unit_price&.format
+        column(:name) { |o| link_to o.name, admin_product_path(o.id) }
+        column(:sku) { |o| link_to o.sku, admin_product_path(o.id) }
+        column("Cantidad del pedido") { |o| OrderDetail.find_by(order: resource, product: o)&.quantity }
+        column("Precio unitario") do |o|
+          OrderDetail.find_by(order: resource, product: o)&.unit_price&.format
         end
-        column("Pedido surtido") { |p| OrderDetail.find_by(order: resource, product: p).completed_at.present? }
-        column("Cantidad surtida") { |p| OrderDetail.find_by(order: resource, product: p).final_quantity }
+        if order.completada?
+          column("Surtido completo?") { |o| OrderDetail.find_by(order: resource, product: o)&.complete? }
+          column("Cantidad surtida") { |o| OrderDetail.find_by(order: resource, product: o).final_quantity }
+        end
       end
     end
   end

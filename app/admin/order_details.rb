@@ -1,12 +1,12 @@
 ActiveAdmin.register OrderDetail do
   menu priority: 5
   menu label: "Productos no surtidos"
-  
+
   config.filters = false
 
   controller do
     def scoped_collection
-      end_of_association_chain.where(complete: false)
+      end_of_association_chain.where("quantity <> final_quantity")
     end
   end
 

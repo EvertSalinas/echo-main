@@ -3,8 +3,11 @@ ActiveAdmin.register_page "Completar orden" do
 
   page_action :call, method: :post do
     @order = Order.find(params[:order][:order_id])
-    permitted = params.require(:order).permit(:status,order_details_attributes: [
-                     :complete, :completed_at, :final_quantity, :id])
+    permitted = params.require(:order).permit(
+                  :status,order_details_attributes: [
+                    :completed_at, :final_quantity, :id
+                  ]
+                )
     permitted[:status]= permitted[:status].to_i
     @order.assign_attributes(permitted)
     @order.save!
@@ -20,7 +23,6 @@ ActiveAdmin.register_page "Completar orden" do
         ff.input :product, as: :searchable_select, ajax: { resource: Product }, input_html: { disabled: true }
         ff.input :quantity, input_html: { disabled: true }
         ff.input :unit_price, input_html: { disabled: true }
-        ff.input :complete, label: "Partida completa?"
         ff.input :completed_at, as: :hidden, input_html: { value: DateTime.current }
         ff.input :final_quantity, input_html: { value: ff.object.quantity }
       end
