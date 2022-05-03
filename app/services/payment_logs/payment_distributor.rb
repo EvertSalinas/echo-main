@@ -6,7 +6,7 @@ class PaymentLogs::PaymentDistributor
     @payment_log  = payment_log
     @client       = payment_log.client
     @main_invoice = Invoice.find(invoice_id)
-    @seller       = Seller.find(seller_id)
+    @seller       = AdminUser.find(seller_id)
   end
 
   def call

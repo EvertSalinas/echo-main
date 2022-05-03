@@ -23,7 +23,7 @@ class Payment < ApplicationRecord
 
   belongs_to :payment_log, touch: true
   belongs_to :invoice,     touch: true
-  belongs_to :seller
+  belongs_to :seller, class_name: "AdminUser"
 
   monetize :amount_cents
 

@@ -31,7 +31,13 @@ ActiveAdmin.register Payment do
       f.input :payment_log, as: :searchable_select, ajax: { resource: PaymentLog }, required: true
       f.input :invoice, as: :searchable_select, ajax: { resource: Invoice }, required: true
       f.input :amount
-      f.input :seller, as: :searchable_select, ajax: { resource: Seller }, required: true
+      f.input :seller, as: :searchable_select,
+        ajax: {
+          resource: AdminUser,
+          params: {
+            role: 'ventas'
+          }
+        }, required: true
     end
     f.actions
   end

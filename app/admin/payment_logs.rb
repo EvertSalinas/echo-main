@@ -35,7 +35,13 @@ ActiveAdmin.register PaymentLog do
       f.input :physical_date
       f.input :client, as: :searchable_select, ajax: { resource: Client }, required: true
       f.input :invoice_id,    required: true, as: :select, collection: []
-      f.input :seller_id, as: :searchable_select, ajax: { resource: Seller }, required: true
+      f.input :seller_id, as: :searchable_select,
+        ajax: {
+          resource: AdminUser,
+          params: {
+            role: 'ventas'
+          }
+        }, required: true
       f.input :total_amount, as: :number
     end
     f.actions

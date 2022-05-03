@@ -62,7 +62,13 @@ ActiveAdmin.register Invoice do
       f.input :total_amount, required: true
       f.input :place, required: true
       f.input :client, as: :searchable_select, ajax: { resource: Client }, required: true
-      f.input :admin_user, as: :searchable_select, ajax: { resource: Seller }, required: true
+      f.input :admin_user, as: :searchable_select,
+        ajax: {
+          resource: AdminUser,
+          params: {
+            role: 'ventas'
+          }
+        }, required: true, label: 'vendedor'
     end
     f.actions
   end
@@ -81,7 +87,7 @@ ActiveAdmin.register Invoice do
       row :place
       row :days_passed
       row :client
-      row :admin_user
+      row ('Vendedor') { |i| i.admin_user&.name || i.admin_user&.email }
       row :created_at
       row :updated_at
     end

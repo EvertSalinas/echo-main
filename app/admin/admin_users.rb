@@ -2,8 +2,14 @@ ActiveAdmin.register AdminUser do
   menu priority: 3
   permit_params :email, :password, :password_confirmation, :role
 
-  searchable_select_options(scope: AdminUser.all,
-                            text_attribute: :email)
+  searchable_select_options(scope:
+    lambda do |params|
+      if params[:role] == 'ventas'
+        AdminUser.vendedores
+      else
+        AdminUser.all
+      end
+    end, text_attribute: :email)
 
   scope :vendedores
 
