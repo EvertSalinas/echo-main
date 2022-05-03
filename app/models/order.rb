@@ -34,9 +34,15 @@ class Order < ApplicationRecord
   validates :folio, presence: true
   validates :status, presence: true
 
+  # before_validation :add_prefix, on: :create
   before_validation :move_status_back, on: :update
 
   private
+
+  # def add_prefix
+  #   return if self.status_changed? && self.status_change[0] == 'pendiente'
+  #   self.status = "pendiente" if status == "completada"
+  # end
 
   def move_status_back
     return if self.status_changed? && self.status_change[0] == 'pendiente'

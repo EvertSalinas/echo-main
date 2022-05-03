@@ -5,11 +5,12 @@ ActiveAdmin.register AdminUser do
   searchable_select_options(scope: AdminUser.all,
                             text_attribute: :email)
 
+  scope :vendedores
+
   index do
     selectable_column
     column(:email) { |au| link_to au.email, admin_admin_user_path(au.id) }
-    column :last_sign_in_at
-    column :sign_in_count
+    column :name
     column :role
     column :created_at
     actions
@@ -25,6 +26,8 @@ ActiveAdmin.register AdminUser do
 
     f.inputs do
       f.input :email, required: true
+      f.input :name
+      f.input :prefix, required: true
       f.input :password, required: true
       f.input :password_confirmation, required: true
       f.input :role, required: true, as: :select, collection: AdminUser::ROLES
@@ -36,8 +39,11 @@ ActiveAdmin.register AdminUser do
     attributes_table do
       row :id
       row :email
-      row :last_sign_in_at
-      row :sign_in_count
+      if resource.ventas_role?
+        row ('sold_amount') { |s| s.sold_amount.format}
+        row :clients
+        row :prefix
+      end
       row :role
       row :created_at
       row :updated_at
@@ -50,6 +56,12 @@ ActiveAdmin.register AdminUser do
           q: { admin_user_id_eq: resource.id, commit: "Filter"}
         )
       )
+      if resource.ventas_role?
+        li link_to("Facturas",admin_invoices_path(
+            q: { admin_user_id_eq: resource.id}
+          )
+        )
+      end
     end
   end
 

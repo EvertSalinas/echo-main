@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_02_230356) do
+ActiveRecord::Schema.define(version: 2022_05_03_215825) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,6 +43,8 @@ ActiveRecord::Schema.define(version: 2022_05_02_230356) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "role", default: "contaduria", null: false
+    t.string "name"
+    t.string "prefix"
     t.index ["email"], name: "index_admin_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
@@ -66,6 +68,8 @@ ActiveRecord::Schema.define(version: 2022_05_02_230356) do
     t.bigint "seller_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "admin_user_id"
+    t.index ["admin_user_id"], name: "index_invoices_on_admin_user_id"
     t.index ["client_id"], name: "index_invoices_on_client_id"
     t.index ["seller_id"], name: "index_invoices_on_seller_id"
     t.index ["status"], name: "index_invoices_on_status"

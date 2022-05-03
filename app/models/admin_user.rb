@@ -9,6 +9,8 @@
 #  encrypted_password     :string           default(""), not null
 #  last_sign_in_at        :datetime
 #  last_sign_in_ip        :inet
+#  name                   :string
+#  prefix                 :string
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
@@ -30,12 +32,24 @@ class AdminUser < ApplicationRecord
   ROLES = %w(master contaduria almacen ventas).freeze
 
   has_many :orders
+  has_many :invoices, dependent: :nullify
 
   validates :role, inclusion: { in: ROLES }
+
+  scope :vendedores, -> { where(role: "ventas") } 
 
   ROLES.each do |role|
     define_method("#{role}_role?") do
       self.role == role
     end
+  end
+
+  # TODO move to module
+  def sold_amount
+    Money.new(invoices.sum(:total_amount_cents))
+  end
+
+  def clients
+    invoices.joins(:client).pluck(:name).uniq
   end
 end
