@@ -22,7 +22,7 @@ ActiveAdmin.register Payment do
 
   filter :payment_log_folio, as: :string, label: "Folio registro de pago"
   filter :invoice_system_folio, as: :string, label: "Folio del sistema de factura"
-  filter :seller_name, as: :string, label: "Vendedor"
+  # filter :seller_name, as: :string, label: "Vendedor"
 
   form do |f|
     f.semantic_errors *f.object.errors.keys
