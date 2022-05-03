@@ -32,7 +32,7 @@ class Invoice < ApplicationRecord
   CONDITIONS = %w(credito contado).freeze
 
   belongs_to :client
-  belongs_to :seller
+  belongs_to :seller, optional: true
   belongs_to :admin_user, optional: true
   has_many   :payments
 

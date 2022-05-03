@@ -47,7 +47,7 @@ ActiveAdmin.register Payment do
       row(:payment_log) { |p| link_to p.payment_log.folio, admin_payment_log_path(p.payment_log.id) }
       row(:invoice)     { |p| link_to p.invoice.system_folio, admin_invoice_path(p.invoice.id) }
       row(:amount)      { |p| p.amount.format }
-      row :seller
+      row ('Vendedor')  { |p| link_to p.seller&.name || p.seller&.email, admin_admin_user_path(p.seller_id) }
       row :created_at
       row :updated_at
     end
