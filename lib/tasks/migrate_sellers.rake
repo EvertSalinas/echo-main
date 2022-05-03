@@ -16,7 +16,7 @@ namespace :migrate_sellers do
           name: seller.name
         )
       end
-      binding.pry
+
       invoices = seller.invoices
       payments = seller.payments
 
