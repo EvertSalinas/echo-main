@@ -21,7 +21,8 @@ ActiveAdmin.register Order do
 
   index do
     selectable_column
-    column(:folio) { |c| link_to c.folio, admin_order_path(c.id) }
+    column(:id)
+    column(:folio) { |c| link_to c.folio, admin_order_path(c.id) if c.folio.present? }
     column (:client) { |c| link_to c.client.name, admin_client_path(c.client.id) }
     column :status
     column :created_at
@@ -34,7 +35,9 @@ ActiveAdmin.register Order do
     f.semantic_errors *f.object.errors.keys
 
     f.inputs do
-      f.input :folio, required: true
+      if !f.object.new_record?
+        f.input :folio
+      end
       f.input :admin_user_id, as: :searchable_select, ajax: { resource: AdminUser }
       f.input :client_id, as: :searchable_select, ajax: { resource: Client }
       li "Status: #{f.object.status.capitalize}" unless f.object.new_record?
@@ -44,7 +47,7 @@ ActiveAdmin.register Order do
       ff.input :product, as: :searchable_select, ajax: { resource: Product }
       ff.input :quantity, wrapper_html: { class: 'fl' }
       ff.input :unit_price, as: :number, wrapper_html: { class: 'fl' }
-      if !ff.object.new_record? && ff.object&.complete
+      if !ff.object.new_record? && ff.object&.complete?
         ff.input :final_quantity
       end
     end

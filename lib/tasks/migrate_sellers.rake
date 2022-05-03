@@ -13,7 +13,8 @@ namespace :migrate_sellers do
           role: 'ventas',
           password: 'testing',
           password_confirmation: 'testing',
-          name: seller.name
+          name: seller.name,
+          prefix: seller.name[0..1]
         )
       end
 

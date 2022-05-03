@@ -1,6 +1,6 @@
 ActiveAdmin.register AdminUser do
   menu priority: 3
-  permit_params :email, :password, :password_confirmation, :role
+  permit_params :email, :password, :password_confirmation, :role, :prefix
 
   searchable_select_options(scope:
     lambda do |params|
@@ -12,6 +12,19 @@ ActiveAdmin.register AdminUser do
     end, text_attribute: :email)
 
   scope :vendedores
+
+  controller do
+
+   def update
+     model = :user
+
+     if params[:admin_user][:password].blank?
+       %w(password password_confirmation).each { |p| params[:admin_user].delete(p) }
+     end
+
+     super
+   end
+ end
 
   index do
     selectable_column
