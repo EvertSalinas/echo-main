@@ -1,6 +1,6 @@
 ActiveAdmin.register AdminUser do
   menu priority: 3
-  permit_params :email, :password, :password_confirmation, :role, :prefix
+  permit_params :email, :password, :password_confirmation, :role, :prefix, :name
 
   searchable_select_options(scope:
     lambda do |params|
@@ -31,6 +31,7 @@ ActiveAdmin.register AdminUser do
     column(:email) { |au| link_to au.email, admin_admin_user_path(au.id) }
     column :name
     column :role
+    column :prefix
     column :created_at
     actions
   end

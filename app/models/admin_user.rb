@@ -35,8 +35,9 @@ class AdminUser < ApplicationRecord
   has_many :invoices, dependent: :nullify
 
   validates :role, inclusion: { in: ROLES }
+  validates :prefix, presence: true, uniqueness: true
 
-  scope :vendedores, -> { where(role: "ventas") } 
+  scope :vendedores, -> { where(role: "ventas") }
 
   ROLES.each do |role|
     define_method("#{role}_role?") do

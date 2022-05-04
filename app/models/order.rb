@@ -43,7 +43,6 @@ class Order < ApplicationRecord
   private
 
   def add_prefix
-    return unless admin_user.prefix.present?
     update_column(:folio, "#{admin_user.prefix}#{sequential_id}")
   end
 
