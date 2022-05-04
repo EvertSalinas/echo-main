@@ -15,7 +15,7 @@ panel "Ordenes por mes" do
         date = Date.new(year,i+1,1)
         tr do
           td date.strftime('%B')
-          td Order.where(created_at: date.beginning_of_month..date.end_of_month).count
+          td Order.where(created_at: date.beginning_of_month.to_time..date.end_of_month.end_of_day).count
         end
       end
     end
