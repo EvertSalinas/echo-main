@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_03_232410) do
+ActiveRecord::Schema.define(version: 2022_06_07_013206) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -97,6 +97,7 @@ ActiveRecord::Schema.define(version: 2022_05_03_232410) do
     t.bigint "admin_user_id", null: false
     t.bigint "client_id", null: false
     t.integer "sequential_id"
+    t.text "comments"
     t.index ["admin_user_id"], name: "index_orders_on_admin_user_id"
     t.index ["client_id"], name: "index_orders_on_client_id"
   end

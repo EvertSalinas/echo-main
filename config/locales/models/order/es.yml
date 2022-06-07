@@ -10,6 +10,7 @@ es:
         status: Estatus
         admin_user: Persona que registra
         client: Cliente
+        comments: Observaciones
         quantity: Cantidad del pedido
         final_quantity: Cantidad surtida
         remaining_quantity: Cantidad no surtida

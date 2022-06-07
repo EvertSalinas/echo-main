@@ -3,6 +3,7 @@
 # Table name: orders
 #
 #  id            :bigint           not null, primary key
+#  comments      :text
 #  folio         :string
 #  status        :integer          default("pendiente"), not null
 #  created_at    :datetime         not null
