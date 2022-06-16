@@ -14,7 +14,7 @@ ActiveAdmin.register Order do
   scope :completada
 
   action_item :edit, only: :show do
-    if resource.pendiente?
+    if resource.pendiente? && authorized?(:complete, order)
       link_to "Completar Orden", admin_completar_orden_path(order_id: resource.id)
     end
   end

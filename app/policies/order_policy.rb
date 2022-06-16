@@ -24,4 +24,12 @@ class OrderPolicy < ApplicationPolicy
     index?
   end
 
+  def destroy?
+    %w(master).include?(admin_user.role)
+  end
+
+  def complete?
+    %w(master almacen).include?(admin_user.role)
+  end
+
 end
