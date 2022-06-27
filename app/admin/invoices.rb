@@ -1,7 +1,7 @@
 ActiveAdmin.register Invoice do
   menu priority: 2
   permit_params :condition, :physical_folio, :system_folio, :system_date,
-                :total_amount, :physical_date, :place, :client_id, :seller_id,
+                :total_amount, :physical_date, :place, :client_id, :admin_user_id,
                 :create_another, :status
 
   config.sort_order = ''
@@ -41,7 +41,7 @@ ActiveAdmin.register Invoice do
 
   # TODO enhance filters
   preserve_default_filters!
-  # filter :status, as: :check_boxes, collection: proc { Invoice.statuses.keys }
+
   filter :days_passed_filter,
     as: :numeric,
     label: 'Días',
@@ -62,7 +62,13 @@ ActiveAdmin.register Invoice do
       f.input :total_amount, required: true
       f.input :place, required: true
       f.input :client, as: :searchable_select, ajax: { resource: Client }, required: true
-      f.input :seller, as: :searchable_select, ajax: { resource: Seller }, required: true
+      f.input :admin_user, as: :searchable_select,
+        ajax: {
+          resource: AdminUser,
+          params: {
+            role: 'ventas'
+          }
+        }, required: true, label: 'vendedor'
     end
     f.actions
   end
@@ -81,7 +87,7 @@ ActiveAdmin.register Invoice do
       row :place
       row :days_passed
       row :client
-      row :seller
+      row ('Vendedor') { |i| i.admin_user&.name || i.admin_user&.email }
       row :created_at
       row :updated_at
     end

@@ -1,0 +1,19 @@
+es:
+  activerecord:
+    models:
+      order:
+        one: Orden
+        other: Ordenes
+    attributes:
+      order:
+        folio: Folio
+        status: Estatus
+        admin_user: Persona que registra
+        client: Cliente
+        comments: Observaciones
+        quantity: Cantidad del pedido
+        final_quantity: Cantidad surtida
+        remaining_quantity: Cantidad no surtida
+        unit_price: Precio unitario
+        created_at: Creado en
+        updated_at: Actualizado en

@@ -22,7 +22,7 @@ ActiveAdmin.register Payment do
 
   filter :payment_log_folio, as: :string, label: "Folio registro de pago"
   filter :invoice_system_folio, as: :string, label: "Folio del sistema de factura"
-  filter :seller_name, as: :string, label: "Vendedor"
+  # filter :seller_name, as: :string, label: "Vendedor"
 
   form do |f|
     f.semantic_errors *f.object.errors.keys
@@ -31,7 +31,13 @@ ActiveAdmin.register Payment do
       f.input :payment_log, as: :searchable_select, ajax: { resource: PaymentLog }, required: true
       f.input :invoice, as: :searchable_select, ajax: { resource: Invoice }, required: true
       f.input :amount
-      f.input :seller, as: :searchable_select, ajax: { resource: Seller }, required: true
+      f.input :seller, as: :searchable_select,
+        ajax: {
+          resource: AdminUser,
+          params: {
+            role: 'ventas'
+          }
+        }, required: true
     end
     f.actions
   end
@@ -41,7 +47,7 @@ ActiveAdmin.register Payment do
       row(:payment_log) { |p| link_to p.payment_log.folio, admin_payment_log_path(p.payment_log.id) }
       row(:invoice)     { |p| link_to p.invoice.system_folio, admin_invoice_path(p.invoice.id) }
       row(:amount)      { |p| p.amount.format }
-      row :seller
+      row ('Vendedor')  { |p| link_to p.seller&.name || p.seller&.email, admin_admin_user_path(p.seller_id) }
       row :created_at
       row :updated_at
     end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_05_225930) do
+ActiveRecord::Schema.define(version: 2022_06_07_013206) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,6 +43,8 @@ ActiveRecord::Schema.define(version: 2021_04_05_225930) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "role", default: "contaduria", null: false
+    t.string "name"
+    t.string "prefix"
     t.index ["email"], name: "index_admin_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
@@ -66,10 +68,38 @@ ActiveRecord::Schema.define(version: 2021_04_05_225930) do
     t.bigint "seller_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "admin_user_id"
+    t.index ["admin_user_id"], name: "index_invoices_on_admin_user_id"
     t.index ["client_id"], name: "index_invoices_on_client_id"
     t.index ["seller_id"], name: "index_invoices_on_seller_id"
     t.index ["status"], name: "index_invoices_on_status"
     t.index ["system_folio"], name: "index_invoices_on_system_folio"
+  end
+
+  create_table "order_details", force: :cascade do |t|
+    t.bigint "order_id", null: false
+    t.bigint "product_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "quantity", default: 1, null: false
+    t.integer "unit_price_cents"
+    t.datetime "completed_at"
+    t.integer "final_quantity"
+    t.index ["order_id"], name: "index_order_details_on_order_id"
+    t.index ["product_id"], name: "index_order_details_on_product_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.string "folio"
+    t.integer "status", default: 0, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "admin_user_id", null: false
+    t.bigint "client_id", null: false
+    t.integer "sequential_id"
+    t.text "comments"
+    t.index ["admin_user_id"], name: "index_orders_on_admin_user_id"
+    t.index ["client_id"], name: "index_orders_on_client_id"
   end
 
   create_table "payment_logs", force: :cascade do |t|
@@ -100,10 +130,25 @@ ActiveRecord::Schema.define(version: 2021_04_05_225930) do
     t.index ["seller_id"], name: "index_payments_on_seller_id"
   end
 
+  create_table "products", force: :cascade do |t|
+    t.string "sku", null: false
+    t.string "name", null: false
+    t.string "line"
+    t.string "aux_sku"
+    t.string "in_stock"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["sku"], name: "index_products_on_sku", unique: true
+  end
+
   create_table "sellers", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "order_details", "orders"
+  add_foreign_key "order_details", "products"
+  add_foreign_key "orders", "admin_users"
+  add_foreign_key "orders", "clients"
 end

@@ -33,12 +33,15 @@ ActiveAdmin.register Client do
       row :created_at
       row :updated_at
     end
-
   end
 
   sidebar "Relaciones", only: [:show, :edit] do
     ul do
       li link_to("Facturas",admin_invoices_path(
+          q: { client_id_eq: resource.id, commit: "Filter"}
+        )
+      )
+      li link_to("Ordenes",admin_orders_path(
           q: { client_id_eq: resource.id, commit: "Filter"}
         )
       )

@@ -11,6 +11,7 @@ class Client < ApplicationRecord
 
   has_many :invoices,     dependent: :nullify
   has_many :payment_logs, dependent: :nullify
+  has_many :orders
 
   validates :name, uniqueness: true
 
@@ -23,7 +24,7 @@ class Client < ApplicationRecord
   end
 
   def sellers
-    invoices.joins(:seller).pluck(:name).uniq
+    invoices.joins(:admin_user).where(admin_users: { role: "ventas"} ).pluck(:name).uniq
   end
 
 end

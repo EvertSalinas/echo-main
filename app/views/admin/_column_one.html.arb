@@ -1,0 +1,23 @@
+panel "Orders Totales" do
+  Order.count
+end
+
+panel "Ordenes por mes" do
+  year = Date.current.year
+  table do
+    thead do
+      tr do
+        %w[Mes Total].each &method(:th)
+      end
+    end
+    tbody do
+      1..12.times do |i|
+        date = Date.new(year,i+1,1)
+        tr do
+          td date.strftime('%B')
+          td Order.where(created_at: date.beginning_of_month.to_time..date.end_of_month.end_of_day).count
+        end
+      end
+    end
+  end
+end

@@ -10,6 +10,7 @@
 class Seller < ApplicationRecord
 
   has_many :invoices, dependent: :nullify
+  has_many :payments
 
   validates :name, uniqueness: true
 
