@@ -29,4 +29,11 @@ ActiveAdmin.register OrderDetail do
     end
   end
 
+  csv do
+    column(:product) { |c| c.product.name }
+    column(:order) { |c| c.order.folio }
+    column(:quantity)
+    column(:final_quantity)
+    column(:remaining_quantity)
+  end
 end
