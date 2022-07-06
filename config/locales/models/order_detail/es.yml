@@ -10,5 +10,6 @@ es:
         quantity: Cantidad del pedido
         final_quantity: Cantidad surtida
         remaining_quantity: Cantidad no surtida
+        completed_at: Completado en
         created_at: Creado en
         updated_at: Actualizado en

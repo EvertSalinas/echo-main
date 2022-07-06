@@ -2,7 +2,8 @@ ActiveAdmin.register OrderDetail do
   menu priority: 5
   menu label: "Productos no surtidos"
 
-  config.filters = false
+  filter :completed_at
+  filter :created_at
 
   controller do
     def scoped_collection
@@ -35,5 +36,6 @@ ActiveAdmin.register OrderDetail do
     column(:quantity)
     column(:final_quantity)
     column(:remaining_quantity)
+    column(:completed_at)
   end
 end
