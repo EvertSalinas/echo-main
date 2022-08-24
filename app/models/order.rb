@@ -58,10 +58,10 @@ class Order < ApplicationRecord
   def morning_availability
 		return true unless AdminUser.find_by(id: self.current_user_id)&.ventas_role?
 
-		start_time = Time.now.change(hour: 9, min: 30)
-		end_time = Time.now.change(hour: 11, min: 30)
-		
-		if Time.now.between?(start_time, end_time)
+		start_time = Time.zone.now.change(hour: 9, min: 30)
+		end_time = Time.zone.now.change(hour: 11, min: 30)
+
+		if Time.zone.now.between?(start_time, end_time)
 			errors.add(:base, 'El servicio esta bloqueado en este horario')
 		end
   end
