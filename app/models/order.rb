@@ -27,6 +27,8 @@ class Order < ApplicationRecord
 
   acts_as_sequenced scope: :admin_user_id
 
+  attr_accessor :current_user_id
+
   belongs_to :admin_user
   belongs_to :client
 
@@ -37,6 +39,7 @@ class Order < ApplicationRecord
 
   # validates :folio, presence: true
   validates :status, presence: true
+  validate  :morning_availability
 
   after_create :add_prefix
   before_validation :move_status_back, on: :update
@@ -51,4 +54,16 @@ class Order < ApplicationRecord
     return if self.status_changed? && self.status_change[0] == 'pendiente'
     self.status = "pendiente" if status == "completada"
   end
+
+  def morning_availability
+		return true unless AdminUser.find_by(id: self.current_user_id)&.ventas_role?
+
+		start_time = Time.now.change(hour: 9, min: 30)
+		end_time = Time.now.change(hour: 11, min: 30)
+		
+		if Time.now.between?(start_time, end_time)
+			errors.add(:base, 'El servicio esta bloqueado en este horario')
+		end
+  end
+
 end

@@ -1,6 +1,6 @@
 ActiveAdmin.register Order do
   menu priority: 1
-  permit_params :folio, :status, :admin_user_id, :client_id, :comments,
+  permit_params :folio, :status, :admin_user_id, :client_id, :comments, :current_user_id,
                  order_details_attributes: [
                    :completed_at, :unit_price, :unit_price_cents,
                    :final_quantity, :product_id, :quantity, :id, :_destroy
@@ -39,6 +39,7 @@ ActiveAdmin.register Order do
         f.input :folio
       end
       f.input :admin_user_id, as: :searchable_select, ajax: { resource: AdminUser }
+      f.input :current_user_id, as: :hidden, input_html: { value: current_admin_user.id }
       f.input :client_id, as: :searchable_select, ajax: { resource: Client }
       f.input :comments
       li "Status: #{f.object.status.capitalize}" unless f.object.new_record?
