@@ -27,11 +27,11 @@
     </tr>
     <tr>
       <th>Persona que registra:</th>
-      <td><%= resource.admin_user.email %></td>
+      <td><%= resource.admin_user&.email %></td>
     </tr>
     <tr>
       <th>Cliente:</th>
-      <td><%= resource.client.name %></td>
+      <td><%= resource.client&.name %></td>
     </tr>
     <tr>
       <th>Observaciones:</th>
@@ -58,10 +58,10 @@
     </tr>
     <% resource.order_details.each do |detail| %>
       <tr>
-        <td><%= detail.product.name %></td>
-        <td><%= detail.product.sku %></td>
+        <td><%= detail.product&.name %></td>
+        <td><%= detail.product&.sku %></td>
         <td><%= detail.quantity %></td>
-        <td><%= detail.unit_price.format %></td>
+        <td><%= detail.unit_price&.format %></td>
       </tr>
     <% end %>
   </table>
