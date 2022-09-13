@@ -19,7 +19,7 @@ ActiveAdmin.register Order do
     end
   end
 
-  action_item :view do
+  action_item :view, only: :show do
     link_to "Generar PDF", admin_order_path(resource, format: 'pdf'), target: '_blank'
   end
 
