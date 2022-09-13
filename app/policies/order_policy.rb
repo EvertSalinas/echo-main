@@ -32,4 +32,8 @@ class OrderPolicy < ApplicationPolicy
     %w(master almacen).include?(admin_user.role)
   end
 
+  def pdf?
+    %w(master almacen).include?(admin_user.role)
+  end
+
 end

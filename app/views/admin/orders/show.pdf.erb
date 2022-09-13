@@ -1,0 +1,68 @@
+<head>
+  <style>
+  table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+  th, td {
+    padding: 5px;
+    text-align: left;
+  }
+  </style>
+</head>
+
+<body>
+  <h1>Orden #<%= resource.id %></h1>
+
+  <h2>Detalles de Orden:</h2>
+
+  <table>
+    <tr>
+      <th>Folio:</th>
+      <td><%= resource.folio %></td>
+    </tr>
+    <tr>
+      <th>Estatus:</th>
+      <td><%= resource.status %></td>
+    </tr>
+    <tr>
+      <th>Persona que registra:</th>
+      <td><%= resource.admin_user.email %></td>
+    </tr>
+    <tr>
+      <th>Cliente:</th>
+      <td><%= resource.client.name %></td>
+    </tr>
+    <tr>
+      <th>Observaciones:</th>
+      <td><%= resource.comments %></td>
+    </tr>
+    <tr>
+      <th>Creado en:</th>
+      <td><%= resource.created_at %></td>
+    </tr>
+    <tr>
+      <th>Actualizado en:</th>
+      <td><%= resource.updated_at %></td>
+    </tr>
+  </table>
+
+  <h2>Productos:</h2>
+
+  <table style="width:100%">
+    <tr>
+      <th>Nombre</th>
+      <th>Clave</th>
+      <th>Cantidad del pedido</th>
+      <th>Precio unitario</th>
+    </tr>
+    <% resource.order_details.each do |detail| %>
+      <tr>
+        <td><%= detail.product.name %></td>
+        <td><%= detail.product.sku %></td>
+        <td><%= detail.quantity %></td>
+        <td><%= detail.unit_price.format %></td>
+      </tr>
+    <% end %>
+  </table>
+</body>

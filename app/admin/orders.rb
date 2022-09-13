@@ -19,6 +19,24 @@ ActiveAdmin.register Order do
     end
   end
 
+  action_item :view do
+    link_to "Generar PDF", admin_order_path(resource, format: 'pdf'), target: '_blank'
+  end
+
+  controller do
+    # if you want /admin/pages/12345.pdf
+    def show
+      @order = Order.find(params[:id])
+      respond_to do |format|
+        format.html
+        format.pdf do
+          render(pdf: "order-#{resource.id}.pdf")
+        end
+      end
+    end
+  end
+
+
   index do
     selectable_column
     column(:id)
