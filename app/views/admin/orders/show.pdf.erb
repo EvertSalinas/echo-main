@@ -55,6 +55,10 @@
       <th>Clave</th>
       <th>Cantidad del pedido</th>
       <th>Precio unitario</th>
+      <% if resource.completada? %>
+        <th>Surtido completo?</th>
+        <th>Cantidad surtida</th>
+      <% end %>
     </tr>
     <% resource.order_details.each do |detail| %>
       <tr>
@@ -62,6 +66,10 @@
         <td><%= detail.product&.sku %></td>
         <td><%= detail.quantity %></td>
         <td><%= detail.unit_price&.format %></td>
+        <% if resource.completada? %>
+          <th><%= detail.complete? ? "si" : "no" %></th>
+          <th><%= detail.final_quantity %></th>
+        <% end %>
       </tr>
     <% end %>
   </table>
