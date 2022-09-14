@@ -41,4 +41,10 @@ class OrderDetail < ApplicationRecord
     quantity - final_quantity
   end
 
+  def final_price
+    return 0 unless complete?
+    
+    Money.new(final_quantity * unit_price_cents)
+  end
+
 end

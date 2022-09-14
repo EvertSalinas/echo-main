@@ -44,6 +44,10 @@ class Order < ApplicationRecord
   after_create :add_prefix
   before_validation :move_status_back, on: :update
 
+  def total_price
+    Money.new(order_details.sum(&:final_price))
+  end
+
   private
 
   def add_prefix

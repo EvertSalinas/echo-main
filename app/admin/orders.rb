@@ -93,6 +93,7 @@ ActiveAdmin.register Order do
       row (:admin_user) { |c| link_to c.admin_user.email, admin_admin_user_path(c.admin_user.id) }
       row (:client) { |c| link_to c.client.name, admin_client_path(c.client.id) }
       row :comments
+      row ("total") { |o| o.total_price&.format }
       row :created_at
       row :updated_at
     end
@@ -108,6 +109,7 @@ ActiveAdmin.register Order do
         if order.completada?
           column("Surtido completo?") { |o| OrderDetail.find_by(order: resource, product: o)&.complete? }
           column("Cantidad surtida") { |o| OrderDetail.find_by(order: resource, product: o).final_quantity }
+          column("Cantidad surtida") { |o| OrderDetail.find_by(order: resource, product: o).final_price&.format }
         end
       end
     end
