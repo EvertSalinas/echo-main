@@ -108,8 +108,8 @@ ActiveAdmin.register Order do
         end
         if order.completada?
           column("Surtido completo?") { |o| OrderDetail.find_by(order: resource, product: o)&.complete? }
-          column("Cantidad surtida") { |o| OrderDetail.find_by(order: resource, product: o).final_quantity }
-          column("Cantidad surtida") { |o| OrderDetail.find_by(order: resource, product: o).final_price&.format }
+          column("Cantidad surtida") { |o| OrderDetail.find_by(order: resource, product: o)&.final_quantity }
+          column("Precio") { |o| OrderDetail.find_by(order: resource, product: o)&.final_price&.format }
         end
       end
     end
