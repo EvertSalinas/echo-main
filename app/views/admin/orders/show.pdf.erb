@@ -53,10 +53,8 @@
     <tr>
       <th>Nombre</th>
       <th>Clave</th>
-      <th>Cantidad surtida</th>
       <th>Precio unitario</th>
       <% if resource.completada? %>
-        <th>Surtido completo?</th>
         <th>Cantidad surtida</th>
         <th>Total</th>
       <% end %>
@@ -65,10 +63,8 @@
       <tr>
         <td><%= detail.product&.name %></td>
         <td><%= detail.product&.sku %></td>
-        <td><%= detail.quantity %></td>
         <td><%= detail.unit_price&.format %></td>
         <% if resource.completada? %>
-          <th><%= detail.complete? ? "si" : "no" %></th>
           <th><%= detail.final_quantity %></th>
           <th><%= detail.final_price&.format %></th>
         <% end %>

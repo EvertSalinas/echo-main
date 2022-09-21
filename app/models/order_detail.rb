@@ -42,7 +42,7 @@ class OrderDetail < ApplicationRecord
   end
 
   def final_price
-    return Money.new(0) unless complete? && final_quantity.present? && unit_price_cents.present?
+    return Money.new(0) unless final_quantity.present? && unit_price_cents.present?
 
     Money.new(final_quantity * unit_price_cents)
   end
