@@ -1,6 +1,6 @@
 ActiveAdmin.register Client do
   menu priority: 2
-  permit_params :name
+  permit_params :name, :blocked
 
   searchable_select_options(scope: Client.all,
                             text_attribute: :name)
@@ -15,12 +15,14 @@ ActiveAdmin.register Client do
 
   filter :name
   filter :created_at
+  filter :blocked
 
   form do |f|
     f.semantic_errors *f.object.errors.keys
 
     f.inputs do
       f.input :name
+      f.input :blocked
     end
     f.actions
   end
@@ -28,6 +30,7 @@ ActiveAdmin.register Client do
   show do
     attributes_table do
       row :id
+      row :blocked
       row(:remaining_debt) { |c| c.remaining_debt.format }
       row :sellers
       row :created_at

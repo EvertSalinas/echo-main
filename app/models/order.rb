@@ -40,6 +40,7 @@ class Order < ApplicationRecord
   # validates :folio, presence: true
   validates :status, presence: true
   validate  :morning_availability
+  validate  :client_status
 
   after_create :add_prefix
   before_validation :move_status_back, on: :update
@@ -68,6 +69,12 @@ class Order < ApplicationRecord
 		if Time.zone.now.between?(start_time, end_time)
 			errors.add(:base, 'El servicio esta bloqueado en este horario')
 		end
+  end
+
+  def client_status
+    if client.blocked?
+      errors.add(:base, 'El cliente esta bloqueado')
+    end
   end
 
 end

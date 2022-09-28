@@ -3,6 +3,7 @@
 # Table name: clients
 #
 #  id         :bigint           not null, primary key
+#  blocked    :boolean          default(FALSE)
 #  name       :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
