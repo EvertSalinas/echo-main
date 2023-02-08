@@ -43,7 +43,6 @@ class Order < ApplicationRecord
   validate  :client_status
 
   after_create :add_prefix
-  before_validation :move_status_back, on: :update
 
   def total_price
     Money.new(order_details.sum(&:final_price))
@@ -55,20 +54,15 @@ class Order < ApplicationRecord
     update_column(:folio, "#{admin_user.prefix}#{sequential_id}")
   end
 
-  def move_status_back
-    return if self.status_changed? && self.status_change[0] == 'pendiente'
-    self.status = "pendiente" if status == "completada"
-  end
-
   def morning_availability
-		return true unless AdminUser.find_by(id: self.current_user_id)&.ventas_role?
+    return true unless AdminUser.find_by(id: self.current_user_id)&.ventas_role?
 
-		start_time = Time.zone.now.change(hour: 9, min: 30)
-		end_time = Time.zone.now.change(hour: 11, min: 30)
+    start_time = Time.zone.now.change(hour: 9, min: 30)
+    end_time = Time.zone.now.change(hour: 11, min: 30)
 
-		if Time.zone.now.between?(start_time, end_time)
-			errors.add(:base, 'El servicio esta bloqueado en este horario')
-		end
+    if Time.zone.now.between?(start_time, end_time)
+        errors.add(:base, 'El servicio esta bloqueado en este horario')
+    end
   end
 
   def client_status

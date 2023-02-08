@@ -58,5 +58,23 @@ $($("#payment_log_client_id")).ready(function() {
   }
 });
 
+$($("#order_order_details_attributes_0_unit_price")).ready(function() {
+  $("#order_order_details_attributes_0_unit_price").on("keyup mouseup", function() {
+    var price = $("#order_order_details_attributes_0_unit_price").val();
+    var qty = $("#order_order_details_attributes_0_quantity").val();
+
+    $("#pruebame").text(`Price: $${price*qty}`);
+  });
+});
+
+$($("#order_order_details_attributes_0_quantity")).ready(function() {
+  $("#order_order_details_attributes_0_quantity").on("keyup mouseup", function() {
+    var price = $("#order_order_details_attributes_0_unit_price").val();
+    var qty = $("#order_order_details_attributes_0_quantity").val();
+
+    $("#pruebame").text(`Price: $${price*qty}`);
+  });
+});
+
 
 // debugger;
