@@ -67,7 +67,6 @@ ActiveAdmin.register Order do
       ff.input :product, as: :searchable_select, ajax: { resource: Product }
       ff.input :quantity, wrapper_html: { class: 'fl' }
       ff.input :unit_price, as: :number, wrapper_html: { class: 'fl' }
-      ff.template.concat "<h1 id='pruebame'>Precio: $0</h1>".html_safe
       if !ff.object.new_record? && ff.object&.complete?
         ff.input :final_quantity
       end

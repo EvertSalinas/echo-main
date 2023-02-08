@@ -39,8 +39,9 @@ class Order < ApplicationRecord
 
   # validates :folio, presence: true
   validates :status, presence: true
-  validate  :morning_availability
-  validate  :client_status
+  validate :morning_availability
+  validate :client_status
+  validate :status_transition
 
   after_create :add_prefix
 
@@ -49,6 +50,12 @@ class Order < ApplicationRecord
   end
 
   private
+
+  def status_transition
+    if status_changed? && status_change[0] == 'completada'
+      errors.add(:status, "No puedes cambiar el estatus de la orden cuando ya esta completada")
+    end
+  end
 
   def add_prefix
     update_column(:folio, "#{admin_user.prefix}#{sequential_id}")
