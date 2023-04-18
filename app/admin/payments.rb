@@ -28,8 +28,8 @@ ActiveAdmin.register Payment do
     f.semantic_errors *f.object.errors.keys
 
     f.inputs do
-      f.input :payment_log, as: :searchable_select, ajax: { resource: PaymentLog }, required: true
-      f.input :invoice, as: :searchable_select, ajax: { resource: Invoice }, required: true
+      f.input :payment_log, as: :searchable_select, required: true
+      f.input :invoice, as: :searchable_select, required: true
       f.input :amount
       f.input :seller, as: :searchable_select,
         ajax: {

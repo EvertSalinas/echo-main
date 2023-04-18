@@ -1,9 +1,8 @@
 ActiveAdmin.register Product do
   menu priority: 1
-  permit_params :sku, :name, :line, :aux_sku
-
-  searchable_select_options(scope: Product.all,
-                            text_attribute: :name)
+  permit_params :sku, :name, :line, :aux_sku, prices_attributes: [
+    :amount
+  ]
 
   preserve_default_filters!
   remove_filter :order_details
@@ -21,7 +20,7 @@ ActiveAdmin.register Product do
     actions
   end
 
-  form do |f|
+  form(:html => {:multipart => true}) do |f|
     f.semantic_errors *f.object.errors.keys
 
     f.inputs do
@@ -29,6 +28,10 @@ ActiveAdmin.register Product do
       f.input :name, required: true
       f.input :line
       f.input :aux_sku
+    end
+
+    f.has_many :prices, heading: "Precios", allow_destroy: true do |ff|
+      ff.input :amount
     end
     f.actions
   end
@@ -42,6 +45,23 @@ ActiveAdmin.register Product do
       row :aux_sku
       row :created_at
       row :updated_at
+    end
+
+    panel "" do
+      table do
+        thead do
+          tr do
+            %w[Precios].each &method(:th)
+          end
+        end
+        tbody do
+          resource.prices.each do |p|
+            tr do
+              td p.amount.format
+            end
+          end
+        end
+      end
     end
 
     panel "Vendidos por mes (Todas las ordenes creadas)" do

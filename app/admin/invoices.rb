@@ -61,7 +61,7 @@ ActiveAdmin.register Invoice do
       f.input :physical_date, required: true, as: :datepicker
       f.input :total_amount, required: true
       f.input :place, required: true
-      f.input :client, as: :searchable_select, ajax: { resource: Client }, required: true
+      f.input :client, as: :searchable_select, required: true
       f.input :admin_user, as: :searchable_select,
         ajax: {
           resource: AdminUser,

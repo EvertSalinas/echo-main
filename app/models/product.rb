@@ -19,6 +19,9 @@ class Product < ApplicationRecord
 
   has_many :order_details
   has_many :orders, through: :order_details
+  has_many :prices
+
+  accepts_nested_attributes_for :prices, :allow_destroy => true
 
   validates :sku, presence: true, uniqueness: true
   validates :name, presence: true
@@ -36,4 +39,3 @@ class Product < ApplicationRecord
     ActiveRecord::Base.connection.execute(sql)
   end
 end
-      # ORDER BY count(*) DESC

@@ -34,7 +34,6 @@ gem 'devise'
 # Admin framework
 gem 'activeadmin'
 gem 'formadmin'
-gem 'arctic_admin'
 
 # Authorization
 gem "pundit"

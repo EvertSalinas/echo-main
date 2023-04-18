@@ -17,7 +17,6 @@ module ActiveAdmin
 
   class PunditAdapter < AuthorizationAdapter
     def authorized?(action, subject = nil)
-
       true
       #
       #action = if subject.is_a? Class

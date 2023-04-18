@@ -36,7 +36,6 @@ ActiveAdmin.register Order do
     end
   end
 
-
   index do
     selectable_column
     column(:id)
@@ -56,17 +55,18 @@ ActiveAdmin.register Order do
       if !f.object.new_record?
         f.input :folio
       end
-      f.input :admin_user_id, as: :searchable_select, ajax: { resource: AdminUser }
+      f.input :admin_user, as: :searchable_select, ajax: { resource: AdminUser }
       f.input :current_user_id, as: :hidden, input_html: { value: current_admin_user.id }
-      f.input :client_id, as: :searchable_select, ajax: { resource: Client }
+      f.input :client, as: :searchable_select
       f.input :comments
       li "Status: #{f.object.status.capitalize}" unless f.object.new_record?
     end
 
     f.has_many :order_details, allow_destroy: true do |ff|
-      ff.input :product, as: :searchable_select, ajax: { resource: Product }
+      ff.input :product, as: :searchable_select
       ff.input :quantity, wrapper_html: { class: 'fl' }
-      ff.input :unit_price, as: :number, wrapper_html: { class: 'fl' }
+      ff.input :unit_price, as: :searchable_select, ajax: { resource: Price }
+      # ff.input :unit_price, as: :number, wrapper_html: { class: 'fl' }
       if !ff.object.new_record? && ff.object&.complete?
         ff.input :final_quantity
       end

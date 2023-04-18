@@ -2,8 +2,8 @@ ActiveAdmin.register Client do
   menu priority: 2
   permit_params :name, :blocked
 
-  searchable_select_options(scope: Client.all,
-                            text_attribute: :name)
+  # searchable_select_options(scope: Client.all,
+  #                           text_attribute: :name)
 
   index do
     selectable_column

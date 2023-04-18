@@ -11,7 +11,8 @@ AdminUser::ROLES.each do |role|
     email: "admin+#{role}@example.com",
     role: role,
     password: 'testing',
-    password_confirmation: 'testing'
+    password_confirmation: 'testing',
+    prefix: role.slice(0,2)
   )
 end
 

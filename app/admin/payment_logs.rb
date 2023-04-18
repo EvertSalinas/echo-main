@@ -33,7 +33,10 @@ ActiveAdmin.register PaymentLog do
       f.input :folio,         required: true
       f.input :voucher,       required: true
       f.input :physical_date
-      f.input :client, as: :searchable_select, ajax: { resource: Client }, required: true
+      f.input :invoice_id, as: :nested_select,
+                  level_1: { attribute: :client_id },
+                  level_2: { attribute: :invoice_id }
+      f.input :client, as: :searchable_select, required: true
       f.input :invoice_id,    required: true, as: :select, collection: []
       f.input :seller_id, as: :searchable_select,
         ajax: {
