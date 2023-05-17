@@ -337,6 +337,5 @@ ActiveAdmin.setup do |config|
   config.meta_tags = meta_tags_options
   config.meta_tags_for_logged_out_pages = meta_tags_options
 
-  config.register_javascript 'autoload_select.js'
   Mime::Type.register "application/pdf", :pdf
 end

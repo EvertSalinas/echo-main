@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 ActiveAdmin.register Invoice do
   menu priority: 2
   permit_params :condition, :physical_folio, :system_folio, :system_date,
@@ -16,7 +18,7 @@ ActiveAdmin.register Invoice do
         CASE WHEN invoices.status = 1 THEN 0
             ELSE (DATE_PART('day', NOW() - physical_date))
         END days_passed"
-      ).order("invoices.client_id ASC", "days_passed ASC")
+      ).order('invoices.client_id ASC', 'days_passed ASC')
     end
   end
 
@@ -36,25 +38,19 @@ ActiveAdmin.register Invoice do
     column :status
     column :days_passed, sortable: true
     column :condition
-    # actions
   end
 
-  # TODO enhance filters
   preserve_default_filters!
 
   filter :days_passed_filter,
-    as: :numeric,
-    label: 'Días',
-    filters: [:equals, :greater_than, :less_than]
+         as: :numeric,
+         label: 'Días',
+         filters: %i[equals greater_than less_than]
 
   form do |f|
-    f.semantic_errors *f.object.errors.keys
-
     f.inputs do
       f.input :condition, required: true, as: :select, collection: Invoice::CONDITIONS
-      if !f.object.new_record?
-        f.input :status
-      end
+      f.input :status unless f.object.new_record?
       f.input :physical_folio, required: true
       f.input :system_folio, required: true
       f.input :system_date, required: true, as: :datepicker
@@ -87,31 +83,30 @@ ActiveAdmin.register Invoice do
       row :place
       row :days_passed
       row :client
-      row ('Vendedor') { |i| i.admin_user&.name || i.admin_user&.email }
+      row('Vendedor') { |i| i.admin_user&.name || i.admin_user&.email }
       row :created_at
       row :updated_at
     end
 
   end
 
-  sidebar "Relaciones", only: [:show, :edit] do
+  sidebar 'Relaciones', only: %i[show edit] do
     ul do
-      li link_to("Pagos",admin_payments_path(
-          q: { invoice_id_eq: resource.id, commit: "Filter"}
-        )
-      )
+      li link_to('Pagos', admin_payments_path(
+                            q: { invoice_id_eq: resource.id, commit: 'Filter' }
+                          ))
     end
   end
 
   csv do
-    column(:client)         { |i| i.client&.name }
+    column(:client) { |i| i.client&.name }
     column :physical_folio
     column :system_folio
     column :condition
     column :physical_date
     column :system_date
-    column(:total_amount)   { |i| i.total_amount.format }
-    column(:credit)         { |i| i.credit.format }
+    column(:total_amount) { |i| i.total_amount.format }
+    column(:credit) { |i| i.credit.format }
     column(:remaining_debt) { |i| i.remaining_debt.format }
     column :days_passed
   end

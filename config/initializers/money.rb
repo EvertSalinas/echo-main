@@ -8,7 +8,7 @@ MoneyRails.configure do |config|
   #
   # Example:
   # config.default_bank = EuCentralBank.new
-  Money.use_i18n = false
+  Money.locale_backend = :i18n
   # Add exchange rates to current money bank object.
   # (The conversion rate refers to one direction only)
   #
