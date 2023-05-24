@@ -50,7 +50,7 @@ ActiveAdmin.register Order do
   preserve_default_filters!
 
   form(:html => {:multipart => true}) do |f|
-    f.semantic_errors *f.object.errors.keys
+    f.semantic_errors *f.object.errors.attribute_names
 
     f.inputs do
       if !f.object.new_record?

@@ -1,6 +1,6 @@
 ActiveAdmin.register Product do
   menu priority: 1
-  permit_params :sku, :name, :line, :aux_sku
+  permit_params :sku, :name, :line, :aux_sku, :price_options_text
 
   searchable_select_options(scope: Product.all,
                             text_attribute: :name)
@@ -22,13 +22,16 @@ ActiveAdmin.register Product do
   end
 
   form do |f|
-    f.semantic_errors *f.object.errors.keys
+    f.semantic_errors *f.object.errors.attribute_names
 
     f.inputs do
       f.input :sku, required: true
       f.input :name, required: true
       f.input :line
       f.input :aux_sku
+      f.input :price_options_text, as: :text, input_html: {
+        placeholder: "Ej. 10.23\n99.0", value: f.resource.displayable_prices
+      }
     end
     f.actions
   end
@@ -40,6 +43,11 @@ ActiveAdmin.register Product do
       row :name
       row :line
       row :aux_sku
+      row(:price_options) do
+        resource.price_options.map do |price|
+          number_to_currency(price/100.0, unit: '$', separator: ".", delimiter: "", format: "%u%n")
+        end.join(', ')
+      end
       row :created_at
       row :updated_at
     end
