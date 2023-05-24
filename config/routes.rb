@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get  '/invoices',  to: 'invoices#index'
   get  '/payment_log',  to: 'payment_logs#show'
 
+  resources :products, only: [:show]
   # devise_scope :admin_users do
   #   get 'sign_in',  to: 'devise/sessions#new'
   #   get 'sign_out', to: 'devise/sessions#destroy'

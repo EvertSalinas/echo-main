@@ -41,6 +41,7 @@ gem 'money-rails'
 gem 'active_admin_sidebar'
 gem 'activeadmin_addons'
 gem 'activeadmin-searchable_select'
+gem 'activeadmin_dynamic_fields'
 gem "paranoia", "~> 2.2"
 gem 'sequenced'
 gem 'wicked_pdf'

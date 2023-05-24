@@ -41,7 +41,7 @@ ActiveAdmin.register Order do
     selectable_column
     column(:id)
     column(:folio) { |c| link_to c.folio, admin_order_path(c.id) if c.folio.present? }
-    column (:client) { |c| link_to c.client.name, admin_client_path(c.client.id) }
+    column(:client) { |c| link_to c.client.name, admin_client_path(c.client.id) }
     column :status
     column :created_at
     actions
@@ -64,9 +64,11 @@ ActiveAdmin.register Order do
     end
 
     f.has_many :order_details, allow_destroy: true do |ff|
-      ff.input :product, as: :searchable_select, ajax: { resource: Product }
+      data = { if: 'changed', then: 'callback set_title' }
+      ff.input :product, as: :searchable_select, input_html: { data: data }, ajax: { resource: Product }
       ff.input :quantity, wrapper_html: { class: 'fl' }
-      ff.input :unit_price, as: :number, wrapper_html: { class: 'fl' }
+      # ff.input :unit_price, as: :number, wrapper_html: { class: 'fl' }
+      ff.input :unit_price, as: :select, collection: [], wrapper_html: { class: 'fl' }
       if !ff.object.new_record? && ff.object&.complete?
         ff.input :final_quantity
       end

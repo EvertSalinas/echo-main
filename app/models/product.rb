@@ -57,7 +57,7 @@ class Product < ApplicationRecord
     end
 
     self.price_options = prices.map do |price|
-      (price.to_f * 100)
+      (price.to_f.round(2) * 100)
     end
   end
 end

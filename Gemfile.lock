@@ -70,6 +70,8 @@ GEM
       sassc
       sassc-rails
       xdan-datetimepicker-rails (~> 2.5.1)
+    activeadmin_dynamic_fields (0.7.0)
+      activeadmin (~> 2.0)
     activejob (7.0.4.3)
       activesupport (= 7.0.4.3)
       globalid (>= 0.3.6)
@@ -386,6 +388,7 @@ DEPENDENCIES
   activeadmin
   activeadmin-searchable_select
   activeadmin_addons
+  activeadmin_dynamic_fields
   annotate
   better_errors
   binding_of_caller
