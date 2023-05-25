@@ -43,7 +43,7 @@ class Product < ApplicationRecord
 
   def displayable_prices
     price_options.map do |price|
-      "$#{price/100.0}"
+      "$#{price}"
     end
   end
 
@@ -56,8 +56,6 @@ class Product < ApplicationRecord
       errors.add(:price_options, 'Precio incorrecto')
     end
 
-    self.price_options = prices.map do |price|
-      (price.to_f.round(2) * 100)
-    end
+    self.price_options = prices.map(&:to_f)
   end
 end

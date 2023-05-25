@@ -30,7 +30,7 @@ ActiveAdmin.register Product do
       f.input :line
       f.input :aux_sku
       f.input :price_options_text, as: :text, input_html: {
-        placeholder: "Ej. 10.23\n99.0", value: f.resource.displayable_prices
+        placeholder: "Ej.\n10.23\n99.0", value: f.object&.displayable_prices&.join("\n")
       }
     end
     f.actions
@@ -45,7 +45,7 @@ ActiveAdmin.register Product do
       row :aux_sku
       row(:price_options) do
         resource.price_options.map do |price|
-          number_to_currency(price/100.0, unit: '$', separator: ".", delimiter: "", format: "%u%n")
+          number_to_currency(price, unit: '$', separator: ".", delimiter: "", format: "%u%n")
         end.join(', ')
       end
       row :created_at

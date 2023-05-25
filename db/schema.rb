@@ -138,7 +138,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_17_203231) do
     t.string "in_stock"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "price_options", default: [], array: true
+    t.float "price_options", default: [], array: true
     t.index ["sku"], name: "index_products_on_sku", unique: true
   end
 
