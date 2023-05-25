@@ -68,14 +68,11 @@ class Order < ApplicationRecord
     end_time = Time.zone.now.change(hour: 11, min: 30)
 
     if Time.zone.now.between?(start_time, end_time)
-        errors.add(:base, 'El servicio esta bloqueado en este horario')
+      errors.add(:base, 'El servicio esta bloqueado en este horario')
     end
   end
 
   def client_status
-    if client.blocked?
-      errors.add(:base, 'El cliente esta bloqueado')
-    end
+    errors.add(:base, 'El cliente esta bloqueado') if client.blocked?
   end
-
 end

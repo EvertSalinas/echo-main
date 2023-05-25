@@ -26,10 +26,14 @@ class OrderDetail < ApplicationRecord
   belongs_to :order
   belongs_to :product
 
+  attr_accessor :other_unit_price
+
   monetize :unit_price_cents, allow_nil: true
 
   validates :quantity, presence: true, numericality: { greater_than: 0 }
   validates :unit_price, numericality: { greater_than: 0, allow_nil: true }
+
+  before_validation :set_unit_price
 
   def complete?
     remaining_quantity&.zero?
@@ -47,4 +51,13 @@ class OrderDetail < ApplicationRecord
     Money.new(final_quantity * unit_price_cents)
   end
 
+  private
+
+  def set_unit_price
+    return unless other_unit_price.present?
+
+    other_unit_price = other_unit_price.gsub(/[$,]/, '').to_f
+
+    self.unit_price = other_unit_price / 100
+  end
 end

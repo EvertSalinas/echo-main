@@ -44,7 +44,7 @@ class Product < ApplicationRecord
   def displayable_prices
     price_options.map do |price|
       "$#{price/100.0}"
-    end.join("\n")
+    end
   end
 
   def serialize_array
