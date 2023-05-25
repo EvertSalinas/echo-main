@@ -23,7 +23,7 @@
 #  fk_rails_...  (product_id => products.id)
 #
 class OrderDetail < ApplicationRecord
-  belongs_to :order
+  belongs_to :order, touch: true
   belongs_to :product
 
   attr_accessor :other_unit_price
@@ -33,7 +33,7 @@ class OrderDetail < ApplicationRecord
   validates :quantity, presence: true, numericality: { greater_than: 0 }
   validates :unit_price, numericality: { greater_than: 0, allow_nil: true }
 
-  before_validation :set_unit_price
+  before_save :set_unit_price
 
   def complete?
     remaining_quantity&.zero?
@@ -54,10 +54,11 @@ class OrderDetail < ApplicationRecord
   private
 
   def set_unit_price
+    binding.pry
     return unless other_unit_price.present?
 
-    other_unit_price = other_unit_price.gsub(/[$,]/, '').to_f
+    other_unit_price = other_unit_price.gsub(/[$,]/, '')
 
-    self.unit_price = other_unit_price / 100
+    self.unit_price = other_unit_price
   end
 end

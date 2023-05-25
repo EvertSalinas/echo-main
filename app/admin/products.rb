@@ -9,7 +9,7 @@ ActiveAdmin.register Product do
   remove_filter :order_details
   remove_filter :orders
   remove_filter :in_stock
-  filter :order_details_order_folio, as: :string, label: "Folio Orden"
+  filter :order_details_order_folio, as: :string, label: 'Folio Orden'
 
   index do
     selectable_column

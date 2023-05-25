@@ -64,15 +64,15 @@ ActiveAdmin.register Order do
     end
 
     f.has_many :order_details, allow_destroy: true do |ff|
-      data = { if: 'changed', then: 'callback set_title' }
-      ff.input :product, as: :searchable_select, input_html: { data: data }, ajax: { resource: Product }
+      ff.input :product, as: :searchable_select,
+                         input_html: { data: { if: 'changed', then: 'callback set_title' } },
+                         ajax: { resource: Product }
       ff.input :quantity, wrapper_html: { class: 'fl' }
-      ff.template.concat "<p>Agregar otro precio va a ignorar el seleccionado</p>".html_safe
-      ff.input :unit_price, as: :select, collection: ff.object.product&.price_options&.map { |p| ["$#{p.to_f/100}", p] }
-      ff.input :other_unit_price, as: :number, label: "Otro precio", wrapper_html: { class: 'fl' }
-      if !ff.object.new_record? && ff.object&.complete?
-        ff.input :final_quantity
-      end
+      ff.template.concat '<p>Agregar otro precio va a ignorar el seleccionado</p>'.html_safe
+      ff.input :unit_price, as: :select,
+                            collection: ff.object.product&.price_options&.map { |p| ["$#{p}", p] } || []
+      ff.input :other_unit_price, as: :number, label: 'Otro precio', wrapper_html: { class: 'fl' }
+      ff.input :final_quantity if !ff.object.new_record? && ff.object&.complete?
     end
 
     if f.object.new_record?

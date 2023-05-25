@@ -20,7 +20,7 @@ function set_title(el) {
             if(data['price_options'].length > 0) {
                 data['price_options'].forEach((price) => {
                     var x = document.getElementById("order_order_details_attributes_0_unit_price");
-                    var currency = '$' + price/100;
+                    var currency = '$' + price;
                     var option= new Option(currency, price);
                     x.appendChild(option);
                 })}},
