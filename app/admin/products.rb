@@ -30,7 +30,8 @@ ActiveAdmin.register Product do
       f.input :line
       f.input :aux_sku
       f.input :price_options_text, as: :text, input_html: {
-        placeholder: "Ej.\n10.23\n99.0", value: f.object&.displayable_prices&.join("\n")
+        placeholder: "Ej.\n10.23\n99.0",
+        value: f.object.price_options&.map { |dp| "$#{dp}" }&.join("\n")
       }
     end
     f.actions

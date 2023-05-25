@@ -41,12 +41,6 @@ class Product < ApplicationRecord
     ActiveRecord::Base.connection.execute(sql)
   end
 
-  def displayable_prices
-    price_options.map do |price|
-      "$#{price}"
-    end
-  end
-
   def serialize_array
     prices = price_options_text.remove('$').split
 
