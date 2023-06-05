@@ -2,15 +2,16 @@
 #
 # Table name: order_details
 #
-#  id               :bigint           not null, primary key
-#  completed_at     :datetime
-#  final_quantity   :integer
-#  quantity         :integer          default(1), not null
-#  unit_price_cents :integer
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
-#  order_id         :bigint           not null
-#  product_id       :bigint           not null
+#  id                :bigint           not null, primary key
+#  completed_at      :datetime
+#  final_quantity    :integer
+#  other_price_cents :integer          default(0)
+#  quantity          :integer          default(1), not null
+#  unit_price_cents  :integer
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  order_id          :bigint           not null
+#  product_id        :bigint           not null
 #
 # Indexes
 #
@@ -26,14 +27,13 @@ class OrderDetail < ApplicationRecord
   belongs_to :order, touch: true
   belongs_to :product
 
-  attr_accessor :other_unit_price
-
   monetize :unit_price_cents, allow_nil: true
+  monetize :other_price_cents, allow_nil: true
 
   validates :quantity, presence: true, numericality: { greater_than: 0 }
   validates :unit_price, numericality: { greater_than: 0, allow_nil: true }
 
-  before_save :set_unit_price
+  before_validation :set_unit_price
 
   def complete?
     remaining_quantity&.zero?
@@ -54,11 +54,8 @@ class OrderDetail < ApplicationRecord
   private
 
   def set_unit_price
-    binding.pry
-    return unless other_unit_price.present?
+    return if other_price.blank?
 
-    other_unit_price = other_unit_price.gsub(/[$,]/, '')
-
-    self.unit_price = other_unit_price
+    self.unit_price = other_price
   end
 end

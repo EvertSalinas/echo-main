@@ -45,7 +45,6 @@ class AdminUser < ApplicationRecord
     end
   end
 
-  # TODO move to module
   def sold_amount
     Money.new(invoices.sum(:total_amount_cents))
   end

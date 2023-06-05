@@ -7,7 +7,7 @@
 #  in_stock      :string
 #  line          :string
 #  name          :string           not null
-#  price_options :integer          default([]), is an Array
+#  price_options :float            default([]), is an Array
 #  sku           :string           not null
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null

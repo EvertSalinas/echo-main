@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_17_203231) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_05_212304) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -85,6 +85,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_17_203231) do
     t.integer "unit_price_cents"
     t.datetime "completed_at", precision: nil
     t.integer "final_quantity"
+    t.integer "other_price_cents", default: 0
     t.index ["order_id"], name: "index_order_details_on_order_id"
     t.index ["product_id"], name: "index_order_details_on_product_id"
   end
