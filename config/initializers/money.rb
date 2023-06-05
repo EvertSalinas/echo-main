@@ -2,13 +2,11 @@ MoneyRails.configure do |config|
 
   # To set the default currency
   #
-  config.default_currency = :mxn
-
   # Set default bank object
   #
   # Example:
   # config.default_bank = EuCentralBank.new
-  Money.use_i18n = false
+  Money.locale_backend = nil
   # Add exchange rates to current money bank object.
   # (The conversion rate refers to one direction only)
   #
@@ -80,6 +78,6 @@ MoneyRails.configure do |config|
     symbol: '$',
     sign_before_symbol: nil,
     decimal_mark: ".",
-    thousands_separator: ","
+    thousands_separator: ",",
   }
 end

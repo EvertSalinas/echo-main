@@ -1,9 +1,9 @@
 ActiveAdmin.register Order do
   menu priority: 1
   permit_params :folio, :status, :admin_user_id, :client_id, :comments, :current_user_id,
-                 order_details_attributes: [
-                   :completed_at, :unit_price, :unit_price_cents,
-                   :final_quantity, :product_id, :quantity, :id, :_destroy
+                 order_details_attributes: %i[
+                   completed_at unit_price unit_price_cents other_price other_price_cents
+                   final_quantity product_id quantity id _destroy
                  ]
 
   remove_filter :status
@@ -36,12 +36,11 @@ ActiveAdmin.register Order do
     end
   end
 
-
   index do
     selectable_column
     column(:id)
     column(:folio) { |c| link_to c.folio, admin_order_path(c.id) if c.folio.present? }
-    column (:client) { |c| link_to c.client.name, admin_client_path(c.client.id) }
+    column(:client) { |c| link_to c.client.name, admin_client_path(c.client.id) }
     column :status
     column :created_at
     actions
@@ -50,7 +49,7 @@ ActiveAdmin.register Order do
   preserve_default_filters!
 
   form(:html => {:multipart => true}) do |f|
-    f.semantic_errors *f.object.errors.keys
+    f.semantic_errors *f.object.errors.attribute_names
 
     f.inputs do
       if !f.object.new_record?
@@ -64,12 +63,15 @@ ActiveAdmin.register Order do
     end
 
     f.has_many :order_details, allow_destroy: true do |ff|
-      ff.input :product, as: :searchable_select, ajax: { resource: Product }
+      ff.input :product, as: :searchable_select,
+                         input_html: { data: { if: 'changed', then: 'callback set_title' } },
+                         ajax: { resource: Product }
       ff.input :quantity, wrapper_html: { class: 'fl' }
-      ff.input :unit_price, as: :number, wrapper_html: { class: 'fl' }
-      if !ff.object.new_record? && ff.object&.complete?
-        ff.input :final_quantity
-      end
+      ff.template.concat '<p>Agregar otro precio va a ignorar el seleccionado</p>'.html_safe
+      ff.input :unit_price, as: :select,
+        collection: (ff.object.product&.price_options&.map { |p| ["$#{p}", p] } || []), selected: ff.object.unit_price.to_f
+      ff.input :other_price, as: :number, label: 'Otro precio', wrapper_html: { class: 'fl' }
+      ff.input :final_quantity if !ff.object.new_record? && ff.object&.complete?
     end
 
     if f.object.new_record?
