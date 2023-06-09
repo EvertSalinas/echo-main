@@ -5,13 +5,8 @@
 
 // Functions loaded to ActiveAdmin files need to be here
 function set_title(el) {
-    // debugger;
     product_id = $('#order_order_details_attributes_0_product_id').val()
 
-    // if($('#article_title').val().trim() === '') {
-    //     $('#article_title').val(args[0]);
-    //     $('#article_title').trigger('change');
-    // }
     $.ajax({
         type: "GET",
         url: `/products/${product_id}`,
