@@ -17,7 +17,6 @@
   },
   "version": "0.1.0",
   "devDependencies": {
-    "sass": "^1.49.9"
   },
   "scripts": {
     "build:css": "sass ./app/assets/stylesheets/application.sass.scss:./app/assets/builds/application.css --no-source-map --load-path=node_modules"
