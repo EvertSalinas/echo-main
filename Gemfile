@@ -47,6 +47,7 @@ gem 'sequenced'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 gem 'rails-i18n', '~> 7.0.0'
+gem 'cssbundling-rails', '>= 0.2.4'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
