@@ -31,7 +31,7 @@ class OrderDetail < ApplicationRecord
   monetize :other_price_cents, allow_nil: true
 
   validates :quantity, presence: true, numericality: { greater_than: 0 }
-  validates :unit_price, numericality: { greater_than: 0, allow_nil: true }
+  validates :unit_price, numericality: { greater_than_or_equal_to: 0, allow_nil: true }
 
   before_validation :set_unit_price
 
