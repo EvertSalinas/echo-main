@@ -54,7 +54,7 @@ class OrderDetail < ApplicationRecord
   private
 
   def set_unit_price
-    return if other_price.blank?
+    return if other_price.blank? || other_price.zero?
 
     self.unit_price = other_price
   end
