@@ -3,7 +3,7 @@
 # Table name: invoices
 #
 #  id                 :bigint           not null, primary key
-#  condition          :string           not null
+
 #  physical_date      :date             not null
 #  physical_folio     :string           not null
 #  place              :string           not null
@@ -26,10 +26,9 @@
 #  index_invoices_on_system_folio   (system_folio)
 #
 class Invoice < ApplicationRecord
-
   attr_accessor :debt
 
-  CONDITIONS = %w(credito contado).freeze
+  CONDITIONS = %w[credito contado].freeze
 
   belongs_to :client
   belongs_to :seller, optional: true
@@ -40,14 +39,14 @@ class Invoice < ApplicationRecord
 
   monetize :total_amount_cents
 
-  validates :condition,              presence: true, inclusion: { in: CONDITIONS }
-  validates :physical_date,          presence: true
-  validates :system_date,            presence: true
-  validates :system_folio,           presence: true, uniqueness: true
-  validates :physical_folio,         presence: true, uniqueness: true
-  validates :place,                  presence: true
+  validates :condition, presence: true, inclusion: { in: CONDITIONS }
+  validates :physical_date, presence: true
+  validates :system_date, presence: true
+  validates :system_folio, presence: true, uniqueness: true
+  validates :physical_folio, presence: true, uniqueness: true
+  validates :place, presence: true
 
-  after_commit :pay, unless: :pagada?
+  after_commit :pay, unless: -> { :pagada? }
 
   def remaining_debt
     @debt = total_amount - Money.new(payments.sum(:amount_cents))
@@ -67,13 +66,12 @@ class Invoice < ApplicationRecord
     (Date.current - physical_date.to_date).to_i
   end
 
-  #filters
   def self.ransackable_scopes(_auth_object = nil)
-    %i(
+    %i[
       days_passed_filter_equals
       days_passed_filter_greater_than
       days_passed_filter_less_than
-    )
+    ]
   end
 
   def self.days_passed_filter_equals(value)
@@ -93,5 +91,4 @@ class Invoice < ApplicationRecord
   def pay
     pagada! if paid_out?
   end
-
 end

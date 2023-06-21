@@ -31,7 +31,7 @@ class OrderDetail < ApplicationRecord
   monetize :other_price_cents, allow_nil: true
 
   validates :quantity, presence: true, numericality: { greater_than: 0 }
-  validates :unit_price, numericality: { greater_than: 0, allow_nil: true }
+  validates :unit_price, numericality: { greater_than_or_equal_to: 0, allow_nil: true }
 
   before_validation :set_unit_price
 
@@ -54,7 +54,7 @@ class OrderDetail < ApplicationRecord
   private
 
   def set_unit_price
-    return if other_price.blank?
+    return if other_price.blank? || other_price.zero?
 
     self.unit_price = other_price
   end

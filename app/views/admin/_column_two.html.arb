@@ -6,7 +6,7 @@ panel '10 productos mas vendidos' do
       end
     end
     tbody do
-      data = Product.sku_sales
+      data = Products::SalesKpisCalculator.call
       if data.any?
         data.each do |p|
           tr do

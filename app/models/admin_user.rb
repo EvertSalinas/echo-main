@@ -29,7 +29,7 @@ class AdminUser < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :recoverable, :rememberable, :validatable
 
-  ROLES = %w(master contaduria almacen ventas).freeze
+  ROLES = %w[master contaduria almacen ventas].freeze
 
   has_many :orders
   has_many :invoices, dependent: :nullify
@@ -37,7 +37,7 @@ class AdminUser < ApplicationRecord
   validates :role, inclusion: { in: ROLES }
   validates :prefix, presence: true, uniqueness: true
 
-  scope :vendedores, -> { where(role: "ventas") }
+  scope :vendedores, -> { where(role: 'ventas') }
 
   ROLES.each do |role|
     define_method("#{role}_role?") do
@@ -49,7 +49,7 @@ class AdminUser < ApplicationRecord
     Money.new(invoices.sum(:total_amount_cents))
   end
 
-  def clients
+  def client_names
     invoices.joins(:client).pluck(:name).uniq
   end
 end

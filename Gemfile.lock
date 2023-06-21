@@ -124,6 +124,8 @@ GEM
     coderay (1.1.3)
     concurrent-ruby (1.2.2)
     crass (1.0.6)
+    cssbundling-rails (1.1.2)
+      railties (>= 6.0.0)
     date (3.3.3)
     debug_inspector (1.1.0)
     devise (4.9.2)
@@ -287,6 +289,9 @@ GEM
       actionpack (>= 5.2)
       railties (>= 5.2)
     rexml (3.2.5)
+    roo (2.10.0)
+      nokogiri (~> 1)
+      rubyzip (>= 1.3.0, < 3.0.0)
     rouge (4.1.0)
     rspec-core (3.12.2)
       rspec-support (~> 3.12.0)
@@ -395,6 +400,7 @@ DEPENDENCIES
   bootsnap (>= 1.4.2)
   byebug
   capybara (>= 2.15)
+  cssbundling-rails (>= 0.2.4)
   devise
   dotenv-rails
   faker
@@ -412,6 +418,7 @@ DEPENDENCIES
   rails (~> 7.0.0)
   rails-i18n (~> 7.0.0)
   redis (~> 4.0)
+  roo (~> 2.10.0)
   rspec-rails
   sass-rails (>= 6)
   selenium-webdriver
