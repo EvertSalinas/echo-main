@@ -61,7 +61,7 @@ ActiveAdmin.register AdminUser do
       row :email
       if resource.ventas_role?
         row ('sold_amount') { |s| s.sold_amount.format}
-        row :clients
+        row :client_names
         row :prefix
       end
       row :role

@@ -17,7 +17,6 @@
 #  index_products_on_sku  (sku) UNIQUE
 #
 class Product < ApplicationRecord
-
   attr_accessor :price_options_text
 
   has_many :order_details
@@ -27,19 +26,6 @@ class Product < ApplicationRecord
   validates :name, presence: true
 
   before_validation :serialize_array
-
-  def self.sku_sales
-    sql = <<~SQL.strip
-      SELECT p.name, sum(od.final_quantity) as cantidad
-      FROM order_details od
-      INNER JOIN products p ON p.id = od.product_id
-      GROUP BY p.name
-      ORDER BY count(*) DESC
-      LIMIT 10
-    SQL
-
-    ActiveRecord::Base.connection.execute(sql)
-  end
 
   def serialize_array
     prices = price_options_text.remove('$').split
