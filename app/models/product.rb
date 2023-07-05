@@ -28,6 +28,8 @@ class Product < ApplicationRecord
   before_validation :serialize_array
 
   def serialize_array
+    return unless price_options_text
+
     prices = price_options_text.remove('$').split
 
     prices.all? do |price|
