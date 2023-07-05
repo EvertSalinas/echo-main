@@ -5,7 +5,7 @@ AdminUser::ROLES.each do |role|
     user.password = 'testing'
     user.password_confirmation = 'testing'
     prefix = [*'A'..'Z'].sample
-    while AdminUser.exists?(prefix: prefix)
+    while AdminUser.exists?(prefix:)
       prefix = [*'A'..'Z'].sample
     end
     user.prefix = prefix

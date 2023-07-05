@@ -3,6 +3,28 @@
 # Table name: invoices
 #
 #  id                 :bigint           not null, primary key
+#  condition          :string           not null
+#  physical_date      :date             not null
+#  physical_folio     :string           not null
+#  place              :string           not null
+#  status             :integer          default("pendiente"), not null
+#  system_date        :date             not null
+#  system_folio       :string           not null
+#  total_amount_cents :integer          not null
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  admin_user_id      :bigint
+#  client_id          :bigint
+#  seller_id          :bigint
+#
+# Indexes
+#
+#  index_invoices_on_admin_user_id  (admin_user_id)
+#  index_invoices_on_client_id      (client_id)
+#  index_invoices_on_seller_id      (seller_id)
+#  index_invoices_on_status         (status)
+#  index_invoices_on_system_folio   (system_folio)
+#
 
 #  physical_date      :date             not null
 #  physical_folio     :string           not null
