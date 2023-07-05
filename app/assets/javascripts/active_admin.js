@@ -11,6 +11,7 @@ function set_title(el) {
         type: "GET",
         url: `/products/${product_id}`,
         success: function(data) {
+            debugger;
             $('#order_order_details_attributes_0_unit_price').empty();
             if(data['price_options'].length > 0) {
                 data['price_options'].forEach((price) => {

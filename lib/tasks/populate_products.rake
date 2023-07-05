@@ -32,14 +32,13 @@ namespace :populate_products do
     xlsx.sheet(0).each do |row|
       sku_col = row[PRODUCT_SKU_COLUMN]
 
-      if sku_col.present? && sku_col != 'Producto' && sku_col != 'Usuario:'
+      if sku_col.present? && sku_col != 'Producto' && sku_col != 'Usuario:' && sku_col != "Desde el producto:"
 
         if product.present?
-          a = Product.find_or_initialize_by(sku: product) do |object_to_modify|
-            object_to_modify.sku = product
-            object_to_modify.name = name
-            object_to_modify.price_options = prices
-          end
+          a = Product.find_or_initialize_by(sku: product)
+          a.sku = product
+          a.name = name
+          a.price_options = prices
           a.save!
         elsif sku_col == 'Total de registros impresos:'
           a.save!
