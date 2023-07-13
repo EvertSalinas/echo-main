@@ -39,7 +39,7 @@ class Order < ApplicationRecord
 
   # validates :folio, presence: true
   validates :status, presence: true
-  validate :morning_availability
+  # validate :morning_availability
   validate :client_status
   validate :status_transition
 
