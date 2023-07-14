@@ -16,7 +16,7 @@ ActiveAdmin.register_page "Completar orden" do
 
   content do
     active_admin_form_for Order.find(params[:order_id]), url: admin_completar_orden_call_path, method: :post do |f|
-      f.semantic_errors *f.object.errors.keys
+      f.semantic_errors *f.object.errors.attribute_names
       f.input :status, as: :hidden, input_html: { value: 1 }
       f.input :order_id, as: :hidden, input_html: { value: params[:order_id] }
       f.has_many :order_details, new_record: false do |ff|
